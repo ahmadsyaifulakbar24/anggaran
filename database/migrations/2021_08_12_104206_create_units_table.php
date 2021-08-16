@@ -16,14 +16,13 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->timestamps();
         });
 
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade')->onUpdate('cascade');
         });
 
-        Schema::table('activities', function (Blueprint $table) {
+        Schema::table('programs', function (Blueprint $table) {
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade')->onUpdate('cascade');
         });
     }

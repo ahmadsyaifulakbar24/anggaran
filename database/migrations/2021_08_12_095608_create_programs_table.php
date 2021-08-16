@@ -18,8 +18,11 @@ class CreateProgramsTable extends Migration
             $table->string('code_program');
             $table->bigInteger('parent_id')->nullable()->unsigned();
             $table->string('parent_path')->nullable();
-            $table->string('description')->nullable();
-            $table->enum('program_type', ['program', 'sub_program', 'code_program']);
+            $table->string('description');
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('updated_by')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('unit_id')->nullable()->unsigned();
+            $table->enum('program_type', ['program', 'sub_program', 'code_program', 'code_activity', 'actvity']);
             $table->timestamps();
         });
 

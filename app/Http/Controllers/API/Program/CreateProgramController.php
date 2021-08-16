@@ -7,11 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Program\StoreProgramRequest;
 use App\Http\Resources\Program\ProgramResource;
 use App\Models\Program;
+use Illuminate\Support\Facades\Auth;
+
 class CreateProgramController extends Controller
 {
     public function __invoke(StoreProgramRequest $request)
     {
         $input = $request->all();
+        $input['created_by'] = Auth::user()->id;
+        $input['updated_by'] = Auth::user()->id;
         
         if($request->parent_id) {
             $program = Program::find($request->parent_id);
@@ -22,6 +26,14 @@ class CreateProgramController extends Controller
                 $input['program_type'] = 'sub_program';
             } else if($program->program_type == 'sub_program') {
                 $input['program_type'] = 'code_program';
+            } else if($program->program_type == 'code_program') {
+                $input['program_type'] = 'code_activity';
+            } else if($program->program_type == 'code_activity') {
+                $input['program_type'] = 'activity';
+            } else {
+                return ResponseFormatter::error([
+                    'message' => 'cannot create program for this parent'
+                ], 'create program failed', 422);
             }
         } else {
             $input['program_type'] = 'program';
