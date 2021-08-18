@@ -8,12 +8,16 @@ use App\Http\Requests\Program\UpdateProgramRequest;
 use App\Http\Resources\Program\ProgramResource;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateProgramController extends Controller
 {
     public function __invoke(UpdateProgramRequest $request, Program $program)
     {
-        $program->update($request->only(['code_program', 'description']));
+        $input = $request->only(['code_program', 'description']);
+        $input['updated_by'] = Auth::user()->id;
+
+        $program->update($input);
         return ResponseFormatter::success(
             new ProgramResource($program),
             'success update program data'
