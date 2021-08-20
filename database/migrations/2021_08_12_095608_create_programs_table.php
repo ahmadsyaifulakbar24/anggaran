@@ -22,7 +22,7 @@ class CreateProgramsTable extends Migration
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('updated_by')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('unit_id')->nullable()->unsigned();
-            $table->enum('program_type', ['program', 'sub_program', 'code_program', 'code_activity', 'actvity']);
+            $table->enum('program_type', ['program', 'sub_program', 'code_program', 'code_activity', 'activity']);
             $table->timestamps();
         });
 

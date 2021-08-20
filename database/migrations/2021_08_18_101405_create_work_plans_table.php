@@ -24,7 +24,7 @@ class CreateWorkPlansTable extends Migration
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade')->onUpdate('cascade');
             $table->text('detail')->nullable();
             $table->text('description')->nullable();
-            $table->enum('stasus', ['accept', 'pending', 'decline']);
+            $table->enum('status', ['accept', 'pending', 'decline']);
             $table->timestamps();
         });
     }

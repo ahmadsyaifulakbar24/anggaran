@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers\API\WorkPlan;
 
+use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\WorkPlan\WorkPlanRequest;
+use App\Http\Resources\WorkPlan\WorkPlanResource;
+use App\Models\WorkPlan;
 
 class CreateWorkPlanController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(WorkPlanRequest $request)
     {
-        $this->validate($request, [
-            'program_id' => [
-                'required',
-                Rule::exists('programs', 'id')->where(function($query) {
-                    return $query->where('program_type', '');
-                })
-            ],
-        ]);
+        $input = $request->all();
+        $input['status'] = 'pending';
+
+        $work_plan = WorkPlan::create($input);
+        
+        $work_plan->history()->create([ 'status' => 'create work plan' ]);
+
+        return ResponseFormatter::success(
+            new WorkPlanResource($work_plan),
+            'success create work plan data'
+        );
     }
 }

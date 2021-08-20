@@ -17,6 +17,7 @@ class CreateFileManagersTable extends Migration
             $table->id();
             $table->foreignId('work_plan_id')->constrained('work_plans')->onDelete('cascade')->onUpdate('cascade');
             $table->string('file');
+            $table->foreignId('type_id')->constrained('params')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

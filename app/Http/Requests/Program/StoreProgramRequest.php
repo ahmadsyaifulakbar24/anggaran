@@ -33,13 +33,14 @@ class StoreProgramRequest extends FormRequest
                     $code_program_unique = [['parent_id', $this->parent_id], ['unit_id', $this->unit_id]];
                 } else {
                     $required_unit = 'nullable';
-                    $code_program_unique = ['parent_id', $this->parent_id];
+                    $code_program_unique = [['parent_id', $this->parent_id]];
                 }
             } else {
                 return ['parent_id' => ['nullable', 'exists:programs,id']];
             }
         } else {
             $required_unit = 'nullable';
+            $code_program_unique = NULL;
         }
         
         return [
