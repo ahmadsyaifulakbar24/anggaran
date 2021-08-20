@@ -33,5 +33,12 @@ Route::namespace('API')->group(function () {
             Route::patch('/{program:id}', 'UpdateProgramController');
             Route::delete('/{program:id}', 'DeleteProgramController');
         });
+
+        Route::namespace('WorkPlan')->prefix('work_plan')->group(function() {
+            Route::post('/', 'CreateWorkPlanController');
+            Route::get('/', 'GetWorkPlanController@fetch');
+            Route::patch('/{work_plan:id}', 'UpdateWorkPlanController');
+            Route::delete('/{work_plan:id}', 'DeleteWorkPlanController');
+        });
     });
 });
