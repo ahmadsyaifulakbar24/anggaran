@@ -39,7 +39,10 @@ Route::namespace('API')->group(function () {
             Route::get('/', 'GetWorkPlanController@fetch');
             Route::patch('/{work_plan:id}', 'UpdateWorkPlanController');
             Route::delete('/{work_plan:id}', 'DeleteWorkPlanController');
+
             Route::post('/upload_file', 'FileManagerController@create');
+            Route::get('/get_file', 'FileManagerController@fetch');
+            Route::delete('/delete_file/{file_manager:id}', 'FileManagerController@delete');
         });
     });
 });
