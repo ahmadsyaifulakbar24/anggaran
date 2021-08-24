@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\WorkPlan\WorkPlanResource;
 use App\Models\WorkPlan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StatusController extends Controller
 {
@@ -24,8 +25,11 @@ class StatusController extends Controller
         }
 
         $work_plan->update([ 'status' => $request->status ]);
-        $work_plan->comment()->create([ 'comment' => $request->comment ]);
-        $work_plan->history()->create([ 'status' => $request->status . ' work plan' ]);
+        $work_plan->comment()->create([ 
+            'comment' => $request->comment ,
+            'user_id' => Auth::user()->id
+        ]);
+        $work_plan->history()->create([ ' status' => $request->status . ' work plan' ]);
 
         return ResponseFormatter::success(
             new WorkPlanResource($work_plan),

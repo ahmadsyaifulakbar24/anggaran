@@ -46,5 +46,9 @@ Route::namespace('API')->group(function () {
             Route::delete('/delete_file/{file_manager:id}', 'FileManagerController@delete');
             Route::delete('/delete_file/{file_manager:id}', 'FileManagerController@delete');
         });
+
+        Route::namespace('Comment')->prefix('comment')->group(function() {
+            Route::post('/', 'CommentController@create');
+        });
     });
 });
