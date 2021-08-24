@@ -39,4 +39,9 @@ class WorkPlan extends Model
     {
         return $this->hasMany(FileManager::class, 'work_plan_id');
     }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'work_plan_id');
+    }
 }
