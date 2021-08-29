@@ -1,0 +1,45 @@
+body {
+	background: url('../../assets/images/2021.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+}
+
+h1,h2,h3,h4,h5,h6,th,button,label,.btn,.sidebar,.compose {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.auth {
+    width: 400px;
+    position: absolute;
+    left: 13%;
+    margin-bottom: 150px;
+}
+
+.auth .card {
+	margin: 125px 0 50px 0;
+	border-radius: 10px;
+}
+
+.auth small {
+    font-size: 0.8rem;
+}
+
+/* Extra Small */
+@media screen and (max-width: 576px) {
+
+    .auth {
+        top: 25%;
+        width: 100%;
+        padding: 20px;
+        left: 0;
+        margin-bottom: 0;
+    }
+
+    .auth .card {
+		margin: 0;
+        border: none;
+        border-radius: 0;
+    }
+}
