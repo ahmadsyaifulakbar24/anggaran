@@ -20,5 +20,21 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ]);
         $admin->assignRole('admin');
+
+        $admin = User::create([
+            'username' => 'deputi',
+            'name' => 'Deputi',
+            'unit_id' => 1,
+            'password' => Hash::make('12345678'),
+        ]);
+        $admin->assignRole('deputi');
+
+        $admin = User::create([
+            'username' => 'asdep',
+            'name' => 'Asdep',
+            'unit_id' => 1,
+            'password' => Hash::make('12345678'),
+        ]);
+        $admin->assignRole('asdep');
     }
 }
