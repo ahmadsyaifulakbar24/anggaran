@@ -25,20 +25,24 @@
 							<td class="text-center">1.</td>
 							<td class="text-truncate">I</td>
 							<td class="text-truncate">Program Dukungan Manajemen</td>
-							<td class="text-truncate">Deputi Usaha Mikro</td>
-							<td class="d-flex">
-								<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
-								<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
+							<td class="text-truncate">Deputi Bidang Perkoperasian</td>
+							<td>
+								<div class="d-flex">
+									<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
+									<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">2.</td>
 							<td class="text-truncate">II</td>
 							<td class="text-truncate">Program Kewirausahaan, UMKM dan Koperasi</td>
-							<td class="text-truncate">Deputi Usaha Mikro</td>
-							<td class="d-flex">
-								<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
-								<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
+							<td class="text-truncate">Deputi Bidang Perkoperasian</td>
+							<td>
+								<div class="d-flex">
+									<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
+									<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
+								</div>
 							</td>
 						</tr>
 					</tbody>
