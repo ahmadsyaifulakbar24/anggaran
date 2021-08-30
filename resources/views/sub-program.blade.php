@@ -1,12 +1,12 @@
 @extends('layouts/app')
 
-@section('title','Program')
+@section('title','Sub Program')
 
 @section('content')
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
-			<h4>Program</h4>
-			<a href="{{url('program/create/program/first')}}" class="btn btn-sm btn-primary create mb-1">Buat Program</a>
+			<h4>Sub Program</h4>
+			<a href="{{url('program/create/sub/'.$sub_program)}}" class="btn btn-sm btn-primary create mb-1">Buat Sub Program</a>
 		</div>
 		<div class="card card-custom">
 			<div class="table-responsive">
@@ -22,8 +22,8 @@
 					<tbody id="table">
 						<tr>
 							<td class="text-center">1.</td>
-							<td class="text-truncate">I</td>
-							<td class="text-truncate"><a href="{{url('program/1')}}">Program Dukungan Manajemen</a></td>
+							<td class="text-truncate">II/2746</td>
+							<td class="text-truncate"><a href="{{url('program/1/2')}}">Pembiayaan dan Penjaminan Perkoperasian</a></td>
 							<td>
 								<div class="d-flex">
 									<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
@@ -33,8 +33,8 @@
 						</tr>
 						<tr>
 							<td class="text-center">2.</td>
-							<td class="text-truncate">II</td>
-							<td class="text-truncate"><a href="{{url('program/2')}}">Program Kewirausahaan, UMKM dan Koperasi</a></td>
+							<td class="text-truncate">II/4442</td>
+							<td class="text-truncate"><a href="{{url('program/1/2')}}">Pengembangan dan Pembaruan Perkoperasian</a></td>
 							<td>
 								<div class="d-flex">
 									<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
@@ -50,5 +50,5 @@
 @endsection
 
 @section('script')
-	<!-- <script src="{{asset('api/program.js')}}"></script> -->
+	<!-- <script src="{{asset('api/sub-program.js')}}"></script> -->
 @endsection

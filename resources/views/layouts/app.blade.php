@@ -54,23 +54,18 @@
         </a>
         @if(session("role") == "deputi")
         <a href="{{url('akun-asdep')}}" class="{{Request::is('akun-asdep')?'active':''}}">
-            <i class="mdi mdi-apps mdi-18px"></i><span>Akun Asdep</span>
+            <i class="mdi mdi-apps mdi-18px"></i><span>Buat Akun Asdep</span>
         </a>
         @endif
-        @if(session("role") == "admin")
+        @if(session("role") == "admin" || session("role") == "deputi")
         <a href="{{url('program')}}" class="{{Request::is('program')?'active':''}}">
             <i class="mdi mdi-apps mdi-18px"></i><span>Program</span>
-        </a>
-        @endif
-        @if(session("role") == "deputi")
-        <a href="{{url('kegiatan')}}" class="{{Request::is('kegiatan')?'active':''}}">
-            <i class="mdi mdi-apps mdi-18px"></i><span>Kegiatan</span>
         </a>
         @endif
         <a href="{{url('rancangan-anggaran')}}" class="{{Request::is('rancangan-anggaran')?'active':''}}">
             <i class="mdi mdi-apps mdi-18px"></i><span>Rancangan Anggaran</span>
         </a>
-		<small class="text-secondary" style="position:absolute;bottom:5px">2021 &copy; Anggaran - Kementerian Koperasi dan UKM RI</small>
+		<small class="text-secondary" style="position:absolute;bottom:5px">2022 &copy; Penganggaran - Kementerian Koperasi dan UKM RI</small>
 	</div>
 	@endif
 	<div class="overlay"></div>
