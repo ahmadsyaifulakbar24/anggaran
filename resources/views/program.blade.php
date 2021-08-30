@@ -16,7 +16,6 @@
 							<th class="text-truncate">No.</th>
 							<th class="text-truncate">Kode Program</th>
 							<th class="text-truncate">Nama Program</th>
-							<th class="text-truncate">Parent</th>
 							<th class="text-truncate">Unit</th>
 							<th></th>
 						</tr>
@@ -26,7 +25,6 @@
 							<td class="text-center">1.</td>
 							<td class="text-truncate">I</td>
 							<td class="text-truncate">Program Dukungan Manajemen</td>
-							<td class="text-truncate"></td>
 							<td class="text-truncate">Deputi Usaha Mikro</td>
 							<td class="d-flex">
 								<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
@@ -37,7 +35,6 @@
 							<td class="text-center">2.</td>
 							<td class="text-truncate">II</td>
 							<td class="text-truncate">Program Kewirausahaan, UMKM dan Koperasi</td>
-							<td class="text-truncate"></td>
 							<td class="text-truncate">Deputi Usaha Mikro</td>
 							<td class="d-flex">
 								<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
