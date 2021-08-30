@@ -158,7 +158,7 @@
 				} else if (val == 'deputi1') {
 					$('.deputi1').show()
 					$('.deputi2').hide()
-				} else if (val == 'deputi1') {
+				} else if (val == 'deputi2') {
 					$('.deputi1').hide()
 					$('.deputi2').show()
 				} else if (val == 'all-asdep') {
