@@ -1,11 +1,11 @@
 @extends('layouts/app')
 
-@section('title', 'Buat Program')
+@section('title', 'Buat Kegiatan')
 
 @section('content')
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
-			<h4>Buat Program</h4>
+			<h4>Buat Kegiatan</h4>
 		</div>
 		<div class="card card-custom">
 			<form class="card-body">
@@ -26,5 +26,5 @@
 @endsection
 
 @section('script')
-	<!-- <script src="{{asset('api/create-program.js')}}"></script> -->
+	<!-- <script src="{{asset('api/create-kegiatan.js')}}"></script> -->
 @endsection

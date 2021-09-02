@@ -1,12 +1,12 @@
 @extends('layouts/app')
 
-@section('title','Sub Program')
+@section('title','Kegiatan')
 
 @section('content')
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
-			<h4>Sub Program</h4>
-			<a href="{{url('program/create/sub/'.$sub_program)}}" class="btn btn-sm btn-primary create mb-1">Buat Sub Program</a>
+			<h4>Kegiatan</h4>
+			<a href="{{url('kegiatan/create/'.$id_program)}}" class="btn btn-sm btn-primary create mb-1">Buat Kegiatan</a>
 		</div>
 		<div class="card card-custom">
 			<div class="table-responsive">
@@ -23,7 +23,7 @@
 						<tr>
 							<td class="text-center">1.</td>
 							<td class="text-truncate">II/2746</td>
-							<td class="text-truncate"><a href="{{url('program/1/2')}}">Pembiayaan dan Penjaminan Perkoperasian</a></td>
+							<td class="text-truncate">Pembiayaan dan Penjaminan Perkoperasian</td>
 							<td>
 								<div class="d-flex">
 									<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
@@ -34,7 +34,7 @@
 						<tr>
 							<td class="text-center">2.</td>
 							<td class="text-truncate">II/4442</td>
-							<td class="text-truncate"><a href="{{url('program/1/2')}}">Pengembangan dan Pembaruan Perkoperasian</a></td>
+							<td class="text-truncate">Pengembangan dan Pembaruan Perkoperasian</td>
 							<td>
 								<div class="d-flex">
 									<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
@@ -50,5 +50,5 @@
 @endsection
 
 @section('script')
-	<!-- <script src="{{asset('api/sub-program.js')}}"></script> -->
+	<!-- <script src="{{asset('api/kegiatan.js')}}"></script> -->
 @endsection

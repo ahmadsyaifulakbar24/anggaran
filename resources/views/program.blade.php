@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
 			<h4>Program</h4>
-			<a href="{{url('program/create/program/first')}}" class="btn btn-sm btn-primary create mb-1">Buat Program</a>
+			<a href="{{url('program/create')}}" class="btn btn-sm btn-primary create mb-1">Buat Program</a>
 		</div>
 		<div class="card card-custom">
 			<div class="table-responsive">

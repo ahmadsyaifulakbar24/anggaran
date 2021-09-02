@@ -20,6 +20,7 @@ Route::group(['middleware'=>['beforeMiddleware']], function () {
 		return view('dashboard');
 	});
 
+	// Akun Asdep
 	Route::get('akun-asdep', function () {
 		return view('akun-asdep');
 	});
@@ -27,22 +28,23 @@ Route::group(['middleware'=>['beforeMiddleware']], function () {
 		return view('create-akun-asdep');
 	});
 
+	// Program
 	Route::get('program', function () {
 		return view('program');
 	});
-	Route::get('program/create/{type}/{id}', function ($type, $id) {
-		return view('create-program', compact('type', 'id'));
-	});
-	Route::get('program/{sub_program}', function ($sub_program) {
-		return view('sub-program', compact('sub_program'));
-	});
-	Route::get('program/{sub_program}/{kode_program}', function ($sub_program, $kode_program) {
-		return view('kode-program', compact('sub_program', 'kode_program'));
-	});
-	Route::get('program/{sub_program}/{kode_program}/{kode_kegiatan}', function ($sub_program, $kode_program, $kode_kegiatan) {
-		return view('kode-kegiatan', compact('sub_program', 'kode_program', 'kode_kegiatan'));
+	Route::get('program/create', function () {
+		return view('create-program');
 	});
 
+	// Kegiatan
+	Route::get('program/{id_program}', function ($id_program) {
+		return view('kegiatan', compact('id_program'));
+	});
+	Route::get('kegiatan/create/{id_program}', function ($id_program) {
+		return view('create-kegiatan', compact('id_program'));
+	});
+
+	// Rancangan Anggaran
 	Route::get('rancangan-anggaran', function () {
 		return view('rancangan-anggaran');
 	});
