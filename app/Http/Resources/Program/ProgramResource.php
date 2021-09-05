@@ -26,7 +26,6 @@ class ProgramResource extends JsonResource
             'description' => $this->description,
             'created_by' => $this->created_by_data->name,
             'updated_by' => $this->updated_by_data->name,
-            'unit' => ($this->unit) ? $this->unit->name : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
