@@ -18,8 +18,8 @@
 	@if(!Request::is('daftar/*'))
     <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom">
         <div class="form-inline">
-            <i class="mdi mdi-menu mdi-24px d-block d-lg-none pointer text-dark mr-2" id="menu"></i>
-            <a class="navbar-brand d-none d-lg-block" href="{{url('dashboard')}}">Penganggaran
+            <!-- <i class="mdi mdi-menu mdi-24px d-block d-lg-none pointer text-dark mr-2" id="menu"></i> -->
+            <a class="navbar-brand" href="{{url('dashboard')}}">Penganggaran
 				<!-- <img src="{{asset('assets/images/logo.png')}}" width="120" class="d-inline-block align-top mr-2" alt="Logo" loading="lazy"> -->
             </a>
         </div>
@@ -43,35 +43,56 @@
             </div>
         </div>
     </nav>
-	<div class="sidebar">
-		<div class="py-2 pl-3 border-bottom">
-			<div class="py-2">Penganggaran</div>
-			<!-- <img src="{{asset('assets/images/logo.png')}}" width="120" class="d-inline-block align-top mr-2" alt="Logo" loading="lazy"> -->
+	<div class="container pt-5">
+		@if(Request::is('dashboard'))
+		<div class="pt-4">
+			<h4>Halo, <span class="name"></span></h4>
+			<h6>Rancangan Perencanaan dan Anggaran</h6>
+			<h6>Kementerian Koperasi dan UKM RI Tahun 2022</h6>
 		</div>
-		<small class="text-secondary text-uppercase font-weight-bold">Menu</small>
-        <a href="{{url('dashboard')}}" class="{{Request::is('dashboard')?'active':''}}">
-            <i class="mdi mdi-apps mdi-18px"></i><span>Dashboard</span>
-        </a>
-        @if(session("role") == "deputi")
-        <a href="{{url('akun-asdep')}}" class="{{Request::is('akun-asdep')?'active':''}}">
-            <i class="mdi mdi-apps mdi-18px"></i><span>Buat Akun Asdep</span>
-        </a>
-        @endif
-        @if(session("role") == "admin" || session("role") == "deputi")
-        <a href="{{url('program')}}" class="{{Request::is('program')?'active':''}}">
-            <i class="mdi mdi-apps mdi-18px"></i><span>Program</span>
-        </a>
-        @endif
-        <a href="{{url('rancangan-anggaran')}}" class="{{Request::is('rancangan-anggaran')?'active':''}}">
-            <i class="mdi mdi-apps mdi-18px"></i><span>Rancangan Anggaran</span>
-        </a>
-		<small class="text-secondary" style="position:absolute;bottom:5px">2022 &copy; Penganggaran - Kementerian Koperasi dan UKM RI</small>
+		@endif
+		<div class="row justify-content-md-center pt-4">
+			<div class="col col-md-4 col-lg-3 mb-4">
+				<a href="{{url('dashboard')}}" class="card card-height text-dark rounded">
+					<div class="text-center p-2">
+						<i class="mdi mdi-home-outline mdi-48px pr-0"></i>
+						<h6>Dashboard</h6>
+					</div>
+				</a>
+			</div>
+			@if(session("role") == "deputi")
+			<div class="col col-md-4 col-lg-3 mb-4 px-0">
+				<a href="{{url('akun-asdep')}}" class="card card-height text-dark rounded">
+					<div class="text-center p-2">
+						<i class="mdi mdi-account-multiple-outline mdi-48px pr-0"></i>
+						<h6>Buat Akun Asdep</h6>
+					</div>
+				</a>
+			</div>
+			@endif
+			@if(session("role") == "admin")
+			<div class="col col-md-4 col-lg-3 mb-4 px-0">
+				<a href="{{url('program')}}" class="card card-height text-dark rounded">
+					<div class="text-center p-2">
+						<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
+						<h6>Program</h6>
+					</div>
+				</a>
+			</div>
+			@endif
+			<div class="col col-md-4 col-lg-3 mb-4">
+				<a href="{{url('rancangan-anggaran')}}" class="card card-height text-dark rounded">
+					<div class="text-center p-2">
+						<i class="mdi mdi-file-document-edit-outline mdi-48px pr-0"></i>
+						<h6>Rancangan Anggaran</h6>
+					</div>
+				</a>
+			</div>
+		</div>
 	</div>
 	@endif
 	<div class="overlay"></div>
-	<div class="main">
-		@yield('content')
-	</div>
+	@yield('content')
 	<div class="customAlert d-flex align-items-center small"></div>
 	@include('layouts.partials.script')
 	@yield('script')
