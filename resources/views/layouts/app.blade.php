@@ -92,7 +92,7 @@
 	</div>
 	@endif
 	<div class="overlay"></div>
-	@yield('content')
+	<div class="main">@yield('content')</div>
 	<div class="customAlert d-flex align-items-center small"></div>
 	@include('layouts.partials.script')
 	@yield('script')
