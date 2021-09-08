@@ -23,12 +23,6 @@ class CreateProgramController extends Controller
             $input['parent_path'] = ($program->parent_path) ? $program->parent_path.",".$program->id : $program->id;
 
             if($program->program_type == 'program') {
-                $input['program_type'] = 'sub_program';
-            } else if($program->program_type == 'sub_program') {
-                $input['program_type'] = 'code_program';
-            } else if($program->program_type == 'code_program') {
-                $input['program_type'] = 'code_activity';
-            } else if($program->program_type == 'code_activity') {
                 $input['program_type'] = 'activity';
             } else {
                 return ResponseFormatter::error([

@@ -30,7 +30,8 @@ Route::namespace('API')->group(function () {
         Route::namespace('Program')->prefix('program')->group(function() {
             Route::post('/', 'CreateProgramController');
             Route::get('/', 'GetProgramController@fetch');
-            Route::patch('/{program:id}', 'UpdateProgramController');
+            Route::get('/get_parent', 'GetProgramController@parent');
+            Route::PUT('/{program:id}', 'UpdateProgramController');
             Route::delete('/{program:id}', 'DeleteProgramController');
         });
 

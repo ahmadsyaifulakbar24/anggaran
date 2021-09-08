@@ -14,7 +14,6 @@ class Program extends Model
         'description',
         'created_by',
         'updated_by',
-        'unit_id',
         'program_type'
     ];
 
@@ -31,10 +30,5 @@ class Program extends Model
     public function updated_by_data()
     {
         return $this->belongsTo(User::class, 'updated_by');
-    }
-
-    public function unit()
-    {
-        return $this->belongsTo(Unit::class, 'unit_id');
     }
 }

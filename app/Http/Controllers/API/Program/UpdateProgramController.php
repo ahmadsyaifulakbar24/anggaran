@@ -15,6 +15,9 @@ class UpdateProgramController extends Controller
     public function __invoke(UpdateProgramRequest $request, Program $program)
     {
         $input = $request->only(['code_program', 'description']);
+        $input['parent_id'] = ($request->parent_id) ? $request->parent_id : null;
+        $input['code_program'] = $request->code_program;
+        $input['description'] = $request->description;
         $input['updated_by'] = Auth::user()->id;
 
         $program->update($input);

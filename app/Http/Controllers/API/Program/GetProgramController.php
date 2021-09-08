@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class GetProgramController extends Controller
 {
+    public $message = 'success get program data';
     public function fetch(Request $request)
     {
         $this->validate($request, [
@@ -17,12 +18,11 @@ class GetProgramController extends Controller
             'parent_id' => ['exists:programs,id']
         ]);
 
-        $message = 'success get program data';
         if($request->id) {
             $program = Program::findOrFail($request->id);
             return ResponseFormatter::success(
                 new ProgramResource($program),
-                $message
+                $this->message
             );
         }
 
@@ -33,7 +33,17 @@ class GetProgramController extends Controller
 
         return ResponseFormatter::success(
             ProgramResource::collection($program->get()),
-            $message
+            $this->message
+        );
+    }
+
+    public function parent()
+    {
+        $program = Program::where('program_type', 'program')->get();
+        
+        return ResponseFormatter::success(
+            ProgramResource::collection($program),
+            $this->message
         );
     }
 }
