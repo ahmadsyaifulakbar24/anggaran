@@ -4,15 +4,26 @@
 
 @section('content')
 	<div class="container">
-		<div class="d-flex justify-content-between align-items-center mb-2">
+		<div class="d-sm-flex justify-content-between align-items-center mb-2">
 			<h4>Rancangan Anggaran</h4>
-			<div>
+			<div class="text-right">
 				<a href="{{url('rancangan-anggaran/create')}}" class="btn btn-sm btn-primary create mb-1">Buat Kegiatan</a>
 				<button class="btn btn-sm btn-outline-primary view mb-1" data-toggle="modal" data-target="#modal-view">View Sebagai</button>
 				<button class="btn btn-sm btn-outline-primary export mb-1">Export Excel</button>
 			</div>
 		</div>
 		<div class="card card-custom none" id="card">
+			<div class="d-flex justify-content-between align-items-center p-3">
+				@if(session("role") != "asdep")
+				<div>
+					<b>View Sebagai</b>
+					<b class="text-secondary">(<span id="view"></span>)</b>
+				</div>
+				@endif
+				<div>
+					<input type="search" class="form-control form-control-sm" placeholder="Cari Nama Kegiatan">
+				</div>
+			</div>
 			<div class="table-responsive">
 				<table class="table table-middle">
 					<thead>
@@ -22,11 +33,8 @@
 							<th class="text-truncate" style="padding-right: 200px;">Nama Kegiatan</th>
 							<th class="text-truncate">Target</th>
 							<th class="text-truncate">Anggaran (Rp.)</th>
-							<th class="text-truncate">Lokasi</th>
-							<th class="text-truncate">Rincian Detail</th>
-							<th class="text-truncate">Keterangan</th>
-							<th class="text-truncate">Unit</th>
-							<th class="text-truncate">Pengguna</th>
+							<th class="text-truncate unit">Unit</th>
+							<th class="text-truncate pengguna">Pengguna</th>
 							<th class="text-truncate">Status</th>
 							<th colspan="2"></th>
 						</tr>
@@ -38,15 +46,8 @@
 							<td class="text-truncatee"><a href="{{url('rancangan-anggaran/1')}}">Pengembangan pembiayaan Alternatif Non-bank bagi koperasi</a></td>
 							<td class="text-truncate">100 Koperasi</td>
 							<td class="text-right">871.900.000</td>
-							<td class="text-truncate">
-								Provinsi Jawa Barat
-								<div>Kab. Tasikmalaya;</div>
-								<div>Kab. Bandung</div>
-							</td>
-							<td>Rincian Detail</td>
-							<td>Keterangan</td>
-							<td class="text-truncate">Deputi Usaha Mikro</td>
-							<td class="text-truncate">Asdep Pengembangan Mikro Daerah</td>
+							<td class="text-truncate unit">Deputi Usaha Mikro</td>
+							<td class="text-truncate pengguna">Asdep Pengembangan Mikro Daerah</td>
 							<td class="text-success">Disetujui</td>
 							<td></td>
 						</tr>
@@ -56,15 +57,8 @@
 							<td class="text-truncatee"><a href="{{url('rancangan-anggaran/1')}}">Pengembangan dan Penguatan Peran Badan Layanan Umum Pembiayaan bagi Koperasi</a></td>
 							<td class="text-truncate">100 Koperasi</td>
 							<td class="text-right">71.920.000</td>
-							<td class="text-truncate">
-								Provinsi Jawa Barat
-								<div>Kab. Tasikmalaya;</div>
-								<div>Kab. Bandung</div>
-							</td>
-							<td>Rincian Detail</td>
-							<td>Keterangan</td>
-							<td class="text-truncate">Deputi Perkoperasian</td>
-							<td class="text-truncate">Asdep Perkoperasian Syariah</td>
+							<td class="text-truncate unit">Deputi Perkoperasian</td>
+							<td class="text-truncate pengguna">Asdep Perkoperasian Syariah</td>
 							<td class="text-danger">Ditolak</td>
 							<td>
 								<div class="d-flex">
@@ -80,15 +74,8 @@
 							<td class="text-truncatee"><a href="{{url('rancangan-anggaran/1')}}">Peningkatan Akses Permodalan Koperasi melalui Penjaminan</a></td>
 							<td class="text-truncate">100 Koperasi</td>
 							<td class="text-right">171.900.000</td>
-							<td class="text-truncate">
-								Provinsi Jawa Barat
-								<div>Kab. Tasikmalaya;</div>
-								<div>Kab. Bandung</div>
-							</td>
-							<td>Rincian Detail</td>
-							<td>Keterangan</td>
-							<td class="text-truncate">Deputi Usaha Mikro</td>
-							<td class="text-truncate">Asdep Pengembangan Mikro Daerah</td>
+							<td class="text-truncate unit">Deputi Usaha Mikro</td>
+							<td class="text-truncate pengguna">Asdep Pengembangan Mikro Daerah</td>
 							<td class="text-warning">Pending</td>
 							<td>
 								<div class="d-flex">
@@ -152,6 +139,8 @@
 				$('#card').show()
 				$('.modal').modal('hide')
 				let val = $('#view-as').val()
+				let text = $('#view-as option:selected').text()
+				$('#view').html(text)
 				if (val == 'all-deputi') {
 					$('.deputi1').show()
 					$('.deputi2').show()
@@ -184,12 +173,16 @@
 			$('.create').remove()
 			$('.edit').remove()
 			$('.delete').remove()
-			// $('.pending').remove()
+			$('.accept').remove()
+			$('.pending').remove()
+			$('.unit').remove()
 			$('.modal').modal('show')
 		} else if (role == 'asdep') {
 			$('.view').remove()
 			$('.accept').remove()
 			$('.decline').remove()
+			$('.unit').remove()
+			$('.pengguna').remove()
 		}
 	</script>
 @endsection
