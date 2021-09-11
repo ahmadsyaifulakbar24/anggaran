@@ -1,19 +1,24 @@
-if (localStorage.getItem('name')) $('.name').html(localStorage.getItem('name'))
-if (localStorage.getItem('photo')) $('.avatar').attr('src', localStorage.getItem('photo'))
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
 const name = localStorage.getItem('name')
 const role = localStorage.getItem('role')
-const photo = localStorage.getItem('photo')
+// const photo = localStorage.getItem('photo')
+
+if (localStorage.getItem('token') != null) {
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+        }
+    })
+	$('.name').html(name)
+	// $('.avatar').attr('src', localStorage.getItem('photo'))
+}
 
 // param is in login.js line 1
 function logout(param) {
     $.ajax({
         url: `${api_url}/auth/logout`,
         type: 'POST',
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("Authorization", "Bearer " + token)
-        },
         success: function() {
             local_logout(param)
         },

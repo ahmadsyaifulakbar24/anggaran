@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
 			<h4>Kegiatan</h4>
-			<a href="{{url('kegiatan/create/'.$id_program)}}" class="btn btn-sm btn-primary create mb-1">Buat Kegiatan</a>
+			<a href="{{url('kegiatan/create/'.$parent_id)}}" class="btn btn-primary mb-1">Buat Kegiatan</a>
 		</div>
 		<div class="card card-custom">
 			<div class="table-responsive">
@@ -19,36 +19,33 @@
 							<th></th>
 						</tr>
 					</thead>
-					<tbody id="table">
-						<tr>
-							<td class="text-center">1.</td>
-							<td class="text-truncate">II/2746</td>
-							<td class="text-truncate">Pembiayaan dan Penjaminan Perkoperasian</td>
-							<td>
-								<div class="d-flex">
-									<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
-									<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">2.</td>
-							<td class="text-truncate">II/4442</td>
-							<td class="text-truncate">Pengembangan dan Pembaruan Perkoperasian</td>
-							<td>
-								<div class="d-flex">
-									<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
-									<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
-								</div>
-							</td>
-						</tr>
-					</tbody>
+					<tbody id="table"></tbody>
 				</table>
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="modal-delete" tabindex="-1" aria-hidden="true">
+	    <div class="modal-sm modal-dialog modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-bottom-0">
+	                <h5 class="modal-title">Hapus Kegiatan</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+	                    <i class="mdi mdi-close pr-0"></i>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	            	Anda yakin ingin hapus <b id="title"></b>?
+	            </div>
+	            <div class="modal-footer border-top-0">
+	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+	                <button class="btn btn-danger" id="delete">Hapus</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 @endsection
 
 @section('script')
-	<!-- <script src="{{asset('api/kegiatan.js')}}"></script> -->
+	<script>const parent_id = {{$parent_id}}</script>
+	<script src="{{asset('api/kegiatan.js')}}"></script>
 @endsection

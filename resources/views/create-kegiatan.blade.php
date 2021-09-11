@@ -12,13 +12,15 @@
 				<div class="form-group">
 					<label for="code_program">Kode</label>
 					<input class="form-control" id="code_program"></select>
+					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
 					<label for="parent_id">Keterangan</label>
 					<input class="form-control" id="description"></select>
+					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-primary">Submit</button>
+					<button class="btn btn-primary" id="submit">Submit</button>
 				</div>
 			</form>
 		</div>
@@ -26,5 +28,6 @@
 @endsection
 
 @section('script')
-	<!-- <script src="{{asset('api/create-kegiatan.js')}}"></script> -->
+	<script>const parent_id = {{$parent_id}}</script>
+	<script src="{{asset('api/create-kegiatan.js')}}"></script>
 @endsection

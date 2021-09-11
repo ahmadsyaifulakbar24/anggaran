@@ -19,6 +19,10 @@ Route::group(['middleware'=>['beforeMiddleware']], function () {
 	Route::get('dashboard', function () {
 		return view('dashboard');
 	});
+	
+	Route::get('notification', function () {
+		return view('notification');
+	});
 
 	// Akun Asdep
 	Route::get('akun-asdep', function () {
@@ -35,13 +39,19 @@ Route::group(['middleware'=>['beforeMiddleware']], function () {
 	Route::get('program/create', function () {
 		return view('create-program');
 	});
+	Route::get('program/edit/{id}', function ($id) {
+		return view('edit-program', compact('id'));
+	});
 
 	// Kegiatan
-	Route::get('program/{id_program}', function ($id_program) {
-		return view('kegiatan', compact('id_program'));
+	Route::get('program/{parent_id}', function ($parent_id) {
+		return view('kegiatan', compact('parent_id'));
 	});
-	Route::get('kegiatan/create/{id_program}', function ($id_program) {
-		return view('create-kegiatan', compact('id_program'));
+	Route::get('kegiatan/create/{parent_id}', function ($parent_id) {
+		return view('create-kegiatan', compact('parent_id'));
+	});
+	Route::get('kegiatan/edit/{id}', function ($id) {
+		return view('edit-kegiatan', compact('id'));
 	});
 
 	// Rancangan Anggaran

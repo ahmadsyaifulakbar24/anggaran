@@ -1,11 +1,11 @@
 @extends('layouts/app')
 
-@section('title', 'Buat Program')
+@section('title', 'Ubah Kegiatan')
 
 @section('content')
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
-			<h4>Buat Program</h4>
+			<h4>Ubah Kegiatan</h4>
 		</div>
 		<div class="card card-custom">
 			<form class="card-body">
@@ -20,7 +20,7 @@
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
-					<button class="btn btn-primary" id="submit">Submit</button>
+					<button class="btn btn-primary">Submit</button>
 				</div>
 			</form>
 		</div>
@@ -28,5 +28,6 @@
 @endsection
 
 @section('script')
-	<script src="{{asset('api/create-program.js')}}"></script>
+	<script>const id = {{$id}}</script>
+	<script src="{{asset('api/edit-kegiatan.js')}}"></script>
 @endsection
