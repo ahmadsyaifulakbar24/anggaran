@@ -14,10 +14,19 @@ class UnitSeeder extends Seeder
      */
     public function run()
     {
+        $admin = User::create([
+            'username' => 'admin',
+            'name' => 'Admin',
+            'unit_id' => null,
+            'password' => Hash::make('12345678'),
+        ]);
+        $admin->assignRole('admin');
+        
         $perkoperasian = Unit::create([ 'name' => 'Deputi Bidang Perkoperasian' ]);
         $user_perkoperasian = $perkoperasian->user()->create([
             'username' => 'perkoperasian',
             'name' => 'Deputi Bidang Perkoperasian',
+            'parent_id' => $admin->id,
             'password' => Hash::make('12345678'),
         ]);
         $user_perkoperasian->assignRole('deputi');
@@ -26,6 +35,7 @@ class UnitSeeder extends Seeder
         $user_usaha_mikro = $usaha_mikro->user()->create([
             'username' => 'usaha_mikro',
             'name' => 'Deputi Bidang Usaha Mikro',
+            'parent_id' => $admin->id,
             'password' => Hash::make('12345678'),
         ]);
         $user_usaha_mikro->assignRole('deputi');
@@ -34,6 +44,7 @@ class UnitSeeder extends Seeder
         $user_ukm = $ukm->user()->create([
             'username' => 'ukm',
             'name' => 'Deputi Bidang UKM',
+            'parent_id' => $admin->id,
             'password' => Hash::make('12345678'),
         ]);
         $user_ukm->assignRole('deputi');
@@ -42,6 +53,7 @@ class UnitSeeder extends Seeder
         $user_kewirausahaan = $kewirausahaan->user()->create([
             'username' => 'kewirausahaan',
             'name' => 'Deputi Bidang Kewirausahaan',
+            'parent_id' => $admin->id,
             'password' => Hash::make('12345678'),
         ]);
         $user_kewirausahaan->assignRole('deputi');
@@ -50,6 +62,7 @@ class UnitSeeder extends Seeder
         $user_kemenkop_ukm = $kemenkop_ukm->user()->create([
             'username' => 'kemenkop_ukm',
             'name' => 'Sekertarian Kemenkop UKM',
+            'parent_id' => $admin->id,
             'password' => Hash::make('12345678'),
         ]);
         $user_kemenkop_ukm->assignRole('deputi');
@@ -58,6 +71,7 @@ class UnitSeeder extends Seeder
         $user_lpdb = $lpdb->user()->create([
             'username' => 'lpdb',
             'name' => 'LPDB KUKM (Lembaga Pengelola Dana Bergulir)',
+            'parent_id' => $admin->id,
             'password' => Hash::make('12345678'),
         ]);
         $user_lpdb->assignRole('deputi');
@@ -66,6 +80,7 @@ class UnitSeeder extends Seeder
         $user_llp = $llp->user()->create([
             'username' => 'llp',
             'name' => 'LLP-KUKM (Lembaga Layanan Pemesanan)',
+            'parent_id' => $admin->id,
             'password' => Hash::make('12345678'),
         ]);
         $user_llp->assignRole('deputi');

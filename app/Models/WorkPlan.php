@@ -26,6 +26,11 @@ class WorkPlan extends Model
         'admin_status'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function history()
     {
         return $this->hasMany(History::class, 'work_plan_id');
@@ -59,6 +64,11 @@ class WorkPlan extends Model
     public function sub_work_plan()
     {
         return $this->hasMany(SubWorkPlan::class, 'work_plan_id');
+    }
+
+    public function sub_work_plan_many()
+    {
+        return $this->belongsToMany(City::class, 'sub_work_plans', 'work_plan_id', 'city_id');
     }
 
     public function notification()

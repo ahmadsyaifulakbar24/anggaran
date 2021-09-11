@@ -36,8 +36,8 @@ class WorkPlanResource extends JsonResource
             'sub_work_plan' => SubWorkPlanResource::collection($this->sub_work_plan),
             'detail' => $this->detail,
             'description' => $this->description,
-            'deputi_status' => $this->status,
-            'admin_status' => $this->status,
+            'deputi_status' => $this->deputi_status,
+            'admin_status' => $this->admin_status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
