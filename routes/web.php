@@ -35,6 +35,9 @@ Route::group(['middleware'=>['beforeMiddleware']], function () {
 	Route::get('program/create', function () {
 		return view('create-program');
 	});
+	Route::get('program/edit/{id}', function ($id) {
+		return view('edit-program', compact('id'));
+	});
 
 	// Kegiatan
 	Route::get('program/{id_program}', function ($id_program) {
