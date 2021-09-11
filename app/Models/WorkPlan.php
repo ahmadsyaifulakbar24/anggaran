@@ -66,6 +66,11 @@ class WorkPlan extends Model
         return $this->hasMany(SubWorkPlan::class, 'work_plan_id');
     }
 
+    public function sub_work_plan_many()
+    {
+        return $this->belongsToMany(City::class, 'sub_work_plans', 'work_plan_id', 'city_id');
+    }
+
     public function notification()
     {
         return $this->hasMany(Notification::class, 'work_plan_id');
