@@ -16,77 +16,81 @@
 </head>
 <body>
 	@if(!Request::is('daftar/*'))
-    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom">
-        <div class="form-inline">
-            <!-- <i class="mdi mdi-menu mdi-24px d-block d-lg-none pointer text-dark mr-2" id="menu"></i> -->
-            <a class="navbar-brand" href="{{url('dashboard')}}">Penganggaran
-				<!-- <img src="{{asset('assets/images/logo.png')}}" width="120" class="d-inline-block align-top mr-2" alt="Logo" loading="lazy"> -->
-            </a>
-        </div>
-        <div class="dropdown ml-auto">
-            <a id="dropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            	<img src="{{asset('assets/images/user.png')}}" class="avatar rounded-circle border" width="25">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right rounded border-0" aria-labelledby="dropdownMenu">
-            	<div class="text-center my-3 px-3 text-break">
-	            	<img src="{{asset('assets/images/user.png')}}" class="avatar rounded-circle" width="75">
-	            	<h6 class="name text-truncate pt-3 mb-0"></h6>
-	            	<small class="level text-secondary"></small>
+    <nav class="navbar navbar-expand-sm navbar-dark border-bottom" style="background: #0fa9f9;">
+    	<div class="container">
+	        <div class="form-inline">
+	            <!-- <i class="mdi mdi-menu mdi-24px d-block d-lg-none pointer text-dark mr-2" id="menu"></i> -->
+	            <a class="navbar-brand" href="{{url('dashboard')}}">Penganggaran
+					<!-- <img src="{{asset('assets/images/logo.png')}}" width="120" class="d-inline-block align-top mr-2" alt="Logo" loading="lazy"> -->
+	            </a>
+	        </div>
+	        <div class="dropdown ml-auto">
+	            <a id="dropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	            	<img src="https://ui-avatars.com/api/?name={{session('role')}}" class="avatar rounded-circle" width="25">
+	            </a>
+	            <div class="dropdown-menu dropdown-menu-right rounded border-0" aria-labelledby="dropdownMenu">
+	            	<div class="text-center my-3 px-3 text-break">
+		            	<img src="https://ui-avatars.com/api/?name={{session('role')}}" class="avatar rounded-circle" width="75">
+		            	<h6 class="name text-truncate pt-3 mb-0"></h6>
+		            	<small class="level text-secondary"></small>
+		            </div>
+		            <div class="dropdown-divider"></div>
+	                <!-- <a href="{{url('password')}}" class="dropdown-item" role="button">
+	                    <i class="mdi mdi-18px mdi-lock-outline"></i><span>Ubah password</span>
+	                </a> -->
+	                <a href="javascript:void(0)" class="dropdown-item" onclick="return logout()" role="button">
+	                    <i class="mdi mdi-18px mdi-login-variant"></i><span>Logout</span>
+	                </a>
 	            </div>
-	            <div class="dropdown-divider"></div>
-                <!-- <a href="{{url('password')}}" class="dropdown-item" role="button">
-                    <i class="mdi mdi-18px mdi-lock-outline"></i><span>Ubah password</span>
-                </a> -->
-                <a href="javascript:void(0)" class="dropdown-item" onclick="return logout()" role="button">
-                    <i class="mdi mdi-18px mdi-login-variant"></i><span>Logout</span>
-                </a>
-            </div>
-        </div>
+	        </div>
+	    </div>
     </nav>
-	<div class="container pt-5">
-		@if(Request::is('dashboard'))
-		<div class="pt-4">
-			<h4>Halo, <span class="name"></span></h4>
-			<h6>Rancangan Perencanaan dan Anggaran</h6>
-			<h6>Kementerian Koperasi dan UKM RI Tahun 2022</h6>
-		</div>
-		@endif
-		<div class="row justify-content-md-center pt-4">
-			<div class="col col-md-4 col-lg-3 mb-4">
-				<a href="{{url('dashboard')}}" class="card card-height text-dark rounded">
-					<div class="text-center p-2">
-						<i class="mdi mdi-home-outline mdi-48px pr-0"></i>
-						<h6>Dashboard</h6>
-					</div>
-				</a>
-			</div>
-			@if(session("role") == "deputi")
-			<div class="col col-md-4 col-lg-3 mb-4 px-0">
-				<a href="{{url('akun-asdep')}}" class="card card-height text-dark rounded">
-					<div class="text-center p-2">
-						<i class="mdi mdi-account-multiple-outline mdi-48px pr-0"></i>
-						<h6>Buat Akun Asdep</h6>
-					</div>
-				</a>
+    <div class="bg-light">
+		<div class="container pt-5">
+			@if(Request::is('dashboard'))
+			<div class="pt-4">
+				<h4>Halo, <span class="name"></span></h4>
+				<h6>Rancangan Perencanaan dan Anggaran</h6>
+				<h6>Kementerian Koperasi dan UKM RI Tahun 2022</h6>
 			</div>
 			@endif
-			@if(session("role") == "admin")
-			<div class="col col-md-4 col-lg-3 mb-4 px-0">
-				<a href="{{url('program')}}" class="card card-height text-dark rounded">
-					<div class="text-center p-2">
-						<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
-						<h6>Program</h6>
-					</div>
-				</a>
-			</div>
-			@endif
-			<div class="col col-md-4 col-lg-3 mb-4">
-				<a href="{{url('rancangan-anggaran')}}" class="card card-height text-dark rounded">
-					<div class="text-center p-2">
-						<i class="mdi mdi-file-document-edit-outline mdi-48px pr-0"></i>
-						<h6>Rancangan Anggaran</h6>
-					</div>
-				</a>
+			<div class="row justify-content-md-center pt-4">
+				<div class="col col-md-4 col-lg-2 mb-4">
+					<a href="{{url('dashboard')}}" class="card card-menu rounded {{Request::is('dashboard')?'active':''}}">
+						<div class="text-center p-2">
+							<i class="mdi mdi-home-outline mdi-48px pr-0"></i>
+							<h6>Dashboard</h6>
+						</div>
+					</a>
+				</div>
+				@if(session("role") == "deputi")
+				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
+					<a href="{{url('akun-asdep')}}" class="card card-menu rounded {{Request::is('akun-asdep')?'active':''}}">
+						<div class="text-center p-2">
+							<i class="mdi mdi-account-multiple-outline mdi-48px pr-0"></i>
+							<h6>Buat Akun Asdep</h6>
+						</div>
+					</a>
+				</div>
+				@endif
+				@if(session("role") == "admin")
+				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
+					<a href="{{url('program')}}" class="card card-menu rounded {{Request::is('program')?'active':''}}">
+						<div class="text-center p-2">
+							<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
+							<h6>Program</h6>
+						</div>
+					</a>
+				</div>
+				@endif
+				<div class="col col-md-4 col-lg-2 mb-4">
+					<a href="{{url('rancangan-anggaran')}}" class="card card-menu rounded {{Request::is('rancangan-anggaran')?'active':''}}">
+						<div class="text-center p-2">
+							<i class="mdi mdi-file-document-edit-outline mdi-48px pr-0"></i>
+							<h6>Rancangan Anggaran</h6>
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
