@@ -9,6 +9,7 @@ class Notification extends Model
     protected $table = 'notifications';
     protected $fillable = [
         'work_plan_id',
+        'history_id',
         'created_by',
         'sent_to',
         'type',

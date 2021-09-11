@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Comment;
+namespace App\Http\Resources\History;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommentResource extends JsonResource
+class HistoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,14 +15,14 @@ class CommentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'work_plan_id' => $this->work_plan_id,
-            'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name
+            'action_by' => [
+                'id' => $this->action->id,
+                'name' => $this->action->name,
             ],
-            'comment' => $this->comment,
-            'read' => $this->read
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

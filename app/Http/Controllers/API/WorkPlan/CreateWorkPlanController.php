@@ -78,10 +78,11 @@ class CreateWorkPlanController extends Controller
         $work_plan->sub_work_plan()->createMany($request->sub_work_plan);
 
         // Insert History Work Plan
-        $work_plan->history()->create([ 'action_by' => Auth::user()->id, 'status' => 'create work plan' ]);
+        $history = $work_plan->history()->create([ 'action_by' => Auth::user()->id, 'status' => 'create work plan' ]);
 
         // Insert notification Work Plan
         $work_plan->notification()->create([
+            'history_id' => $history->id,
             'created_by' => Auth::user()->id,
             'sent_to' => Auth::user()->parent_id,
             'type' => 'work_plan',

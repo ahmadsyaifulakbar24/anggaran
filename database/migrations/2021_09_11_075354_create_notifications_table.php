@@ -16,6 +16,7 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('work_plan_id')->constrained('work_plans')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('history_id')->constrained('histories')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('sent_to')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('type', ['work_plan', 'work_plan_comment']);
