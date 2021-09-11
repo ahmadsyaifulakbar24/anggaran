@@ -9,6 +9,11 @@ class WorkPlan extends Model
     protected $table = 'work_plans';
     protected $fillable = [
         'program_id',
+        'kro_id',
+        'ro_id',
+        'component_code',
+        'component_name',
+
         'title',
         'total_target',
         'unit_target',

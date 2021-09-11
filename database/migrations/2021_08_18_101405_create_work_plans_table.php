@@ -16,6 +16,10 @@ class CreateWorkPlansTable extends Migration
         Schema::create('work_plans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('program_id')->constrained('programs')->onUpdate('cascade');
+            $table->bigInteger('kro_id')->unsigned();
+            $table->bigInteger('ro_id')->unsigned();
+            $table->string('component_code');
+            $table->string('component_name');
             $table->string('title');
             $table->double('total_target');
             $table->string('unit_target');
@@ -25,6 +29,7 @@ class CreateWorkPlansTable extends Migration
             $table->text('detail')->nullable();
             $table->text('description')->nullable();
             $table->enum('status', ['accept', 'pending', 'decline']);
+            $table->boolean('notification')->default(1);
             $table->timestamps();
         });
     }

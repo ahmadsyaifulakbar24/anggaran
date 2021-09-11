@@ -9,6 +9,7 @@ class History extends Model
     protected $table = 'histories';
     protected $fillable = [
         'work_plan_id',
+        'action_by',
         'status'
     ];
 }
