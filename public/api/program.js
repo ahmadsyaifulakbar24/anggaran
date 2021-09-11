@@ -3,7 +3,7 @@ get_data()
 function get_data() {
 	$('#table').empty()
 	$.ajax({
-	    url: `${root}/api/program`,
+	    url: `${root}/api/program/get_parent`,
 	    type: 'GET',
 	    success: function(result) {
 	        // console.log(result.data)
@@ -25,7 +25,7 @@ function get_data() {
 		        })
 		    } else {
 		    	append = `<tr>
-					<td colspan="10" class="text-truncate">Data tidak ditemukan.</td>
+					<td colspan="10">Data tidak ditemukan.</td>
 				</tr>`
 	            $('#table').append(append)
 		    }
