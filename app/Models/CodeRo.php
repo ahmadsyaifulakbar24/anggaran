@@ -9,7 +9,7 @@ class CodeRo extends Model
     protected $table = 'code_ro';
     protected $fillable = [
         'code_ro',
-        'name',
+        'ro',
         'unit_id'
     ];
 }

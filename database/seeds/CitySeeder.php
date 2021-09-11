@@ -13,6 +13,24 @@ class CitySeeder extends Seeder
     public function run()
     {
         DB::table('cities')->insert([
+            'id' => 101,
+            'province_id' => 1,
+            'city' => 'KEMENKOP UKM',
+        ]);
+
+        DB::table('cities')->insert([
+            'id' => 102,
+            'province_id' => 1,
+            'city' => 'LPDB',
+        ]);
+
+        DB::table('cities')->insert([
+            'id' => 103,
+            'province_id' => 1,
+            'city' => 'LLP KUKM',
+        ]);
+
+        DB::table('cities')->insert([
             'id' => 1101,
             'province_id' => 11,
             'city' => 'Kab. Simeulue',

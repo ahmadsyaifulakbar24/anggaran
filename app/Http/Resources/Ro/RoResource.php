@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Kro;
+namespace App\Http\Resources\Ro;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class KroResource extends JsonResource
+class RoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,8 @@ class KroResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'code_kro_non_pn' => $this->code_kro_non_pn,
-            'code_kro_pn' => $this->code_kro_pn,
-            'kro' => $this->kro
+            'code_ro' => $this->code_ro,
+            'ro' => $this->ro
         ];
     }
 }

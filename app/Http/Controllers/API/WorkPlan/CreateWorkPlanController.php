@@ -6,8 +6,10 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkPlan\WorkPlanRequest;
 use App\Http\Resources\WorkPlan\WorkPlanResource;
+use App\Models\CodeRo;
 use App\Models\WorkPlan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class CreateWorkPlanController extends Controller
@@ -21,15 +23,27 @@ class CreateWorkPlanController extends Controller
                     return $query->where('program_type', 'activity');
                 })
             ],
+            'kro_id' => ['required', 'exists:kro,id'],
+            'code_ro' => ['required', 'string'],
+            'name_ro' => ['required', 'string'],
+            'component_code' => [
+                'required', 
+                Rule::unique('work_plans','component_code')->where(function($query) {
+                    $query->where('unit_id', Auth::user()->unit_id);
+                })
+            ],
+            'component_name' => ['required', 'string'],
             'title' => ['required', 'string'],
             'total_target' => ['required', 'integer'],
             'unit_target' => ['required', 'string'],
             'budged' => ['required', 'integer'],
             'province_id' => ['required', 'exists:provinces,id'],
-            'city_id' => [
+            'sub_work_plan' => ['required', 'array'],
+            'sub_work_plan.*.city_id' => [
                 'required', 
-                Rule::exists('cities', 'id')->where(function($query) {
-                    return $query->where('province_id', $this->province_id);
+                'distinct',
+                Rule::exists('cities', 'id')->where(function($query) use ($request) {
+                    return $query->where('province_id', $request->province_id);
                 })
             ],
             'detail' => ['required', 'string'],
@@ -37,11 +51,41 @@ class CreateWorkPlanController extends Controller
         ]);
 
         $input = $request->all();
-        $input['status'] = 'pending';
+        $unit_id = Auth::user()->unit_id;
 
-        $work_plan = WorkPlan::create($input);
+        $input['user_id'] = Auth::user()->id;
+        $input['unit_id'] = $unit_id;
+        $input['deputi_status'] = 'pending';
         
-        $work_plan->history()->create([ 'status' => 'create work plan' ]);
+
+        // Cek Code RO
+        $code_ro = CodeRo::where([['unit_id', $unit_id], ['code_ro', $request->code_ro]]);
+        if($code_ro->count() > 0) {
+            $get_code_ro = $code_ro->first();
+        } else {
+            $get_code_ro = CodeRo::create([
+                'code_ro' => $request->code_ro,
+                'ro' => $request->name_ro,
+                'unit_id' => $unit_id
+            ]);
+        }
+        $input['ro_id'] = $get_code_ro->id;
+
+        // Insert work plan
+        $work_plan = WorkPlan::create($input);
+
+        // Insert sub work plan
+        $work_plan->sub_work_plan()->createMany($request->sub_work_plan);
+
+        // Insert History Work Plan
+        $work_plan->history()->create([ 'action_by' => Auth::user()->id, 'status' => 'create work plan' ]);
+
+        // Insert notification Work Plan
+        $work_plan->notification()->create([
+            'created_by' => Auth::user()->id,
+            'sent_to' => Auth::user()->parent_id,
+            'type' => 'work_plan',
+        ]);
 
         return ResponseFormatter::success(
             new WorkPlanResource($work_plan),

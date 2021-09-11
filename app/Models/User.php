@@ -21,6 +21,7 @@ class User extends Authenticatable
         'username',
         'name', 
         'unit_id',
+        'parent_id',
         'password',
     ];
 
