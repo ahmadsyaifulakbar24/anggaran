@@ -33,6 +33,7 @@ class WorkPlanResource extends JsonResource
                 'id' => $this->province->id,
                 'province' => $this->province->province,
             ],
+            'sub_work_plan' => SubWorkPlanResource::collection($this->sub_work_plan),
             'detail' => $this->detail,
             'description' => $this->description,
             'deputi_status' => $this->status,
