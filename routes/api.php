@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Kro\KroController;
+use App\Http\Controllers\API\Ro\RoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,7 +52,11 @@ Route::namespace('API')->group(function () {
         });
 
         Route::namespace('Kro')->prefix('kro')->group(function() {
-            Route::get('/{kro_id?}', [KroController::class, 'fetch']);
+            Route::get('/', [KroController::class, 'fetch']);
+        });
+
+        Route::namespace('ro')->prefix('ro')->group(function() {
+            Route::get('/', [RoController::class, 'fetch']);
         });
     });
 });

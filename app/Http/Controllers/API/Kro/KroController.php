@@ -10,14 +10,15 @@ use Illuminate\Http\Request;
 
 class KroController extends Controller
 {
-    public function fetch(Request $request, $kro_id = null)
+    public function fetch(Request $request)
     {
         $this->validate($request, [
+            'id' => ['nullable', 'exists:kro,id'],
             'search' => ['nullable', 'string']
         ]);
 
-        if($kro_id) {
-            $kro = Kro::find($kro_id);
+        if($request->id) {
+            $kro = Kro::find($request->id);
             return ResponseFormatter::success(
                 new KroResource($kro),
                 'success get data kro'

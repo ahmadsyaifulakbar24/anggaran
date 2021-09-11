@@ -19,6 +19,7 @@ class GetWorkPlanController extends Controller
             'id' => ['nullable', 'exists:work_plans,id'],
             'user_id' => ['nullable', 'users,id'],
             'unit_id' => ['nullable', 'units,id'],
+            'search' => ['nullable', 'string'],
             'limit' => ['nullable', 'integer']
         ]);
 
@@ -32,6 +33,10 @@ class GetWorkPlanController extends Controller
         }
 
         $work_plan = WorkPlan::query();
+        if($request->search) {
+            $work_plan->where('component_name', 'like', '%'. $request->search .'%');
+        }
+
         if($request->user_id) {
             $work_plan->where('user_id', $request->user_id);
         }
