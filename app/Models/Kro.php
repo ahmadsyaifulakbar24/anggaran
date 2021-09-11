@@ -4,17 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Unit extends Model
+class Kro extends Model
 {
-    protected $table = 'units';
+    protected $table = 'kro';
     protected $fillable = [
+        'code_kro',
         'name'
     ];
 
     public $timestamps = false;
-
-    public function user()
-    {
-        return $this->hasMany(User::class, 'unit_id');
-    }
 }

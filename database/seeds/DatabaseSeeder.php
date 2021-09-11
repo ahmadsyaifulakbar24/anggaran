@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UnitSeeder::class,
             ParamSeeder::class,
+            KroSeeder::class,
             HistoryStatusSeeder::class,
             UserSeeder::class,
             ProvinceSeeder::class,

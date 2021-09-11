@@ -15,16 +15,22 @@ class CreateWorkPlansTable extends Migration
     {
         Schema::create('work_plans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('program_id')->constrained('programs')->onUpdate('cascade');
+            $table->bigInteger('kro_id')->unsigned();
+            $table->bigInteger('ro_id')->unsigned();
+            $table->string('component_code');
+            $table->string('component_name');
             $table->string('title');
             $table->double('total_target');
             $table->string('unit_target');
             $table->double('budged');
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('city_id')->constrained('cities')->onDelete('cascade')->onUpdate('cascade');
             $table->text('detail')->nullable();
             $table->text('description')->nullable();
-            $table->enum('status', ['accept', 'pending', 'decline']);
+            $table->enum('deputi_status', ['accept', 'pending', 'decline']);
+            $table->enum('admin_status', ['accept', 'pending', 'decline'])->nullable();
             $table->timestamps();
         });
     }

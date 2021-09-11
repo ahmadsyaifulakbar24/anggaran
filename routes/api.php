@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Kro\KroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 
 Route::namespace('API')->group(function () {
     Route::post('auth/login', 'Auth\LoginController');
@@ -50,6 +48,10 @@ Route::namespace('API')->group(function () {
 
         Route::namespace('Comment')->prefix('comment')->group(function() {
             Route::post('/', 'CommentController@create');
+        });
+
+        Route::namespace('Kro')->prefix('kro')->group(function() {
+            Route::get('/{kro_id?}', [KroController::class, 'fetch']);
         });
     });
 });

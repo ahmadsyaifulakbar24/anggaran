@@ -8,16 +8,22 @@ class WorkPlan extends Model
 {
     protected $table = 'work_plans';
     protected $fillable = [
+        'user_id',
+        'unit_id',
         'program_id',
+        'kro_id',
+        'ro_id',
+        'component_code',
+        'component_name',
         'title',
         'total_target',
         'unit_target',
         'budged',
         'province_id',
-        'city_id',
         'detail',
         'description',
-        'status'
+        'deputi_status',
+        'admin_status'
     ];
 
     public function history()
@@ -30,11 +36,16 @@ class WorkPlan extends Model
         return $this->belongsTo(Province::class, 'province_id');
     }
 
-    public function city()
+    public function kro()
     {
-        return $this->belongsTo(City::class, 'city_id');
+        return $this->belongsTo(Kro::class, 'kro_id');
     }
 
+    public function ro()
+    {
+        return $this->belongsTo(CodeRo::class, 'ro_id');
+    }
+    
     public function file_manager()
     {
         return $this->hasMany(FileManager::class, 'work_plan_id');
@@ -43,5 +54,15 @@ class WorkPlan extends Model
     public function comment()
     {
         return $this->hasMany(Comment::class, 'work_plan_id');
+    }
+
+    public function sub_work_plan()
+    {
+        return $this->hasMany(SubWorkPlan::class, 'work_plan_id');
+    }
+
+    public function notification()
+    {
+        return $this->hasMany(Notification::class, 'work_plan_id');
     }
 }

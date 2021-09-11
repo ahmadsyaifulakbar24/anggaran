@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class History extends Model
+class SubWorkPlan extends Model
 {
-    protected $table = 'histories';
+    protected $table = 'sub_work_plans';
     protected $fillable = [
         'work_plan_id',
-        'action_by',
-        'status'
+        'city_id'
     ];
+
+    public $timestamps = false;
 }

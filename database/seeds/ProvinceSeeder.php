@@ -13,6 +13,11 @@ class ProvinceSeeder extends Seeder
     public function run()
     {
         DB::table('provinces')->insert([
+            'id' => 1,
+            'province' => 'Pusat'
+        ]);
+
+        DB::table('provinces')->insert([
             'id' => 11,
             'province' => 'Aceh'
         ]);
