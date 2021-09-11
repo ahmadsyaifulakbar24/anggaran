@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Kro\KroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,10 @@ Route::namespace('API')->group(function () {
 
         Route::namespace('Comment')->prefix('comment')->group(function() {
             Route::post('/', 'CommentController@create');
+        });
+
+        Route::namespace('Kro')->prefix('kro')->group(function() {
+            Route::get('/{kro_id?}', [KroController::class, 'fetch']);
         });
     });
 });
