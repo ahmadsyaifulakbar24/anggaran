@@ -18,7 +18,7 @@ class CreateCommentsTable extends Migration
             $table->foreignId('work_plan_id')->constrained('work_plans')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->text('comment');
-            $table->boolean('notification')->default(1);
+            $table->boolean('read')->default(0);
             $table->timestamps();
         });
     }
