@@ -17,8 +17,8 @@ class GetWorkPlanController extends Controller
     {
         $this->validate($request, [
             'id' => ['nullable', 'exists:work_plans,id'],
-            'user_id' => ['nullable', 'users,id'],
-            'unit_id' => ['nullable', 'units,id'],
+            'user_id' => ['nullable', 'exists:users,id'],
+            'unit_id' => ['nullable', 'exists:units,id'],
             'search' => ['nullable', 'string'],
             'limit' => ['nullable', 'integer']
         ]);

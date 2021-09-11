@@ -31,6 +31,16 @@ class WorkPlan extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'program_id');
+    }
+
     public function history()
     {
         return $this->hasMany(History::class, 'work_plan_id');
