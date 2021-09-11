@@ -19,6 +19,10 @@ Route::group(['middleware'=>['beforeMiddleware']], function () {
 	Route::get('dashboard', function () {
 		return view('dashboard');
 	});
+	
+	Route::get('notification', function () {
+		return view('notification');
+	});
 
 	// Akun Asdep
 	Route::get('akun-asdep', function () {

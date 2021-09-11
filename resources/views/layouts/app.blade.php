@@ -24,7 +24,11 @@
 					<!-- <img src="{{asset('assets/images/logo.png')}}" width="120" class="d-inline-block align-top mr-2" alt="Logo" loading="lazy"> -->
 	            </a>
 	        </div>
-	        <div class="dropdown ml-auto">
+	        <div class="dropdown ml-auto align-items-center d-flex">
+	        	<a href="{{url('notification')}}" class="text-dark mr-3">
+		            <i class="mdi mdi-24px mdi-bell text-white pr-0"></i>
+		            <span class="badge badge-pill badge-danger position-absolute py-1" id="notification" style="right: 35px">3</span>
+		        </a>
 	            <a id="dropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	            	<img src="https://ui-avatars.com/api/?name={{session('role')}}" class="avatar rounded-circle" width="25">
 	            </a>
