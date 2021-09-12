@@ -69,5 +69,9 @@ Route::namespace('API')->group(function () {
             Route::get('/', 'GetNotificationController@fetch');
             Route::patch('/read/{notification:id}', 'UpdateNotificationController@read');
         });
+
+        Route::namespace('Dashboard')->prefix('dashboard')->group(function() {
+            Route::get('budget_statistics', 'DashboardController@budget_statistics');
+        });
     });
 });
