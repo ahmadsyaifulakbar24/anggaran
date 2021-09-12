@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Kro\KroController;
 use App\Http\Controllers\API\Ro\RoController;
+use App\Http\Controllers\API\User\CreateUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,11 +53,21 @@ Route::namespace('API')->group(function () {
         });
 
         Route::namespace('Kro')->prefix('kro')->group(function() {
-            Route::get('/', [KroController::class, 'fetch']);
+            Route::get('/', 'KroController@fetch');
         });
 
         Route::namespace('ro')->prefix('ro')->group(function() {
-            Route::get('/', [RoController::class, 'fetch']);
+            Route::get('/', 'RoController@fetch');
+        });
+
+        Route::namespace('User')->prefix('user')->group(function() {
+            Route::post('add_asdep', 'CreateUserController@user_asdep');
+            Route::post('reset_password', 'ResetPasswordController');
+        });
+
+        Route::namespace('Notification')->prefix('notification')->group(function() {
+            Route::get('/', 'GetNotificationController@fetch');
+            Route::patch('/read/{notification:id}', 'UpdateNotificationController@read');
         });
     });
 });

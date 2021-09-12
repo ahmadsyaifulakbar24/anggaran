@@ -13,6 +13,27 @@ class Notification extends Model
         'created_by',
         'sent_to',
         'type',
-        'read'
+        'read',
+        'date_read',
     ];
+
+    public function work_plan()
+    {
+        return $this->belongsTo(WorkPlan::class, 'work_plan_id');
+    }
+
+    public function history()
+    {
+        return $this->belongsTo(History::class, 'history_id');
+    }
+
+    public function user_created()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function user_sent_to()
+    {
+        return $this->belongsTo(User::class, 'sent_to');
+    }
 }

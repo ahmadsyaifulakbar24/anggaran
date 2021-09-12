@@ -21,6 +21,7 @@ class CreateNotificationsTable extends Migration
             $table->foreignId('sent_to')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('type', ['work_plan', 'work_plan_comment']);
             $table->boolean('read')->default(0);
+            $table->dateTime('date_read')->nullable();
             $table->timestamps();
         });
     }

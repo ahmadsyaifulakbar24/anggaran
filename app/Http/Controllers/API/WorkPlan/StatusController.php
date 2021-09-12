@@ -46,7 +46,11 @@ class StatusController extends Controller
                     ]
             ];
         } else {
-            $work_plan_data = [ 'deputi_status' => $request->status ];
+            if($request->status == 'accept') {
+                $work_plan_data = [ 'deputi_status' => $request->status, 'admin_status' => 'pending'];
+            } else {
+                $work_plan_data = [ 'deputi_status' => $request->status ];
+            }
             $notification_data = [
                 [
                     'created_by' => Auth::user()->id,
