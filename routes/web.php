@@ -64,4 +64,7 @@ Route::group(['middleware'=>['beforeMiddleware']], function () {
 	Route::get('rancangan-anggaran/{id}', function ($id) {
 		return view('view-rancangan-anggaran', compact('id'));
 	});
+	Route::get('rancangan-anggaran/edit/{id}', function ($id) {
+		return view('edit-rancangan-anggaran', compact('id'));
+	});
 });

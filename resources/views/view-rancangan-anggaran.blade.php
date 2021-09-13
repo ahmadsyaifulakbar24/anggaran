@@ -11,148 +11,99 @@
 			<div class="card-body">
 				<div class="form-group">
 					<b class="font-weight-bold">Kode</b>
-					<div>II/2746/BDF/001/051</div>
+					<div id="code"></div>
 				</div>
 				<div class="form-group">
 					<b class="font-weight-bold">Nama Kegiatan</b>
-					<div>Pengembangan pembiayaan Alternatif Non-bank bagi koperasi</div>
+					<div id="component_name"></div>
 				</div>
 				<div class="form-group">
 					<b class="font-weight-bold" class="col-form-label">Target</b>
-					<div>100 Koperasi</div>
+					<div id="target"></div>
 				</div>
 				<div class="form-group">
 					<b class="font-weight-bold">Anggaran (Rp.)</b>
-					<div>871.900.000</div>
+					<div id="budged"></div>
+				</div>
+				<div class="form-group">
+					<b class="font-weight-bold" class="col-form-label">Lokasi</b>
+					<div id="province"></div>
+					<div id="city"></div>
+				</div>
+				<div class="form-group">
+					<b class="font-weight-bold">Rincian Detail</b>
+					<pre id="detail"></pre>
+				</div>
+				<div class="form-group">
+					<b class="font-weight-bold">Keterangan</b>
+					<pre id="description"></pre>
 				</div>
 				<div class="form-group">
 					<div class="form-row">
-						<div class="col-md-6 col-xl-4 mb-2">
+						<div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
 							<b class="font-weight-bold" class="col-form-label pb-0">File TOR</b>
-							<div class="small text-secondary mb-2">*Maksimal 2 file</div>
-							<div>
-								<div class="card mb-2" data-id="${value.id}" data-title="${value.name}">
-									<div class="d-flex align-items-center">
-										<a href="javascript:void(0)" class="d-flex align-items-center text-truncate my-3 ml-3" style="width: 90%">
-											<i class="mdi mdi-24px mdi-file-outline text-dark"></i>
-											<div class="text-primary text-truncate">TOR.docx</div>
-										</a>
-										<i class="mdi mdi-24px mdi-trash-can-outline ml-auto delete delete-attachment px-3" role="button"></i>
-									</div>
-								</div>
-							</div>
-							<button type="button" class="btn btn-sm btn-block btn-outline-primary upload">Upload File</button>
+							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
+							<div id="type-1"></div>
+							<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-1" data-type="1">Upload File</button>
 							<div class="invalid-feedback"></div>
 						</div>
-						<div class="col-md-6 col-xl-4 mb-2">
+						<div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
 							<b class="font-weight-bold" class="col-form-label pb-0">File RAB</b>
-							<div class="small text-secondary mb-2">*Maksimal 2 file</div>
-							<div>
-								<div class="card mb-2" data-id="${value.id}" data-title="${value.name}">
-									<div class="d-flex align-items-center">
-										<a href="javascript:void(0)" class="d-flex align-items-center text-truncate my-3 ml-3" style="width: 90%">
-											<i class="mdi mdi-24px mdi-file-outline text-dark"></i>
-											<div class="text-primary text-truncate">RAB.docx</div>
-										</a>
-										<i class="mdi mdi-24px mdi-trash-can-outline ml-auto delete delete-attachment px-3" role="button"></i>
-									</div>
-								</div>
-								<div class="card mb-2" data-id="${value.id}" data-title="${value.name}">
-									<div class="d-flex align-items-center">
-										<a href="javascript:void(0)" class="d-flex align-items-center text-truncate my-3 ml-3" style="width: 90%">
-											<i class="mdi mdi-24px mdi-file-outline text-dark"></i>
-											<div class="text-primary text-truncate">RAB.xlsx</div>
-										</a>
-										<i class="mdi mdi-24px mdi-trash-can-outline ml-auto delete delete-attachment px-3" role="button"></i>
-									</div>
-								</div>
-							</div>
-							<!-- <button type="button" class="btn btn-sm btn-block btn-outline-primary upload">Upload File</button> -->
+							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
+							<div id="type-2"></div>
+							<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-2" data-type="2">Upload File</button>
 							<div class="invalid-feedback"></div>
 						</div>
 						<div class="col-md-6 col-xl-4 mb-2">
 							<b class="font-weight-bold" class="col-form-label pb-0">File Dukungan Lainnya</b>
-							<div class="small text-secondary mb-2">*Maksimal 5 file</div>
-							<div>
-								<div class="card mb-2" data-id="${value.id}" data-title="${value.name}">
-									<div class="d-flex align-items-center">
-										<a href="javascript:void(0)" class="d-flex align-items-center text-truncate my-3 ml-3" style="width: 90%">
-											<i class="mdi mdi-24px mdi-file-outline text-dark"></i>
-											<div class="text-primary text-truncate">Anggaran.docx</div>
-										</a>
-										<i class="mdi mdi-24px mdi-trash-can-outline ml-auto delete delete-attachment px-3" role="button"></i>
-									</div>
-								</div>
-								<div class="card mb-2" data-id="${value.id}" data-title="${value.name}">
-									<div class="d-flex align-items-center">
-										<a href="javascript:void(0)" class="d-flex align-items-center text-truncate my-3 ml-3" style="width: 90%">
-											<i class="mdi mdi-24px mdi-file-outline text-dark"></i>
-											<div class="text-primary text-truncate">Lainnya.docx</div>
-										</a>
-										<i class="mdi mdi-24px mdi-trash-can-outline ml-auto delete delete-attachment px-3" role="button"></i>
-									</div>
-								</div>
-							</div>
-							<button type="button" class="btn btn-sm btn-block btn-outline-primary upload">Upload File</button>
+							<div class="small text-secondary mb-2">*Maksimal 5 file.</div>
+							<div id="type-3"></div>
+							<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-3" data-type="3">Upload File</button>
 							<div class="invalid-feedback"></div>
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold" class="col-form-label">Lokasi</b>
-					<div>Provinsi Jawa Barat</div>
-					<div>- Kab. Tasikmalaya</div>
-					<div>- Kab. Bandung</div>
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold">Rincian Detail</b>
-					<div>1. Pendampingan = Rp. 70.000.000</div>
-					<div>2. Fasilitasi = Rp. 50.000.000</div>
-					<div>3. Bantuan = Rp. 58.380.000</div>
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold">Keterangan</b>
-					<div>-</div>
+					<input type="file" class="none" id="file">
 				</div>
 				<div class="form-group">
 					<b class="font-weight-bold">Komentar</b>
 					<form class="mt-2" id="form-comment">
 						<div class="d-flex align-items-start mb-3">
-							<img src="{{asset('assets/images/user.png')}}" class="rounded-circle mt-1" width="30" alt="">
+							<img src="https://ui-avatars.com/api/?name={{session('role')}}" class="rounded-circle" width="30" alt="">
 							<div class="input-group ml-3">
-								<input class="form-control" id="comment" placeholder="Tulis komentar...">
-								<div class="input-group-append" id="submit-comment">
-									<button type="button" class="btn btn-sm btn-dark rounded-right">Komentar</button>
+								<textarea class="form-control form-control-sm comment" id="comment" placeholder="Tulis komentar..."></textarea>
+								<div class="input-group-append">
+									<button class="btn btn-sm btn-dark rounded-right" id="submit-comment">Komentar</button>
 								</div>
 								<div class="invalid-feedback"></div>
 							</div>
 						</div>
 					</form>
-					<div id="comment-task">
-						<div class="d-flex align-items-start mb-3" data-id="${value.id}" data-title="${value.comment}">
-							<img src="{{asset('assets/images/user.png')}}" class="rounded-circle mb-1" width="30" alt="">
-							<div class="ml-3">
-								<div><b>Admin</b> <small class="text-secondary">30 Agustus 2021</small></div>
-								<div>Acc</div>
-							</div>
-						</div>
-						<div class="d-flex align-items-start mb-3" data-id="${value.id}" data-title="${value.comment}">
-							<img src="{{asset('assets/images/user.png')}}" class="rounded-circle mb-1" width="30" alt="">
-							<div class="ml-3">
-								<div><b>Deputi Usaha Mikro</b> <small class="text-secondary">29 Agustus 2021</small></div>
-								<div>Oke</div>
-							</div>
-						</div>
-					</div>
+					<div id="comments"></div>
 				</div>
 			</form>
 		</div>
 	</div>
+	<div class="modal" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-sm modal-dialog modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-bottom-0">
+	                <h5 class="modal-title" id="exampleModalLabel">Hapus File</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <i class="mdi mdi-close pr-0"></i>
+	                </button>
+	            </div>
+	            <div class="modal-body">Anda yakin ingin menghapus file <b id="title"></b>?</div>
+	            <div class="modal-footer border-top-0">
+	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+	                <button class="btn btn-danger" id="delete">Hapus</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 @endsection
 
 @section('script')
-	<!-- <script src="{{asset('api/view-rancangan-program.js')}}"></script> -->
-	<script>
-		if (role != 'asdep') $('.upload').hide()
-	</script>
+	<script>const id = {{$id}}</script>
+	<script src="{{asset('assets/js/file.js')}}"></script>
+	<script src="{{asset('api/view-rancangan-anggaran.js')}}"></script>
 @endsection

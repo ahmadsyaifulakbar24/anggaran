@@ -27,7 +27,7 @@
 	        <div class="dropdown ml-auto align-items-center d-flex">
 	        	<a href="{{url('notification')}}" class="text-dark mr-3">
 		            <i class="mdi mdi-24px mdi-bell text-white pr-0"></i>
-		            <span class="badge badge-pill badge-danger position-absolute py-1" id="notification" style="right: 35px">3</span>
+		            <span class="badge badge-pill badge-danger position-absolute py-1" id="notification" style="right: 35px"></span>
 		        </a>
 	            <a id="dropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	            	<img src="https://ui-avatars.com/api/?name={{session('role')}}" class="avatar rounded-circle" width="25">
@@ -35,7 +35,7 @@
 	            <div class="dropdown-menu dropdown-menu-right rounded border-0" aria-labelledby="dropdownMenu">
 	            	<div class="text-center my-3 px-3 text-break">
 		            	<img src="https://ui-avatars.com/api/?name={{session('role')}}" class="avatar rounded-circle" width="75">
-		            	<h6 class="name text-truncate pt-3 mb-0"></h6>
+		            	<h6 class="name pt-3 mb-0"></h6>
 		            	<small class="level text-secondary"></small>
 		            </div>
 		            <div class="dropdown-divider"></div>

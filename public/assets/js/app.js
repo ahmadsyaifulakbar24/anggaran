@@ -10,9 +10,42 @@ if (localStorage.getItem('token') != null) {
             xhr.setRequestHeader('Authorization', `Bearer ${token}`)
         }
     })
-	$('.name').html(name)
-	// $('.avatar').attr('src', localStorage.getItem('photo'))
+    $('.name').html(name)
+    // $('.avatar').attr('src', localStorage.getItem('photo'))
+    $.ajax({
+        url: `${api_url}/notification`,
+        type: 'GET',
+        success: function(result) {
+            // console.log(result.data)
+            let notification = 0
+            $.each(result.data, function(index, value) {
+            	value.read == 0 ? notification++ : ''
+            })
+            if (notification > 0) {
+            	$('#notification').html(notification > 9 ? '9+' : notification)
+            }
+        }
+    })
 }
+
+$(document).on('keydown', 'input', function() {
+    $(this).removeClass('is-invalid')
+})
+$(document).on('keydown', 'textarea', function() {
+    $(this).removeClass('is-invalid')
+})
+$(document).on('change', 'select', function() {
+    $(this).removeClass('is-invalid')
+})
+$(document).on('click', 'input[name="gender"]', function() {
+    $('#gender').removeClass('is-invalid')
+})
+$(document).on('change', 'input[type="date"]', function() {
+    $(this).removeClass('is-invalid')
+})
+$(document).on('click', '.dropdown .dropdown-menu', function(e) {
+    e.stopPropagation()
+})
 
 // param is in login.js line 1
 function logout(param) {
@@ -58,19 +91,21 @@ function customAlert(status, param) {
         case 'trash':
             icon = '<i class="mdi mdi-18px mdi-trash-can-outline"></i>'
     }
+
+    let timeout = setTimeout(function() {
+        $('.customAlert').removeClass('active')
+        $('.customAlert').animate({ bottom: "-=120px" }, 150)
+    }, 2000)
+
     if ($('.customAlert').hasClass('active')) {
+        clearTimeout(timeout)
         $('.customAlert').removeClass('active')
         $('.customAlert').animate({ bottom: "-=120px" }, 150)
     }
+    timeout
     $('.customAlert').html(icon + param)
     $('.customAlert').addClass('active')
     $('.customAlert').animate({ bottom: "+=120px" }, 150)
-    if (status != 'warning') {
-        setTimeout(function() {
-            $('.customAlert').removeClass('active')
-            $('.customAlert').animate({ bottom: "-=120px" }, 150)
-        }, 2500)
-    }
 }
 
 function tanggal(date) {
@@ -99,18 +134,18 @@ function bulan(month) {
 
 function bulan_tahun(month, year) {
     let bulan = []
-    bulan['01'] = 'Januari'
-    bulan['02'] = 'Februari'
-    bulan['03'] = 'Maret'
-    bulan['04'] = 'April'
+    bulan['01'] = 'Jan'
+    bulan['02'] = 'Feb'
+    bulan['03'] = 'Mar'
+    bulan['04'] = 'Apr'
     bulan['05'] = 'Mei'
-    bulan['06'] = 'Juni'
-    bulan['07'] = 'Juli'
-    bulan['08'] = 'Agustus'
-    bulan['09'] = 'September'
-    bulan['10'] = 'Oktober'
-    bulan['11'] = 'November'
-    bulan['12'] = 'Desember'
+    bulan['06'] = 'Jun'
+    bulan['07'] = 'Jul'
+    bulan['08'] = 'Agu'
+    bulan['09'] = 'Sep'
+    bulan['10'] = 'Okt'
+    bulan['11'] = 'Nov'
+    bulan['12'] = 'Des'
     return `${bulan[month]} ${year}`
 }
 
@@ -321,34 +356,54 @@ $(document).on('keyup', '.rupiah', function() {
     $(this).val(convert(value))
 })
 
-function status_training(param) {
+function status(param) {
+	let status = ''
     switch (param) {
-        case 'publish':
-            return 'Aktif'
-        case 'unpublish':
-            return 'Selesai'
+        case 'pending':
+            status = '<span class="text-warning">Pending</span>'
+            break;
+        case 'accept':
+            status = '<span class="text-primary">Disetujui</span>'
+            break;
+        case 'decline':
+            status = '<span class="text-danger">Ditolak</span>'
+            break;
+        case null:
+            status = ''
     }
+    return status
 }
 
-function question_companion(param) {
+function notification_status(param) {
+	let status = ''
     switch (param) {
-        case 'yes':
-            return 'Pernah'
-        case 'no':
-            return 'Belum'
+        case 'create work plan':
+            status = 'Membuat kegiatan'
+            break;
+        case 'accept work plan':
+            status = 'Menyetujui kegiatan'
+            break;
+        case 'pending work plan':
+            status = 'Mengajukan kegiatan'
+            break;
+        case 'decline work plan':
+            status = 'Menolak kegiatan'
     }
+    return status
 }
 
 function icon(param) {
     let icon
     if (param == 'jpg' || param == 'jpeg' || param == 'png') {
-        icon = 'mdi-image-outline'
+        icon = 'mdi-file-image-outline'
     } else if (param == 'xls' || param == 'xlsx' || param == 'csv') {
-        icon = 'mdi-file-excel-box-outline'
+        icon = 'mdi-file-excel-outline'
     } else if (param == 'doc' || param == 'docx') {
-        icon = 'mdi-file-word-box-outline'
+        icon = 'mdi-file-word-outline'
     } else if (param == 'pdf') {
-        icon = 'mdi-file-pdf-box-outline'
+        icon = 'mdi-file-pdf-outline'
+    } else {
+    	icon = 'mdi-file-outline'
     }
     return icon
 }

@@ -5,7 +5,7 @@
 @section('content')
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
-			<h4>Buat Kegiatan</h4>
+			<h4>Ubah Kegiatan</h4>
 		</div>
 		<div class="card card-custom">
 			<form class="card-body">
@@ -96,19 +96,7 @@
 							<div class="invalid-feedback"></div>
 						</div>
 						<div class="col-md-6">
-							<div id="location">
-								<div class="d-flex align-items-start mb-2">
-									<div class="col px-0">
-										<select class="custom-select city_id" role="button">
-											<option value="" disabled selected>Pilih Kab/Kota</option>
-										</select>
-										<div class="invalid-feedback">Pilih kab/kota.</div>
-									</div>
-									<div class="col-1 pt-1">
-										<i class="mdi mdi-18px mdi-trash-can-outline remove-location pr-0" role="button"></i>
-									</div>
-								</div>
-							</div>
+							<div id="location"></div>
 							<div class="btn btn-sm btn-block btn-outline-primary" onclick="return add_location()">Tambah Lokasi</div>
 						</div>
 					</div>
@@ -132,6 +120,7 @@
 @endsection
 
 @section('script')
+	<script>const id = {{$id}}</script>
 	<script src="{{asset('assets/js/number.js')}}"></script>
-	<script src="{{asset('api/create-rancangan-anggaran.js')}}"></script>
+	<script src="{{asset('api/edit-rancangan-anggaran.js')}}"></script>
 @endsection
