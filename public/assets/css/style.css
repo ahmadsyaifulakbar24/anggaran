@@ -25,13 +25,17 @@ h6,
 th,
 button,
 label,
-pre,
 .btn,
 .sidebar,
 .compose,
 .dropdown-item,
 .navbar-brand {
     font-family: 'DM Sans', sans-serif;
+}
+
+pre {
+	font-size: 14px;
+	font-family: sans-serif;
 }
 
 a:hover {
@@ -93,14 +97,10 @@ a:hover {
 }
 
 .notification {
-    position: absolute;
-    top: 8px;
-    left: 25px;
-    width: 15px;
-    height: 15px;
-    border: 3px solid #f8f9fa;
-    border-radius: 50%;
-    background-color: #007bff;
+	border-radius: 6px;
+}
+.notification:hover {
+	background-color: #eee;
 }
 
 .main {
@@ -421,6 +421,13 @@ td:last-child {
     top: 0;
     right: 0;
     padding: 15px;
+}
+
+textarea.comment {
+	height: 33px;
+	min-height: 33px;
+	overflow: hidden;
+	resize: none;
 }
 
 
