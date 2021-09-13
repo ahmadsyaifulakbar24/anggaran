@@ -23,7 +23,7 @@ class WorkPlanResource extends JsonResource
             'program_id' => $this->program_id,
             'kro' => new KroResource($this->kro),
             'ro' => new RoResource($this->ro),
-            'component_code' => $this->compent_code,
+            'component_code' => $this->component_code,
             'component_name' => $this->component_name,
             'title' => $this->title,
             'total_target' => $this->total_target,

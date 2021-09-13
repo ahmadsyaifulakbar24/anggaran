@@ -22,6 +22,11 @@ Route::namespace('API')->group(function () {
     Route::post('auth/login', 'Auth\LoginController');
     
     Route::middleware('auth:sanctum')->group(function () {
+        Route::namespace('Param')->group(function() {
+            Route::get('province', 'GetParamController@provinsi');
+            Route::get('city', 'GetParamController@city');
+        });
+        
         Route::namespace('Auth')->prefix('auth')->group(function () {
             Route::post('/logout', 'LogoutController');
             Route::get('/user', 'UserController@fetch');
