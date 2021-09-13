@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="container">
-		<section class="mb-4" id="admin">
+		<section class="border-bottom pb-4 mb-4" id="admin">
 			<h5>Deputi Bidang Perkoperasian</h5>
 			<table class="w-25">
 				<tr>
@@ -44,7 +44,7 @@
 				@endfor
 			</div>
 		</section>
-		<section class="border-top mb-4" id="deputi">
+		<section class="mb-4" id="deputi">
 			<h5>Deputi Bidang Usaha Mikro</h5>
 			<table class="w-25">
 				<tr>
