@@ -88,6 +88,7 @@
 				<div class="form-group">
 					<label for="total_target" class="col-form-label">Lokasi</label>
 					<div class="form-row">
+<<<<<<< Updated upstream
 						<div class="col-md-6 mb-2">
 							<select class="custom-select" id="province_id" role="button">
 								<option value="" disabled selected>Pilih Lokasi</option>
@@ -110,6 +111,27 @@
 								</div>
 							</div>
 							<div class="btn btn-sm btn-block btn-outline-primary" onclick="return add_location()">Tambah Lokasi</div>
+=======
+						<div class="col-xl-4 mb-1">
+							<select class="custom-select" id="province_id">
+								<option value="" disabled selected>Pilih Lokasi</option>
+								<option value="1">Pusat</option>
+								<option value="2">Prov. Aceh</option>
+								<option value="3">Prov. Sumatera Barat</option>
+								<option value="4">Prov. Sumatera Utara</option>
+							</select>
+							<div class="invalid-feedback"></div>
+						</div>
+						<div class="col-xl-4">
+							<select class="custom-select" id="province_id">
+								<option value="" disabled selected>Pusat</option>
+								<option value="1">KEMENKOP UKM</option>
+								<option value="2">LPDB</option>
+								<option value="3">LLP KUKM</option>
+							</select>
+							<div class="invalid-feedback"></div>
+							<button type="button" class="btn btn-sm btn-block btn-outline-primary mt-2">Tambah Lokasi</button>
+>>>>>>> Stashed changes
 						</div>
 					</div>
 				</div>
