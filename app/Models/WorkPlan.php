@@ -11,6 +11,7 @@ class WorkPlan extends Model
         'user_id',
         'unit_id',
         'program_id',
+        'type_kro',
         'kro_id',
         'ro_id',
         'component_code',

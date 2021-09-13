@@ -18,6 +18,7 @@ class CreateWorkPlansTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('program_id')->constrained('programs')->onUpdate('cascade');
+            $table->enum('type_kro', ['pn', 'no_pn']);
             $table->bigInteger('kro_id')->unsigned();
             $table->bigInteger('ro_id')->unsigned();
             $table->string('component_code');

@@ -31,6 +31,7 @@ class WorkPlanDetailResource extends JsonResource
                 'name' => $this->unit->name,
             ],
             'program' => new ProgramResource($this->program),
+            'type_kro' => $this->type_kro,
             'kro' => new KroResource($this->kro),
             'ro' => new RoResource($this->ro),
             'component_code' => $this->compent_code,

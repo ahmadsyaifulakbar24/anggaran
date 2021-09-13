@@ -24,6 +24,7 @@ class UpdateWorkPlanController extends Controller
                     return $query->where('program_type', 'activity');
                 })
             ],
+            'type_kro' => ['required', 'in:pn,non_pn'],
             'kro_id' => ['required', 'exists:kro,id'],
             'code_ro' => ['required', 'string'],
             'name_ro' => ['required', 'string'],
