@@ -18,10 +18,6 @@
 					<input class="form-control" id="username"></select>
 				</div>
 				<div class="form-group">
-					<label for="unit_id">Unit</label>
-					<input class="form-control" id="unit_id"></select>
-				</div>
-				<div class="form-group">
 					<label for="password">Password</label>
 					<input type="password" class="form-control" id="password"></select>
 				</div>
