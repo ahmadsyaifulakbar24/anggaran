@@ -14,7 +14,7 @@ class DeleteWorkPlanController extends Controller
 
     public function __invoke(WorkPlan $work_plan)
     {
-        
+        $file_managers = [];
         foreach($work_plan->file_manager as $file_manager) {
             $file_managers[] = $file_manager->file;
         }

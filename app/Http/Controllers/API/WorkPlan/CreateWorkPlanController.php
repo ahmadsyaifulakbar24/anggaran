@@ -4,8 +4,7 @@ namespace App\Http\Controllers\API\WorkPlan;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\WorkPlan\WorkPlanRequest;
-use App\Http\Resources\WorkPlan\WorkPlanResource;
+use App\Http\Resources\WorkPlan\WorkPlanDetailResource;
 use App\Models\CodeRo;
 use App\Models\WorkPlan;
 use Illuminate\Http\Request;
@@ -90,7 +89,7 @@ class CreateWorkPlanController extends Controller
         ]);
 
         return ResponseFormatter::success(
-            new WorkPlanResource($work_plan),
+            new WorkPlanDetailResource($work_plan),
             'success create work plan data'
         );
     }
