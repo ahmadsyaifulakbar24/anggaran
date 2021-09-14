@@ -21,7 +21,7 @@
 				</div>
 				@endif
 				<div>
-					<input type="search" class="form-control form-control-sm" placeholder="Cari Nama Kegiatan">
+					<input id="search" class="form-control form-control-sm" placeholder="Cari Nama Kegiatan">
 				</div>
 			</div>
 			<div class="table-responsive">
@@ -41,6 +41,17 @@
 						</tr>
 					</thead>
 					<tbody id="table"></tbody>
+					<tbody id="table-loading" class="none">
+						<tr>
+							<td>
+								<div class="loader loader-sm">
+									<svg class="circular" viewBox="25 25 50 50">
+										<circle class="path-dark" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"/>
+									</svg>
+								</div>
+							</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>

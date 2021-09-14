@@ -1,9 +1,15 @@
-get_data()
+get_data('')
 
-function get_data() {
+function get_data(search) {
+    $('#table').empty()
+    $('#table-loading').hide()
     $.ajax({
         url: `${root}/api/work_plan`,
         type: 'GET',
+        data: {
+            user_id: user,
+            search,
+        },
         success: function(result) {
             // console.log(result.data)
             if (result.data.length > 0) {
@@ -37,7 +43,7 @@ function get_data() {
                 })
             } else {
                 append = `<tr>
-					<td colspan="20">Data tidak ditemukan.</td>
+					<td colspan="20">${search != '' ? `Pencarian <b>"${search}"</b>` : 'Data'} tidak ditemukan.</td>
 				</tr>`
                 $('#table').append(append)
             }
@@ -67,6 +73,16 @@ function get_data() {
         }
     })
 }
+
+$(document).on('keyup', '#search', function(e) {
+    $('#table').empty()
+    $('#table-loading').show()
+})
+
+$(document).on('keyup', '#search', delay(function(e) {
+	let value = $(this).val()
+	get_data(value)
+}, 500))
 
 $(document).on('click', '.delete', function(e) {
     let id = $(this).parents('tr').attr('data-id')
