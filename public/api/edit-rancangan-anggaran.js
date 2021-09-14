@@ -143,7 +143,7 @@ function get_data() {
         type: 'GET',
         data: { id },
         success: function(result) {
-            console.log(result.data)
+            // console.log(result.data)
             let value = result.data
             $('#parent').val(value.program.parent.id)
             get_kegiatan(value.program.parent.id, value.program.id)
