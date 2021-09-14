@@ -68,6 +68,10 @@ Route::namespace('API')->group(function () {
         Route::namespace('User')->prefix('user')->group(function() {
             Route::post('add_asdep', 'CreateUserController@user_asdep');
             Route::post('reset_password', 'ResetPasswordController');
+            Route::patch('update/{user:id}', 'UpdateUserController@update_data');
+            Route::patch('reset_password/{user:id}', 'UpdateUserController@reset_password');
+            Route::delete('delete/{user:id}', 'DeleteUserController');
+            Route::get('/', 'GetUserController@fetch');
         });
 
         Route::namespace('Notification')->prefix('notification')->group(function() {
