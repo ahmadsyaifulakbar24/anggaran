@@ -32,7 +32,7 @@ $.ajax({
 				<div class="ml-3">
 					<div class="font-weight-bold">${value.user.name}</div>
 					<pre class="mb-0">${value.comment}</pre>
-					<small class="pr-1 text-secondary">13 Sep 2021</small>
+					<small class="pr-1 text-secondary">${tanggal(value.created_at)}</small>
 					${value.user.id == user ? check : ''}
 				</div>
 			</div>`
@@ -73,7 +73,7 @@ $('#form-comment').submit(function(e) {
 				<div class="ml-3">
 					<div class="font-weight-bold">${value.user.name}</div>
 					<pre class="mb-0">${value.comment}</pre>
-					<small class="pr-1 text-secondary">13 Sep 2021</small>
+					<small class="pr-1 text-secondary">${tanggal(value.created_at)}</small>
 					${value.user.id == user ? check : ''}
 				</div>
 			</div>`
