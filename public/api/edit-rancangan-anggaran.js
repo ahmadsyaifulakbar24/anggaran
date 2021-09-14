@@ -143,7 +143,7 @@ function get_data() {
         type: 'GET',
         data: { id },
         success: function(result) {
-            // console.log(result.data)
+            console.log(result.data)
             let value = result.data
             $('#parent').val(value.program.parent.id)
             get_kegiatan(value.program.parent.id, value.program.id)
@@ -213,8 +213,8 @@ $('form').submit(function(e) {
 	    })
     })
     $.ajax({
-        url: `${root}/api/work_plan`,
-        type: 'POST',
+        url: `${root}/api/work_plan/${id}`,
+        type: 'PATCH',
         data: {
             program_id: $('#program_id').val(),
             type_kro: $('#type_kro').val(),
@@ -234,13 +234,13 @@ $('form').submit(function(e) {
         },
         success: function(result) {
             // console.log(result.data)
-            customAlert('success', 'Kegiatan berhasil dibuat.')
+            customAlert('success', 'Kegiatan berhasil diubah.')
             setTimeout(function() {
                 location.href = `${root}/rancangan-anggaran/${result.data.id}`
             }, 1000)
         },
         error: function(xhr) {
-            console.log(xhr)
+            // console.log(xhr)
             let err = xhr.responseJSON.errors
             if (err.program_id) {
                 $('#program_id').addClass('is-invalid')
