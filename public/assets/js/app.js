@@ -5,13 +5,13 @@ const role = localStorage.getItem('role')
 // const photo = localStorage.getItem('photo')
 
 if (localStorage.getItem('token') != null) {
+    $('.name').html(name)
+    $('.avatar').attr('src', `https://ui-avatars.com/api/?name=${localStorage.getItem('name')}`)
     $.ajaxSetup({
         beforeSend: function(xhr) {
             xhr.setRequestHeader('Authorization', `Bearer ${token}`)
         }
     })
-    $('.name').html(name)
-    // $('.avatar').attr('src', localStorage.getItem('photo'))
     $.ajax({
         url: `${api_url}/notification`,
         type: 'GET',
