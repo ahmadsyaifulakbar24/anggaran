@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\Kro\KroController;
-use App\Http\Controllers\API\Ro\RoController;
-use App\Http\Controllers\API\User\CreateUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,7 +58,7 @@ Route::namespace('API')->group(function () {
             Route::get('/', 'KroController@fetch');
         });
 
-        Route::namespace('ro')->prefix('ro')->group(function() {
+        Route::namespace('Ro')->prefix('ro')->group(function() {
             Route::get('/', 'RoController@fetch');
         });
 
