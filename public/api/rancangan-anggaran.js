@@ -1,49 +1,110 @@
-get_data('')
+$.ajax({
+    url: `${root}/api/user`,
+    type: 'GET',
+    data: {
+        id: user
+    },
+    success: function(result) {
+        // console.log(result.data)
+        let value = result.data
+        $unit_id = null
+        if (value.role == 'admin') {
+            get_unit('deputi')
+        } else if (value.role == 'deputi') {
+	        $unit_id = value.unit_id
+            get_unit('asdep')
+        } else if (value.role == 'asdep') {
+            get_data()
+        }
+    }
+})
 
-function get_data(search) {
+function get_unit(role) {
+    $.ajax({
+        url: `${root}/api/user`,
+        type: 'GET',
+        data: { role },
+        success: function(result) {
+            // console.log(result.data)
+            $.each(result.data, function(index, value) {
+                append = `<option value="${value.unit_id}">${value.name}</option>`
+                $('#view-as').append(append)
+            })
+        }
+    })
+}
+
+function get_data(search, unit_id) {
     $('#table').empty()
     $('#table-loading').hide()
+    let data = null
+    if (unit_id != undefined) {
+    	data = {
+    		unit_id,
+    		search
+    	}
+    } else {
+    	data = {
+            user_id: user,
+    		search
+    	}
+    }
     $.ajax({
         url: `${root}/api/work_plan`,
         type: 'GET',
-        data: {
-            user_id: user,
-            search,
-        },
+        data: data,
         success: function(result) {
             // console.log(result.data)
             if (result.data.length > 0) {
                 $.each(result.data, function(index, value) {
+                    deputi_status = ''
+                    admin_status = ''
+                    if (value.deputi_status != 'accept') {
+                        deputi_status = `
+                        <a href="${root}/rancangan-anggaran/edit/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
+						<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
+                    }
+                    if (value.deputi_status == 'pending') {
+                    	if(value.unit_id == $unit_id) {
+	                        deputi_status += `
+	                        <button class="btn btn-sm btn-primary status mr-2" data-status="accept">Setujui</button>
+							<button class="btn btn-sm btn-danger status mr-2" data-status="decline">Tolak</button>`
+						}
+                    }
+                    if (value.admin_status == 'pending') {
+                    	if($unit_id == null) {
+							admin_status = `
+							<button class="btn btn-sm btn-primary status mr-2" data-status="accept">Setujui</button>
+							<button class="btn btn-sm btn-danger status mr-2" data-status="decline">Tolak</button>`
+						}
+                    }
                     // title = `${value.program.parent.code_program}/`
                     // title += `${value.program.code_program}/`
                     title = `${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`
                     title += `${value.ro.code_ro}/`
                     title += `${value.component_code}`
-                    append = `<tr class="deputi1 asdep1" data-id="${value.id}" data-title="${value.component_name}">
-					<td class="text-center">${index + 1}.</td>
-					<td class="text-truncate">${title}</td>
-					<td class="text-truncatee"><a href="${root}/rancangan-anggaran/${value.id}">${value.component_name}</a></td>
-					<td class="text-truncate">${value.total_target} ${value.unit_target}</td>
-					<td class="text-truncate">${convert(value.budged)}</td>
-					<td class="text-truncate unit">Deputi Perkoperasian</td>
-					<td class="text-truncate pengguna">Asdep Perkoperasian Syariah</td>
-					<td class="text-danger status">${status(value.deputi_status)}</td>
-					<td class="text-danger admin_status">${status(value.admin_status != null ? value.admin_status : '')}</td>
-					<td>
-						<div class="d-flex">
-							<button class="btn btn-sm btn-primary accept mr-2">Setujui</button>
-							<button class="btn btn-sm btn-danger decline mr-2">Tolak</button>
-							<button class="btn btn-sm btn-warning request mr-2">Ajukan</button>
-							<a href="${root}/rancangan-anggaran/edit/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
-							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
-						</div>
-					</td>
-				</tr>`
+                    append = `<tr data-id="${value.id}" data-title="${value.component_name}">
+						<td class="text-center">${index + 1}.</td>
+						<td class="text-truncate">${title}</td>
+						<td class="text-truncatee"><a href="${root}/rancangan-anggaran/${value.id}">${value.component_name}</a></td>
+						<td class="text-truncate">${value.total_target} ${value.unit_target}</td>
+						<td class="text-truncate">${convert(value.budged)}</td>
+						<td class="text-truncate unit">Deputi Bidang Perkoperasian</td>
+						<td class="text-truncate pengguna">Asdep</td>
+						<td class="text-danger deputi_status">${status(value.deputi_status)}</td>
+						<td class="text-danger admin_status">${status(value.admin_status != null ? value.admin_status : '')}</td>
+						<td>
+							<div class="d-flex">
+								${deputi_status}
+								${admin_status}
+							</div>
+						</td>
+					</tr>`
                     $('#table').append(append)
                 })
             } else {
                 append = `<tr>
-					<td colspan="20">${search != '' ? `Pencarian <b>"${search}"</b>` : 'Data'} tidak ditemukan.</td>
+					<td colspan="20">${search != undefined && search != '' ? `Pencarian <b>"${search}"</b>` : 'Data'} tidak ditemukan.</td>
 				</tr>`
                 $('#table').append(append)
             }
@@ -51,7 +112,7 @@ function get_data(search) {
         complete: function() {
             if (role == 'admin') {
                 $('.create').remove()
-                $('.status').remove()
+                $('.deputi_status').remove()
                 $('.edit').remove()
                 $('.delete').remove()
                 $('.request').remove()
@@ -73,16 +134,6 @@ function get_data(search) {
         }
     })
 }
-
-$(document).on('keyup', '#search', function(e) {
-    $('#table').empty()
-    $('#table-loading').show()
-})
-
-$(document).on('keyup', '#search', delay(function(e) {
-	let value = $(this).val()
-	get_data(value)
-}, 500))
 
 $(document).on('click', '.delete', function(e) {
     let id = $(this).parents('tr').attr('data-id')
@@ -113,3 +164,62 @@ $(document).on('click', '#delete', function(e) {
         }
     })
 })
+
+$(document).on('click', '.status', function(e) {
+	let id = $(this).parents('tr').attr('data-id')
+	let status = $(this).attr('data-status')
+	let formData = new FormData()
+	formData.append('status', status)
+	formData.append('comment', 'Oke')
+    $.ajax({
+        url: `${root}/api/work_plan/status/${id}`,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        complete: function(result) {
+            // console.log(result.data)
+            $unit_id != null ? get_data('', $unit_id) : get_data('', '')
+            // $('#modal-delete').modal('hide')
+            if (status == 'accept') {
+	            customAlert('success', 'Kegiatan disetujui.')
+            } else {
+	            customAlert('danger', 'Kegiatan ditolak.')
+            }
+        },
+        error: function(xhr) {
+            console.log(xhr)
+            let err = xhr.responseJSON.errors
+        }
+    })
+})
+
+$(document).on('keyup', '#search', function(e) {
+    $('#table').empty()
+    $('#table-loading').show()
+})
+
+$(document).on('keyup', '#search', delay(function(e) {
+    let value = $(this).val()
+    get_data(value)
+}, 500))
+
+if (role == 'admin' || role == 'deputi') {
+    $('#modal-view').modal('show')
+    if (role == 'admin') {
+        $('.option-asdep').remove()
+    } else {
+        $('.option-deputi').remove()
+    }
+    $('form').submit(function(e) {
+        e.preventDefault()
+        $('#card').show()
+        $('#modal-view').modal('hide')
+        let val = $('#view-as').val()
+        let text = $('#view-as option:selected').text()
+        $('#view').html(text)
+        get_data('', val)
+    })
+} else {
+    $('#card').show()
+}

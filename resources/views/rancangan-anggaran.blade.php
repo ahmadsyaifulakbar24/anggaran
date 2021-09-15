@@ -35,7 +35,7 @@
 							<th class="text-truncate">Anggaran (Rp.)</th>
 							<th class="text-truncate unit">Unit</th>
 							<th class="text-truncate pengguna">Pengguna</th>
-							<th class="text-truncate status">Status</th>
+							<th class="text-truncate deputi_status">Status</th>
 							<th class="text-truncate admin_status">Status Admin</th>
 							<th colspan="2"></th>
 						</tr>
@@ -67,12 +67,8 @@
 						<div class="form-group">
 							<label for="title">Akun</label>
 							<select class="custom-select" id="view-as" role="button">
-								<option class="option-deputi" value="all-deputi">Semua Deputi</option>
-								<option class="option-deputi" value="deputi1">Deputi Bidang Perkoperasian</option>
-								<option class="option-deputi" value="deputi2">Deputi Bidang Usaha Mikro</option>
-								<option class="option-asdep" value="all-asdep">Semua Asdep</option>
-								<option class="option-asdep" value="asdep1">Asdep Perkoperasian Syariah</option>
-								<option class="option-asdep" value="asdep2">Asdep Pengembangan Mikro Daerah</option>
+								<option class="option-deputi" value="">Semua Deputi</option>
+								<option class="option-asdep" value="">Semua Asdep</option>
 							</select>
 							<div class="invalid-feedback"></div>
 						</div>
@@ -106,43 +102,4 @@
 @section('script')
 	<script src="{{asset('assets/js/number.js')}}"></script>
 	<script src="{{asset('api/rancangan-anggaran.js')}}"></script>
-	<script>
-		if (role == 'admin' || role == 'deputi') {
-			$('#modal-view').modal('show')
-			if (role == 'admin') {
-				$('.option-asdep').remove()
-			} else {
-				$('.option-deputi').remove()
-			}
-			$('form').submit(function(e) {
-				e.preventDefault()
-				$('#card').show()
-				$('#modal-view').modal('hide')
-				let val = $('#view-as').val()
-				let text = $('#view-as option:selected').text()
-				$('#view').html(text)
-				if (val == 'all-deputi') {
-					$('.deputi1').show()
-					$('.deputi2').show()
-				} else if (val == 'deputi1') {
-					$('.deputi1').show()
-					$('.deputi2').hide()
-				} else if (val == 'deputi2') {
-					$('.deputi1').hide()
-					$('.deputi2').show()
-				} else if (val == 'all-asdep') {
-					$('.asdep1').show()
-					$('.asdep2').show()
-				} else if (val == 'asdep1') {
-					$('.asdep1').show()
-					$('.asdep2').hide()
-				} else if (val == 'asdep2') {
-					$('.asdep1').hide()
-					$('.asdep2').show()
-				}
-			})
-		} else {
-			$('#card').show()
-		}
-	</script>
 @endsection
