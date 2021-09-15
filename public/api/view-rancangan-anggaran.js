@@ -26,14 +26,14 @@ $.ajax({
         })
 
         $.each(result.data.comment, function(index, value) {
-            check = `<i class="mdi ${value.read == 0 ? 'mdi-check text-secondary' : 'mdi-check-all text-primary'} pr-0"></i>`
+            // check = `<i class="mdi ${value.read == 0 ? 'mdi-check text-secondary' : 'mdi-check-all text-primary'} pr-0"></i>`
             append = `<div class="d-flex align-items-start mb-3">
 				<img src="https://ui-avatars.com/api/?name=${value.user.name}" class="rounded-circle mb-1" width="30" alt="">
 				<div class="ml-3">
 					<div class="font-weight-bold">${value.user.name}</div>
 					<pre class="mb-0">${value.comment}</pre>
-					<small class="pr-1 text-secondary">13 Sep 2021</small>
-					${value.user.id == user ? check : ''}
+					<small class="pr-1 text-secondary">${tanggal(value.created_at)}</small>
+					${value.user.id == user ? '' : ''}
 				</div>
 			</div>`
             $('#comments').prepend(append)
@@ -67,14 +67,14 @@ $('#form-comment').submit(function(e) {
         success: function(result) {
             // console.log(result.data)
             let value = result.data
-            let check = `<i class="mdi mdi-check"></i>`
+            // let check = `<i class="mdi mdi-check"></i>`
             let append = `<div class="d-flex align-items-start mb-3">
 				<img src="https://ui-avatars.com/api/?name=${value.user.name}" class="rounded-circle mb-1" width="30" alt="">
 				<div class="ml-3">
 					<div class="font-weight-bold">${value.user.name}</div>
 					<pre class="mb-0">${value.comment}</pre>
-					<small class="pr-1 text-secondary">13 Sep 2021</small>
-					${value.user.id == user ? check : ''}
+					<small class="pr-1 text-secondary">${tanggal(value.created_at)}</small>
+					${value.user.id == user ? '' : ''}
 				</div>
 			</div>`
             $('#comments').prepend(append)

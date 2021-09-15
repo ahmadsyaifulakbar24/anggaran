@@ -68,7 +68,7 @@
 					<b class="font-weight-bold">Komentar</b>
 					<form class="mt-2" id="form-comment">
 						<div class="d-flex align-items-start mb-3">
-							<img src="https://ui-avatars.com/api/?name={{session('role')}}" class="rounded-circle" width="30" alt="">
+							<img class="avatar rounded-circle" width="30" alt="">
 							<div class="input-group ml-3">
 								<textarea class="form-control form-control-sm comment" id="comment" placeholder="Tulis komentar..."></textarea>
 								<div class="input-group-append">

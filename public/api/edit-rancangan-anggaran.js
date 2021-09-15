@@ -213,8 +213,8 @@ $('form').submit(function(e) {
 	    })
     })
     $.ajax({
-        url: `${root}/api/work_plan`,
-        type: 'POST',
+        url: `${root}/api/work_plan/${id}`,
+        type: 'PATCH',
         data: {
             program_id: $('#program_id').val(),
             type_kro: $('#type_kro').val(),
@@ -234,13 +234,13 @@ $('form').submit(function(e) {
         },
         success: function(result) {
             // console.log(result.data)
-            customAlert('success', 'Kegiatan berhasil dibuat.')
+            customAlert('success', 'Kegiatan berhasil diubah.')
             setTimeout(function() {
                 location.href = `${root}/rancangan-anggaran/${result.data.id}`
             }, 1000)
         },
         error: function(xhr) {
-            console.log(xhr)
+            // console.log(xhr)
             let err = xhr.responseJSON.errors
             if (err.program_id) {
                 $('#program_id').addClass('is-invalid')
@@ -263,8 +263,14 @@ $('form').submit(function(e) {
                 $('#name_ro').siblings('.invalid-feedback').html('Masukkan nama RO.')
             }
             if (err.component_code) {
-                $('#component_code').addClass('is-invalid')
-                $('#component_code').siblings('.invalid-feedback').html('Masukkan kode komponen.')
+	            if (err.component_code == "The component code has already been taken.") {
+	                $('#component_code').addClass('is-invalid')
+	                $('#component_code').siblings('.invalid-feedback').html('Kode komponen telah digunakan.')
+	            }
+	            else if (err.component_code == "The component code field is required.") {
+	                $('#component_code').addClass('is-invalid')
+	                $('#component_code').siblings('.invalid-feedback').html('Masukkan kode komponen.')
+	            }
             }
             if (err.component_name) {
                 $('#component_name').addClass('is-invalid')

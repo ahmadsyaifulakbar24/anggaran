@@ -19,7 +19,7 @@ function number(rupiah) {
 }
 
 function rupiah(param) {
-	return 'Rp.' + new Intl.NumberFormat('id-ID').format(param)
+	return 'Rp' + new Intl.NumberFormat('id-ID').format(param)
 }
 
 function persentase(param) {

@@ -217,8 +217,14 @@ $('form').submit(function(e) {
                 $('#name_ro').siblings('.invalid-feedback').html('Masukkan nama RO.')
             }
             if (err.component_code) {
-                $('#component_code').addClass('is-invalid')
-                $('#component_code').siblings('.invalid-feedback').html('Masukkan kode komponen.')
+	            if (err.component_code == "The component code has already been taken.") {
+	                $('#component_code').addClass('is-invalid')
+	                $('#component_code').siblings('.invalid-feedback').html('Kode komponen telah digunakan.')
+	            }
+	            else if (err.component_code == "The component code field is required.") {
+	                $('#component_code').addClass('is-invalid')
+	                $('#component_code').siblings('.invalid-feedback').html('Masukkan kode komponen.')
+	            }
             }
             if (err.component_name) {
                 $('#component_name').addClass('is-invalid')
