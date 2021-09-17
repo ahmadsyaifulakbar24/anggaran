@@ -1,23 +1,25 @@
-$.ajax({
-    url: `${root}/api/user`,
-    type: 'GET',
-    data: {
-        id: user
-    },
-    success: function(result) {
-        // console.log(result.data)
-        let value = result.data
-        $unit_id = null
-        if (value.role == 'admin') {
-            get_unit('deputi')
-        } else if (value.role == 'deputi') {
-	        $unit_id = value.unit_id
-            get_unit('asdep')
-        } else if (value.role == 'asdep') {
-            get_data()
+if (role == 'admin' || role == 'deputi') {
+    $.ajax({
+        url: `${root}/api/user`,
+        type: 'GET',
+        data: {
+            id: user
+        },
+        success: function(result) {
+            // console.log(result.data)
+            let value = result.data
+            $unit_id = value.unit_id
+            if (value.role == 'admin') {
+                get_unit('deputi')
+            } else if (value.role == 'deputi') {
+                get_unit('asdep')
+            }
         }
-    }
-})
+    })
+} else {
+    get_data()
+    $('#card').show()
+}
 
 function get_unit(role) {
     $.ajax({
@@ -34,20 +36,20 @@ function get_unit(role) {
     })
 }
 
-function get_data(search, unit_id) {
+function get_data(unit_id = null, search = null) {
     $('#table').empty()
     $('#table-loading').hide()
     let data = null
-    if (unit_id != undefined) {
-    	data = {
-    		unit_id,
-    		search
-    	}
+    if (unit_id != null) {
+        data = {
+            unit_id,
+            search
+        }
     } else {
-    	data = {
+        data = {
             user_id: user,
-    		search
-    	}
+            search
+        }
     }
     $.ajax({
         url: `${root}/api/work_plan`,
@@ -65,22 +67,22 @@ function get_data(search, unit_id) {
 						<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
                     }
                     if (value.deputi_status == 'pending') {
-                    	if(value.unit_id == $unit_id) {
-	                        deputi_status += `
+                        if (value.user.id != user) {
+                            deputi_status += `
 	                        <button class="btn btn-sm btn-primary status mr-2" data-status="accept">Setujui</button>
 							<button class="btn btn-sm btn-danger status mr-2" data-status="decline">Tolak</button>`
-						}
+                        }
                     }
                     if (value.admin_status == 'pending') {
-                    	if($unit_id == null) {
-							admin_status = `
+                        if ($unit_id == null) {
+                            admin_status = `
 							<button class="btn btn-sm btn-primary status mr-2" data-status="accept">Setujui</button>
 							<button class="btn btn-sm btn-danger status mr-2" data-status="decline">Tolak</button>`
-						}
+                        }
                     }
-                    // title = `${value.program.parent.code_program}/`
-                    // title += `${value.program.code_program}/`
-                    title = `${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`
+                    title = `${value.program.parent.code_program}/`
+                    title += `${value.program.code_program}/`
+                    title += `${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`
                     title += `${value.ro.code_ro}/`
                     title += `${value.component_code}`
                     append = `<tr data-id="${value.id}" data-title="${value.component_name}">
@@ -89,8 +91,8 @@ function get_data(search, unit_id) {
 						<td class="text-truncatee"><a href="${root}/rancangan-anggaran/${value.id}">${value.component_name}</a></td>
 						<td class="text-truncate">${value.total_target} ${value.unit_target}</td>
 						<td class="text-truncate">${convert(value.budged)}</td>
-						<td class="text-truncate unit">Deputi Bidang Perkoperasian</td>
-						<td class="text-truncate pengguna">Asdep</td>
+						<td class="text-truncate unit">${value.unit.name}</td>
+						<td class="text-truncate pengguna">${value.user.name}</td>
 						<td class="text-danger deputi_status">${status(value.deputi_status)}</td>
 						<td class="text-danger admin_status">${status(value.admin_status != null ? value.admin_status : '')}</td>
 						<td>
@@ -131,9 +133,74 @@ function get_data(search, unit_id) {
                 $('.request').remove()
                 $('.admin_status').remove()
             }
+        },
+        error: function(xhr) {
+            // console.log(xhr)
+            let err = xhr.responseJSON.errors
         }
     })
 }
+
+if (role != 'asdep') {
+    $('#modal-view').modal('show')
+    if (role == 'admin') {
+        $('.option-asdep').remove()
+    } else if (role == 'deputi') {
+        {
+            $('.option-deputi').remove()
+        }
+        $('form').submit(function(e) {
+            e.preventDefault()
+            $('#card').show()
+            $('#search').val('')
+            $('#modal-view').modal('hide')
+            $('#view').html($('#view-as option:selected').text())
+            get_data($('#view-as').val())
+        })
+    }
+}
+
+$(document).on('keyup', '#search', function(e) {
+    if ((e.which >= 65 && e.which == 32 && e.which == 8) || e.which <= 90) {
+        $('#table').empty()
+        $('#table-loading').show()
+    }
+})
+
+$(document).on('keyup', '#search', delay(function(e) {
+    let value = $(this).val()
+    if ((e.which >= 65 && e.which == 32 && e.which == 8) || e.which <= 90) {
+        role == 'asdep' ? get_data(null, value) : get_data($('#view-as').val(), value)
+    }
+}, 500))
+
+$(document).on('click', '.status', function(e) {
+    let id = $(this).parents('tr').attr('data-id')
+    let status = $(this).attr('data-status')
+    let formData = new FormData()
+    formData.append('status', status)
+    formData.append('comment', 'Oke')
+    $.ajax({
+        url: `${root}/api/work_plan/status/${id}`,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        complete: function(result) {
+            // console.log(result.data)
+            $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
+            if (status == 'accept') {
+                customAlert('success', 'Kegiatan disetujui.')
+            } else {
+                customAlert('danger', 'Kegiatan ditolak.')
+            }
+        },
+        error: function(xhr) {
+            // console.log(xhr)
+            let err = xhr.responseJSON.errors
+        }
+    })
+})
 
 $(document).on('click', '.delete', function(e) {
     let id = $(this).parents('tr').attr('data-id')
@@ -159,67 +226,8 @@ $(document).on('click', '#delete', function(e) {
             $('#delete').attr('disabled', false)
         },
         error: function(xhr) {
-            console.log(xhr)
+            // console.log(xhr)
             let err = xhr.responseJSON.errors
         }
     })
 })
-
-$(document).on('click', '.status', function(e) {
-	let id = $(this).parents('tr').attr('data-id')
-	let status = $(this).attr('data-status')
-	let formData = new FormData()
-	formData.append('status', status)
-	formData.append('comment', 'Oke')
-    $.ajax({
-        url: `${root}/api/work_plan/status/${id}`,
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        complete: function(result) {
-            // console.log(result.data)
-            $unit_id != null ? get_data('', $unit_id) : get_data('', '')
-            // $('#modal-delete').modal('hide')
-            if (status == 'accept') {
-	            customAlert('success', 'Kegiatan disetujui.')
-            } else {
-	            customAlert('danger', 'Kegiatan ditolak.')
-            }
-        },
-        error: function(xhr) {
-            console.log(xhr)
-            let err = xhr.responseJSON.errors
-        }
-    })
-})
-
-$(document).on('keyup', '#search', function(e) {
-    $('#table').empty()
-    $('#table-loading').show()
-})
-
-$(document).on('keyup', '#search', delay(function(e) {
-    let value = $(this).val()
-    get_data(value)
-}, 500))
-
-if (role == 'admin' || role == 'deputi') {
-    $('#modal-view').modal('show')
-    if (role == 'admin') {
-        $('.option-asdep').remove()
-    } else {
-        $('.option-deputi').remove()
-    }
-    $('form').submit(function(e) {
-        e.preventDefault()
-        $('#card').show()
-        $('#modal-view').modal('hide')
-        let val = $('#view-as').val()
-        let text = $('#view-as option:selected').text()
-        $('#view').html(text)
-        get_data('', val)
-    })
-} else {
-    $('#card').show()
-}
