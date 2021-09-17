@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources\WorkPlan;
 
-use App\Http\Resources\Comment\CommentResource;
+use App\Http\Resources\Program\ProgramResource;
+use App\Http\Resources\Kro\KroResource;
+use App\Http\Resources\Ro\RoResource;
 use App\Http\Resources\FileManager\FileManagerResource;
 use App\Http\Resources\History\HistoryResource;
-use App\Http\Resources\Kro\KroResource;
-use App\Http\Resources\Program\ProgramResource;
-use App\Http\Resources\Ro\RoResource;
+use App\Http\Resources\Comment\CommentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class WorkPlanDetailResource extends JsonResource
@@ -34,7 +34,7 @@ class WorkPlanDetailResource extends JsonResource
             'type_kro' => $this->type_kro,
             'kro' => new KroResource($this->kro),
             'ro' => new RoResource($this->ro),
-            'component_code' => $this->compent_code,
+            'component_code' => $this->component_code,
             'component_name' => $this->component_name,
             'title' => $this->title,
             'total_target' => $this->total_target,

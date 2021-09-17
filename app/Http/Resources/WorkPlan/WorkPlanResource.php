@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\WorkPlan;
 
+use App\Http\Resources\Program\ProgramResource;
 use App\Http\Resources\Kro\KroResource;
 use App\Http\Resources\Ro\RoResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,7 +19,15 @@ class WorkPlanResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+            ],
+            'unit' => [
+                'id' => $this->unit->id,
+                'name' => $this->unit->name,
+            ],
+            'program' => new ProgramResource($this->program),
             'unit_id' => $this->unit_id,
             'program_id' => $this->program_id,
             'type_kro' => $this->type_kro,
