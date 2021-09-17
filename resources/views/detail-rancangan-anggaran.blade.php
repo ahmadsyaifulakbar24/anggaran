@@ -105,5 +105,5 @@
 @section('script')
 	<script>const id = {{$id}}</script>
 	<script src="{{asset('assets/js/file.js')}}"></script>
-	<script src="{{asset('api/view-rancangan-anggaran.js')}}"></script>
+	<script src="{{asset('api/detail-rancangan-anggaran.js')}}"></script>
 @endsection
