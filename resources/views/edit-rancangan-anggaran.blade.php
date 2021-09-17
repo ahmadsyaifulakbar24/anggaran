@@ -91,7 +91,6 @@
 						<div class="col-md-6 mb-2">
 							<select class="custom-select" id="province_id" role="button">
 								<option value="" disabled selected>Pilih Lokasi</option>
-								<option value="1">Pusat</option>
 							</select>
 							<div class="invalid-feedback"></div>
 						</div>

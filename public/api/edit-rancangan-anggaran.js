@@ -49,12 +49,12 @@ $.ajax({
 })
 
 $.ajax({
-    url: 'https://dev.farizdotid.com/api/daerahindonesia/provinsi',
+    url: `${root}/api/province`,
     type: 'GET',
     success: function(result) {
-        // console.log(result.provinsi)
-        $.each(result.provinsi, function(index, value) {
-            append = `<option value="${value.id}">${value.nama}</option>`
+        // console.log(result.data)
+        $.each(result.data, function(index, value) {
+            append = `<option value="${value.id}">${value.province}</option>`
             $('#province_id').append(append)
         })
     }
@@ -63,33 +63,32 @@ $.ajax({
 function city_id(province_id, city_id) {
     if (province_id != 1) {
         $.ajax({
-            url: 'https://dev.farizdotid.com/api/daerahindonesia/kota',
+		    url: `${root}/api/city`,
             type: 'GET',
-            data: {
-                id_provinsi: province_id
-            },
+            data: { province_id },
             success: function(result) {
+            	// console.log(result.data)
                 $status_location = 'Kab/Kota'
-                $kota_kabupaten = result.kota_kabupaten
+                $city = result.data
                 add_location(city_id)
             }
         })
     } else {
         let option = [
-            { id: 101, nama: 'KEMENKOP UKM' },
-            { id: 102, nama: 'LPDB' },
-            { id: 103, nama: 'LLP KUKM' }
+            { id: 101, city: 'KEMENKOP UKM' },
+            { id: 102, city: 'LPDB' },
+            { id: 103, city: 'LLP KUKM' }
         ]
         $status_location = 'Pusat'
-        $kota_kabupaten = option
+        $city = option
         add_location(city_id)
     }
 }
 
 function add_location(city_id) {
     let option = `<option value="" disabled selected>Pilih ${$status_location}</option>`
-    $.each($kota_kabupaten, function(index, value) {
-        option += `<option value="${value.id}" ${value.id == city_id ? 'selected' : ''}>${value.nama}</option>`
+    $.each($city, function(index, value) {
+        option += `<option value="${value.id}" ${value.id == city_id ? 'selected' : ''}>${value.city}</option>`
     })
     let append = `<div class="d-flex align-items-start mb-2">
 		<div class="col px-0">
