@@ -179,14 +179,14 @@ $(document).on('click', '.status', function(e) {
     let status = $(this).attr('data-status')
     let formData = new FormData()
     formData.append('status', status)
-    formData.append('comment', 'Oke')
+    formData.append('comment', 'ACC')
     $.ajax({
         url: `${root}/api/work_plan/status/${id}`,
         type: 'POST',
         data: formData,
         processData: false,
         contentType: false,
-        complete: function(result) {
+        success: function(result) {
             // console.log(result.data)
             $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
             if (status == 'accept') {
@@ -196,7 +196,7 @@ $(document).on('click', '.status', function(e) {
             }
         },
         error: function(xhr) {
-            // console.log(xhr)
+            console.log(xhr)
             let err = xhr.responseJSON.errors
         }
     })
