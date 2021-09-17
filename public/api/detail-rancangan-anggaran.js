@@ -31,12 +31,35 @@ $.ajax({
 				<img src="https://ui-avatars.com/api/?name=${value.user.name}" class="rounded-circle mb-1" width="30" alt="">
 				<div class="ml-3">
 					<div class="font-weight-bold">${value.user.name}</div>
-					<pre class="mb-0">${value.comment}</pre>
+					<pre class="mb-0" style="white-space: pre-wrap;">${value.comment}</pre>
 					<small class="pr-1 text-secondary">${tanggal(value.created_at)}</small>
 					${value.user.id == user ? '' : ''}
 				</div>
 			</div>`
             $('#comments').prepend(append)
+        })
+
+        $.each(result.data.history, function(index, value) {
+            // console.log(value)
+            border = (index != 0) ? 'border-right' : ''
+            append = `<div class="row">
+                <div class="col-auto text-center flex-column d-sm-flex px-1">
+                    <div class="m-2">
+                        <i class="mdi mdi-checkbox-blank-circle mdi-18px pr-0" style="color:#dee2e6"></i>
+                    </div>
+                    <div class="row" style="height:45px;margin:-15px">
+                        <div class="col ${border}">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col col-xl-10 pl-0" style="padding-top:11px">
+                    <div class="d-flex flex-column align-items-start">
+                        <small class="text-secondary">${tanggal(value.created_at)}</small>
+                        <small class="text-capitalize"><b>${value.action_by.name}</b> ${notification_status(value.status)}</small>
+                    </div>
+                </div>
+            </div>`
+            $('#history').prepend(append)
         })
 
         if (value.user.id != user) {
@@ -93,3 +116,9 @@ $('#form-comment').submit(function(e) {
         }
     })
 })
+
+function auto_grow(element) {
+	element.value != '' ? $('#submit-comment').attr('disabled', false) : $('#submit-comment').attr('disabled', true)
+    element.style.height = "0px";
+    element.style.height = (element.scrollHeight)+"px";
+}

@@ -108,11 +108,13 @@ function customAlert(status, param) {
     $('.customAlert').animate({ bottom: "+=120px" }, 150)
 }
 
-function tanggal(date) {
-    let d = date.substr(8, 2)
-    let m = date.substr(5, 2)
-    let y = date.substr(0, 4)
-    return `${d} ${bulan_tahun(m, y)}`
+function tanggal(param) {
+    let d = param.substr(8, 2)
+    let m = param.substr(5, 2)
+    let y = param.substr(0, 4)
+    let date = `${d} ${bulan_tahun(m, y)}`
+    let time = param.substr(11, 5)
+    return `${date}, ${time}`
 }
 
 function bulan(month) {

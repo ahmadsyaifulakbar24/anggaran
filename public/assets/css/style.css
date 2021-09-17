@@ -423,11 +423,11 @@ td:last-child {
     padding: 15px;
 }
 
-textarea.comment {
-	height: 33px;
-	min-height: 33px;
-	overflow: hidden;
-	resize: none;
+textarea#comment {
+    resize: none;
+    overflow: hidden;
+    min-height: 33px;
+    height: 33px;
 }
 
 

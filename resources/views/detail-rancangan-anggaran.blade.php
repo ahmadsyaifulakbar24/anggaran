@@ -8,79 +8,90 @@
 			<h4>Detail Kegiatan</h4>
 		</div>
 		<div class="card card-custom">
-			<div class="card-body">
-				<div class="form-group">
-					<b class="font-weight-bold">Kode</b>
-					<div id="code"></div>
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold">Nama Kegiatan</b>
-					<div id="component_name"></div>
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold" class="col-form-label">Target</b>
-					<div id="target"></div>
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold">Anggaran (Rp.)</b>
-					<div id="budged"></div>
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold" class="col-form-label">Lokasi</b>
-					<div id="province"></div>
-					<div id="city"></div>
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold">Rincian Detail</b>
-					<pre id="detail"></pre>
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold">Keterangan</b>
-					<pre id="description"></pre>
-				</div>
-				<div class="form-group">
-					<div class="form-row">
-						<div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
-							<b class="font-weight-bold" class="col-form-label pb-0">File TOR</b>
-							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
-							<div id="type-1"></div>
-							<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-1" data-type="1">Upload File</button>
-							<div class="invalid-feedback"></div>
+			<div class="row">
+				<div class="col-xl-10 offset-xl-1">
+					<div class="card-body">
+						<div class="form-group">
+							<b class="font-weight-bold">Kode</b>
+							<div id="code"></div>
 						</div>
-						<div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
-							<b class="font-weight-bold" class="col-form-label pb-0">File RAB</b>
-							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
-							<div id="type-2"></div>
-							<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-2" data-type="2">Upload File</button>
-							<div class="invalid-feedback"></div>
+						<div class="form-group">
+							<b class="font-weight-bold">Nama Kegiatan</b>
+							<div id="component_name"></div>
 						</div>
-						<div class="col-md-6 col-xl-4 mb-2">
-							<b class="font-weight-bold" class="col-form-label pb-0">File Dukungan Lainnya</b>
-							<div class="small text-secondary mb-2">*Maksimal 5 file.</div>
-							<div id="type-3"></div>
-							<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-3" data-type="3">Upload File</button>
-							<div class="invalid-feedback"></div>
+						<div class="form-group">
+							<b class="font-weight-bold" class="col-form-label">Target</b>
+							<div id="target"></div>
 						</div>
-					</div>
-					<input type="file" class="none" id="file">
-				</div>
-				<div class="form-group">
-					<b class="font-weight-bold">Komentar</b>
-					<form class="mt-2" id="form-comment">
-						<div class="d-flex align-items-start mb-3">
-							<img class="avatar rounded-circle" width="30" alt="">
-							<div class="input-group ml-3">
-								<textarea class="form-control form-control-sm comment" id="comment" placeholder="Tulis komentar..."></textarea>
-								<div class="input-group-append">
-									<button class="btn btn-sm btn-dark rounded-right" id="submit-comment">Komentar</button>
+						<div class="form-group">
+							<b class="font-weight-bold">Anggaran (Rp.)</b>
+							<div id="budged"></div>
+						</div>
+						<div class="form-group">
+							<b class="font-weight-bold" class="col-form-label">Lokasi</b>
+							<div id="province"></div>
+							<div id="city"></div>
+						</div>
+						<div class="form-group">
+							<b class="font-weight-bold">Rincian Detail</b>
+							<pre id="detail"></pre>
+						</div>
+						<div class="form-group">
+							<b class="font-weight-bold">Keterangan</b>
+							<pre id="description"></pre>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+									<b class="font-weight-bold" class="col-form-label pb-0">File TOR</b>
+									<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
+									<div id="type-1"></div>
+									<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-1" data-type="1">Upload File</button>
+									<div class="invalid-feedback"></div>
 								</div>
-								<div class="invalid-feedback"></div>
+								<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+									<b class="font-weight-bold" class="col-form-label pb-0">File RAB</b>
+									<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
+									<div id="type-2"></div>
+									<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-2" data-type="2">Upload File</button>
+									<div class="invalid-feedback"></div>
+								</div>
+								<div class="col-md-6 col-lg-4 mb-2">
+									<b class="font-weight-bold" class="col-form-label pb-0">File Dukungan Lainnya</b>
+									<div class="small text-secondary mb-2">*Maksimal 5 file.</div>
+									<div id="type-3"></div>
+									<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-3" data-type="3">Upload File</button>
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
+							<input type="file" class="none" id="file">
+						</div><hr>
+						<div class="row">
+							<div class="col-md-6">
+								<b class="font-weight-bold">Komentar</b>
+								<form class="mt-2" id="form-comment">
+									<div class="d-flex align-items-start mb-3">
+										<img class="avatar rounded-circle" width="30" alt="">
+										<div class="w-100 ml-3">
+											<textarea class="form-control form-control-sm w-100" oninput="auto_grow(this)" id="comment" placeholder="Tulis komentar..."></textarea>
+											<div class="invalid-feedback"></div>
+											<div class="float-right mt-1">
+												<button type="reset" class="btn btn-sm btn-outline-primary">Batal</button>
+												<button class="btn btn-sm btn-primary" id="submit-comment" disabled>Komentar</button>
+											</div>
+										</div>
+									</div>
+								</form>
+								<div class="w-100" id="comments"></div>
+							</div>
+							<div class="col-md-6">
+								<b class="font-weight-bold">History</b>
+								<div id="history"></div>
 							</div>
 						</div>
-					</form>
-					<div id="comments"></div>
+					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 	<div class="modal" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
