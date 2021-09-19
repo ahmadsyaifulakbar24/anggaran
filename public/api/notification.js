@@ -8,7 +8,7 @@ $.ajax({
         if (result.data.length > 0) {
             $.each(result.data, function(index, value) {
                 value.read == 0 ? latest.push(value) : oldest.push(value)
-                append = `<div class="d-flex text-dark p-2 notification ${value.read != 0 ? 'read' : ''}" data-id="${value.work_plan.id}" role="button">
+                append = `<div class="d-flex text-dark p-2 notification ${value.read != 0 ? 'read' : ''}" data-id="${value.id}" data-workplan="${value.work_plan.id}" role="button">
 					<div class="mt-1">
 						<img src="https://ui-avatars.com/api/?name=${value.created_by.name}}}" class="avatar rounded-circle" width="40">
 					</div>
@@ -41,16 +41,17 @@ $.ajax({
 
 $(document).on('click', '.notification', function() {
     let id = $(this).attr('data-id')
+    let workplan = $(this).attr('data-workplan')
     if (!$(this).hasClass('read')) {
         $.ajax({
             url: `${api_url}/notification/read/${id}`,
             type: 'PATCH',
             success: function(result) {
                 // console.log(result.data)
-                location.href = `${root}/rancangan-anggaran/${id}`
+                location.href = `${root}/rancangan-anggaran/${workplan}`
             }
         })
     } else {
-        location.href = `${root}/rancangan-anggaran/${id}`
+        location.href = `${root}/rancangan-anggaran/${workplan}`
     }
 })
