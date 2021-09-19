@@ -26,7 +26,7 @@
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group position-relative">
-					<label for="cpassword">Password</label>
+					<label for="cpassword">Konfirmasi Password</label>
 					<input type="password" id="cpassword" class="form-control pr-5" maxlength="32" autocomplete="on">
 					<i class="password mdi mdi-eye-off mdi-18px" data-id="cpassword"></i>
 					<div class="invalid-feedback"></div>
