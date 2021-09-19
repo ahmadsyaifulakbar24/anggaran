@@ -55,12 +55,17 @@ class GetWorkPlanController extends Controller
         );
     }
 
-    public function excel()
+    public function excel(Request $request)
     {
-        $program = Program::whereNull('parent_id')->get();
+        // $this->validate($request, [
+        //     'unit_id' => ['required', 'exists:units,id']
+        // ]);
 
-        return ResponseFormatter::success(
-            ExcelWorkPlanResource::collection($program)
-        );
+        // return $program = Program::whereNull('parent_id')->with([
+        //     'activity.work_plan'
+        // ])->get();
+        // return ResponseFormatter::success(
+        //     ExcelWorkPlanResource::collection()
+        // );
     }
 }

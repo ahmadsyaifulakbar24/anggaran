@@ -22,9 +22,14 @@ class Program extends Model
         return $this->belongsTo(Program::class, 'parent_id');
     }
 
-    public function child()
+    public function activity()
     {
         return $this->hasMany(Program::class, 'parent_id');
+    }
+
+    public function work_plan()
+    {
+        return $this->hasMany(WorkPlan::class, 'program_id');
     }
 
     public function created_by_data()

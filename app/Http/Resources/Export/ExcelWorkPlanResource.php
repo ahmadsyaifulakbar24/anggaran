@@ -15,9 +15,9 @@ class ExcelWorkPlanResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'program_id' => $this->id,
-            'code_program' => $this->code_program,
-            'description' => $this->description,
+            // 'program_id' => $this->id,
+            // 'code_program' => $this->code_program,
+            // 'description' => $this->description,
         ];
     }
 }
