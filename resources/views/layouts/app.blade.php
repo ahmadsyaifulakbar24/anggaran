@@ -39,9 +39,9 @@
 		            	<small class="level text-secondary"></small>
 		            </div>
 		            <div class="dropdown-divider"></div>
-	                <!-- <a href="{{url('password')}}" class="dropdown-item" role="button">
+	                <a href="{{url('ubah-password')}}" class="dropdown-item" role="button">
 	                    <i class="mdi mdi-18px mdi-lock-outline"></i><span>Ubah password</span>
-	                </a> -->
+	                </a>
 	                <a href="javascript:void(0)" class="dropdown-item" onclick="return logout()" role="button">
 	                    <i class="mdi mdi-18px mdi-login-variant"></i><span>Logout</span>
 	                </a>
