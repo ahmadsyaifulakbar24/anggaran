@@ -31,6 +31,9 @@ Route::group(['middleware'=>['beforeMiddleware']], function () {
 	Route::get('akun-asdep/create', function () {
 		return view('create-akun-asdep');
 	});
+	Route::get('akun-asdep/edit/{id}', function ($id) {
+		return view('edit-akun-asdep', compact('id'));
+	});
 
 	// Program
 	Route::get('program', function () {

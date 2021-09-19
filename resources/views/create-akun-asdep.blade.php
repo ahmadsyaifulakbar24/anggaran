@@ -12,21 +12,27 @@
 				<div class="form-group">
 					<label for="name">Nama</label>
 					<input class="form-control" id="name"></select>
+					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
 					<label for="username">Username</label>
 					<input class="form-control" id="username"></select>
+					<div class="invalid-feedback"></div>
 				</div>
-				<div class="form-group">
+				<div class="form-group position-relative">
 					<label for="password">Password</label>
-					<input type="password" class="form-control" id="password"></select>
+					<input type="password" id="password" class="form-control pr-5" maxlength="32" autocomplete="on">
+					<i class="password mdi mdi-eye-off mdi-18px" data-id="password"></i>
+					<div class="invalid-feedback"></div>
+				</div>
+				<div class="form-group position-relative">
+					<label for="cpassword">Password</label>
+					<input type="password" id="cpassword" class="form-control pr-5" maxlength="32" autocomplete="on">
+					<i class="password mdi mdi-eye-off mdi-18px" data-id="cpassword"></i>
+					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
-					<label for="password_confirmation">Konfirmasi Password</label>
-					<input type="password" class="form-control" id="password_confirmation"></select>
-				</div>
-				<div class="form-group">
-					<button type="button" class="btn btn-primary">Submit</button>
+					<button class="btn btn-primary" id="submit">Submit</button>
 				</div>
 			</form>
 		</div>
@@ -34,5 +40,5 @@
 @endsection
 
 @section('script')
-	<!-- <script src="{{asset('api/create-akun-asdep.js')}}"></script> -->
+	<script src="{{asset('api/create-akun-asdep.js')}}"></script>
 @endsection

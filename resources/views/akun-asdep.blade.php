@@ -1,12 +1,14 @@
 @extends('layouts/app')
 
-@section('title','Buat Akun Asdep')
+@section('title','Akun Asdep')
 
 @section('content')
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
-			<h4>Buat Akun Asdep</h4>
+			<h4>Akun Asdep</h4>
+			@if(session("role") == "deputi")
 			<a href="{{url('akun-asdep/create')}}" class="btn btn-primary create mb-1">Buat Akun Asdep</a>
+			@endif
 		</div>
 		<div class="card card-custom">
 			<div class="table-responsive">
@@ -39,5 +41,5 @@
 @endsection
 
 @section('script')
-	<!-- <script src="{{asset('api/akun-asdep.js')}}"></script> -->
+	<script src="{{asset('api/akun-asdep.js')}}"></script>
 @endsection

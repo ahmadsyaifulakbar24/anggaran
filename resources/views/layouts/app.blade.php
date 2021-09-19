@@ -72,7 +72,7 @@
 					<a href="{{url('akun-asdep')}}" class="card card-menu rounded {{Request::is('akun-asdep')?'active':''}}">
 						<div class="text-center p-2">
 							<i class="mdi mdi-account-multiple-outline mdi-48px pr-0"></i>
-							<h6>Buat Akun Asdep</h6>
+							<h6>Akun Asdep</h6>
 						</div>
 					</a>
 				</div>
