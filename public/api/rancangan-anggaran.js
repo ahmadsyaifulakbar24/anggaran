@@ -146,18 +146,16 @@ if (role != 'asdep') {
     if (role == 'admin') {
         $('.option-asdep').remove()
     } else if (role == 'deputi') {
-        {
-            $('.option-deputi').remove()
-        }
-        $('form').submit(function(e) {
-            e.preventDefault()
-            $('#card').show()
-            $('#search').val('')
-            $('#modal-view').modal('hide')
-            $('#view').html($('#view-as option:selected').text())
-            get_data($('#view-as').val())
-        })
+        $('.option-deputi').remove()
     }
+    $('form').submit(function(e) {
+        e.preventDefault()
+        $('#card').show()
+        $('#search').val('')
+        $('#modal-view').modal('hide')
+        $('#view').html($('#view-as option:selected').text())
+        get_data($('#view-as').val())
+    })
 }
 
 $(document).on('keyup', '#search', function(e) {
