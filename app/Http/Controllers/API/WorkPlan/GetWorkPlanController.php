@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API\WorkPlan;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Export\ExcelWorkPlanResource;
 use App\Http\Resources\WorkPlan\WorkPlanDetailResource;
 use App\Http\Resources\WorkPlan\WorkPlanResource;
+use App\Models\Program;
 use App\Models\WorkPlan;
 use Illuminate\Http\Request;
 
@@ -50,6 +52,15 @@ class GetWorkPlanController extends Controller
         return ResponseFormatter::success(
             WorkPlanResource::collection($result),
             $this->message
+        );
+    }
+
+    public function excel()
+    {
+        $program = Program::whereNull('parent_id')->get();
+
+        return ResponseFormatter::success(
+            ExcelWorkPlanResource::collection($program)
         );
     }
 }

@@ -40,6 +40,7 @@ Route::namespace('API')->group(function () {
         Route::namespace('WorkPlan')->prefix('work_plan')->group(function() {
             Route::post('/', 'CreateWorkPlanController');
             Route::get('/', 'GetWorkPlanController@fetch');
+            Route::get('/excel_data', 'GetWorkPlanController@excel');
             Route::patch('/{work_plan:id}', 'UpdateWorkPlanController');
             Route::delete('/{work_plan:id}', 'DeleteWorkPlanController');
             Route::post('/status/{work_plan:id}', 'StatusController@status');

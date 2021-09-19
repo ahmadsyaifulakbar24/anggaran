@@ -22,6 +22,11 @@ class Program extends Model
         return $this->belongsTo(Program::class, 'parent_id');
     }
 
+    public function child()
+    {
+        return $this->hasMany(Program::class, 'parent_id');
+    }
+
     public function created_by_data()
     {
         return $this->belongsTo(User::class, 'created_by');

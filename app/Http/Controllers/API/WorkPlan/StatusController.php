@@ -68,12 +68,16 @@ class StatusController extends Controller
         ]);
         
         // insert history work plan
-        $work_plan->history()->create([ 
+        $history = $work_plan->history()->create([ 
             'status' => $request->status . ' work plan', 
             'action_by' => Auth::user()->id,
         ]);
 
          // Insert notification Work Plan
+         $notification_data[0]['history_id'] = $history->id;
+         if($user->hasRole('admin')) {
+             $notification_data[1]['history_id'] = $history->id;
+         }
          $work_plan->notification()->createMany($notification_data);
 
         return ResponseFormatter::success(
