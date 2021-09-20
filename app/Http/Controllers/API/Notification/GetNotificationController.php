@@ -34,7 +34,7 @@ class GetNotificationController extends Controller
         
         return ResponseFormatter::success(
             NotificationResource::collection($notification->orderBy('created_at', 'desc')->paginate($limit)),
-            $this->get_message,
+            $this->get_message
         );
     }
 }

@@ -30,7 +30,7 @@ class GetWorkPlanController extends Controller
             $work_plan = WorkPlan::find($request->id);
             return ResponseFormatter::success(
                 new WorkPlanDetailResource($work_plan),
-                $this->message,
+                $this->message
             );
         }
 
