@@ -11,10 +11,12 @@ h1,h2,h3,h4,h5,h6,th,button,label,.btn,.sidebar,.compose {
 }
 
 .auth {
+    top: 20%;
     width: 400px;
     position: absolute;
-    left: 13%;
     margin-bottom: 150px;
+    left: 50%;
+    transform: translate(-50%);
 }
 
 .auth .card {
@@ -30,10 +32,9 @@ h1,h2,h3,h4,h5,h6,th,button,label,.btn,.sidebar,.compose {
 @media screen and (max-width: 576px) {
 
     .auth {
-        top: 25%;
+        top: 35%;
         width: 100%;
         padding: 20px;
-        left: 0;
         margin-bottom: 0;
     }
 
