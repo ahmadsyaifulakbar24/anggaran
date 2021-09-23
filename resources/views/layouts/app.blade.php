@@ -54,8 +54,8 @@
 			@if(Request::is('dashboard'))
 			<div class="pt-4">
 				<h4>Halo, <span class="name"></span></h4>
-				<h6>Rancangan Perencanaan dan Anggaran</h6>
-				<h6>Kementerian Koperasi dan UKM RI Tahun 2022</h6>
+				<h6>Aplikasi Perencanaan dan Anggaran</h6>
+				<h6>Kementerian Koperasi dan UKM RI - Tahun 2022</h6>
 			</div>
 			@endif
 			<div class="row justify-content-md-center pt-4">
