@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Export\ExcelWorkPlanResource;
 use App\Http\Resources\WorkPlan\WorkPlanDetailResource;
 use App\Http\Resources\WorkPlan\WorkPlanResource;
-use App\Models\Program;
+use App\Models\VwWorkPlanDetail;
 use App\Models\WorkPlan;
 use Illuminate\Http\Request;
 
@@ -57,15 +57,13 @@ class GetWorkPlanController extends Controller
 
     public function excel(Request $request)
     {
-        // $this->validate($request, [
-        //     'unit_id' => ['required', 'exists:units,id']
-        // ]);
+        $this->validate($request, [
+            'unit_id' => ['required', 'exists:units,id']
+        ]);
 
-        // return $program = Program::whereNull('parent_id')->with([
-        //     'activity.work_plan'
-        // ])->get();
-        // return ResponseFormatter::success(
-        //     ExcelWorkPlanResource::collection()
-        // );
+        $program = VwWorkPlanDetail::where([['unit_id', $request->unit_id], ['admin_status', 'accept']])->groupBy('program_id')->get();
+        return ResponseFormatter::success(
+            ExcelWorkPlanResource::collection($program)
+        );
     }
 }
