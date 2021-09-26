@@ -25,7 +25,7 @@ class CreateWorkPlansTable extends Migration
             $table->string('component_name');
             $table->string('title');
             $table->double('total_target');
-            $table->string('unit_target');
+            $table->bigInteger('unit_target')->unsigned();
             $table->double('budged');
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade')->onUpdate('cascade');
             $table->text('detail')->nullable();

@@ -86,4 +86,9 @@ class WorkPlan extends Model
     {
         return $this->hasMany(Notification::class, 'work_plan_id');
     }
+
+    public function unit_target_data()
+    {
+        return $this->belongsTo(UnitTarget::class, 'unit_target');
+    }
 }

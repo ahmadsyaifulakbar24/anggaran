@@ -35,7 +35,7 @@ class CreateWorkPlanController extends Controller
             'component_name' => ['required', 'string'],
             'title' => ['required', 'string'],
             'total_target' => ['required', 'integer'],
-            'unit_target' => ['required', 'string'],
+            'unit_target' => ['required', 'exists:unit_targets,id'],
             'budged' => ['required', 'integer'],
             'province_id' => ['required', 'exists:provinces,id'],
             'sub_work_plan' => ['required', 'array'],

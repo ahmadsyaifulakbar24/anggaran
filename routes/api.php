@@ -63,6 +63,10 @@ Route::namespace('API')->group(function () {
             Route::get('/', 'RoController@fetch');
         });
 
+        Route::namespace('UnitTarget')->prefix('unit_target')->group(function() {
+            Route::get('/', 'UnitTargetController@fetch');
+        });
+
         Route::namespace('User')->prefix('user')->group(function() {
             Route::post('add_asdep', 'CreateUserController@user_asdep');
             Route::post('reset_password', 'ResetPasswordController');

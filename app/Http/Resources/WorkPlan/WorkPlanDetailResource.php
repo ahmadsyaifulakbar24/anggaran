@@ -38,7 +38,7 @@ class WorkPlanDetailResource extends JsonResource
             'component_name' => $this->component_name,
             'title' => $this->title,
             'total_target' => $this->total_target,
-            'unit_target' => $this->unit_target,
+            'unit_target' => $this->unit_target_data,
             'budged' => $this->budged,
             'province' => [
                 'id' => $this->province->id,
