@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class WorkPlan extends Model
 {
@@ -26,6 +27,14 @@ class WorkPlan extends Model
         'deputi_status',
         'admin_status'
     ];
+
+    public function getCreatedAtAttribute($date) {
+        return Carbon::parse($date)->format('Y-m-d H:i:s');
+    }
+
+    public function getUpdatedAtAttribute($date) {
+        return Carbon::parse($date)->format('Y-m-d H:i:s');
+    }
 
     public function user()
     {
@@ -91,4 +100,5 @@ class WorkPlan extends Model
     {
         return $this->belongsTo(UnitTarget::class, 'unit_target');
     }
+
 }

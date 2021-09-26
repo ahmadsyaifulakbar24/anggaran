@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Activity extends Model
 {
@@ -18,6 +19,14 @@ class Activity extends Model
         'unit_id',
         'activity_type'
     ];
+
+    public function getCreatedAtAttribute($date) {
+        return Carbon::parse($date)->format('Y-m-d H:i:s');
+    }
+    
+    public function getUpdatedAtAttribute($date) {
+        return Carbon::parse($date)->format('Y-m-d H:i:s');
+    }
 
     public function program()
     {

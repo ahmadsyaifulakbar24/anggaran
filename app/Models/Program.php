@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Program extends Model
 {
@@ -17,6 +18,14 @@ class Program extends Model
         'program_type'
     ];
 
+    public function getCreatedAtAttribute($date) {
+        return Carbon::parse($date)->format('Y-m-d H:i:s');
+    }
+    
+    public function getUpdatedAtAttribute($date) {
+        return Carbon::parse($date)->format('Y-m-d H:i:s');
+    }
+    
     public function parent()
     {
         return $this->belongsTo(Program::class, 'parent_id');
