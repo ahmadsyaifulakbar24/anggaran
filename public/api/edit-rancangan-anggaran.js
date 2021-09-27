@@ -49,6 +49,18 @@ $.ajax({
 })
 
 $.ajax({
+    url: `${root}/api/unit_target`,
+    type: 'GET',
+    success: function(result) {
+        // console.log(result.data)
+        $.each(result.data, function(index, value) {
+            append = `<option value="${value.id}">${value.name}</option>`
+            $('#unit_target').append(append)
+        })
+    }
+})
+
+$.ajax({
     url: `${root}/api/province`,
     type: 'GET',
     success: function(result) {
@@ -153,7 +165,7 @@ function get_data() {
             $('#component_code').val(value.component_code)
             $('#component_name').val(value.component_name)
             $('#total_target').val(convert(value.total_target))
-            $('#unit_target').val(value.unit_target)
+            $('#unit_target').val(value.unit_target.id)
             $('#budged').val(convert(value.budged))
             $('#province_id').val(value.province.id)
             $.each(value.sub_work_plan, function(index, values) {
