@@ -89,7 +89,7 @@ function get_data(unit_id = null, search = null) {
 						<td class="text-center">${index + 1}.</td>
 						<td class="text-truncate">${title}</td>
 						<td class="text-truncatee"><a href="${root}/rancangan-anggaran/${value.id}">${value.component_name}</a></td>
-						<td class="text-truncate">${value.total_target} ${value.unit_target}</td>
+						<td class="text-truncate">${value.total_target} ${value.unit_target.name}</td>
 						<td class="text-truncate">${convert(value.budged)}</td>
 						<td class="text-truncate unit">${value.unit.name}</td>
 						<td class="text-truncate pengguna">${value.user.name}</td>

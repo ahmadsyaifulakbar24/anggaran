@@ -11,7 +11,7 @@ $.ajax({
         $('#code').append(`${value.ro.code_ro}/`)
         $('#code').append(`${value.component_code}`)
         $('#component_name').html(value.component_name)
-        $('#target').html(`${value.total_target} ${value.unit_target}`)
+        $('#target').html(`${value.total_target} ${value.unit_target.name}`)
         $('#budged').html(convert(value.budged))
         $('#province').html(value.province.id == 1 ? value.province.province : 'Provinsi ' + value.province.province)
         $.each(result.data.sub_work_plan, function(index, value) {

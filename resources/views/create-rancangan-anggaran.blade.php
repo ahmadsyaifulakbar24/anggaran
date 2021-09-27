@@ -71,10 +71,6 @@
 						<div class="col-6">
 							<select class="custom-select" id="unit_target" role="button">
 								<option value="" disabled selected>Pilih Satuan</option>
-								<option value="Layanan">Layanan</option>
-								<option value="Koperasi">Koperasi</option>
-								<option value="Paket">Paket</option>
-								<option value="Unit">Unit</option>
 							</select>
 							<div class="invalid-feedback"></div>
 						</div>
