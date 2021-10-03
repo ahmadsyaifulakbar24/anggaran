@@ -11,4 +11,14 @@ class UserProgram extends Model
         'user_id',
         'program_id'
     ];
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'program_id');
+    }
+
+    public function user_activity()
+    {
+        return $this->hasMany(UserActivity::class, 'user_program_id');
+    }
 }

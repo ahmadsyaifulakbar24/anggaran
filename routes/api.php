@@ -37,6 +37,28 @@ Route::namespace('API')->group(function () {
             Route::delete('/{program:id}', 'DeleteProgramController');
         });
 
+        Route::namespace('Kro')->prefix('kro')->group(function() {
+            Route::get('/', 'KroController@fetch');
+        });
+
+        Route::namespace('UnitTarget')->prefix('unit_target')->group(function() {
+            Route::get('/', 'UnitTargetController@fetch');
+        });
+
+        
+        Route::namespace('WorkPlan')->group(function() {
+            Route::prefix('user_program')->group(function() {
+                Route::post('/create', 'UserProgramController@create');
+                Route::get('/fetch', 'UserProgramController@fetch');
+                Route::put('/update/{user_program:id}', 'UserProgramController@update');
+                Route::delete('/delete/{user_program:id}', 'UserProgramController@delete');
+            });
+
+            Route::prefix('user_ro')->group(function() {
+                Route::get('/', 'UserRoController@fetch');
+            });
+        });
+
         Route::namespace('WorkPlan')->prefix('work_plan')->group(function() {
             Route::post('/', 'CreateWorkPlanController');
             Route::get('/', 'GetWorkPlanController@fetch');
@@ -53,18 +75,6 @@ Route::namespace('API')->group(function () {
 
         Route::namespace('Comment')->prefix('comment')->group(function() {
             Route::post('/', 'CommentController@create');
-        });
-
-        Route::namespace('Kro')->prefix('kro')->group(function() {
-            Route::get('/', 'KroController@fetch');
-        });
-
-        Route::namespace('Ro')->prefix('ro')->group(function() {
-            Route::get('/', 'RoController@fetch');
-        });
-
-        Route::namespace('UnitTarget')->prefix('unit_target')->group(function() {
-            Route::get('/', 'UnitTargetController@fetch');
         });
 
         Route::namespace('User')->prefix('user')->group(function() {
