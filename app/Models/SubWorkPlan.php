@@ -9,6 +9,7 @@ class SubWorkPlan extends Model
     protected $table = 'sub_work_plans';
     protected $fillable = [
         'work_plan_id',
+        'province_id',
         'city_id'
     ];
 

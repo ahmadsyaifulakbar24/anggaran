@@ -18,6 +18,7 @@ class CreateKroTable extends Migration
             $table->string('code_kro_non_pn');
             $table->string('code_kro_pn');
             $table->string('kro');
+            $table->string('unit');
         });
     }
 

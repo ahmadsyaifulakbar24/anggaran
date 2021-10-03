@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kro extends Model
+class WorkPlanTag extends Model
 {
-    protected $table = 'kro';
+    protected $table = 'work_plan_tags';
     protected $fillable = [
-        'code_kro_non_pn',
-        'code_kro_pn',
-        'kro',
-        'unit'
+        'work_plan_id',
+        'param_id',
+        'category',
     ];
 
     public $timestamps = false;

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCodeRoTable extends Migration
+class CreateUserProgramsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateCodeRoTable extends Migration
      */
     public function up()
     {
-        Schema::create('code_ro', function (Blueprint $table) {
+        Schema::create('user_programs', function (Blueprint $table) {
             $table->id();
-            $table->string('code_ro');
-            $table->string('ro');
-            $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpate('cascade');
+            $table->foreignId('program_id')->constrained('programs')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateCodeRoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('code_ro');
+        Schema::dropIfExists('user_programs');
     }
 }

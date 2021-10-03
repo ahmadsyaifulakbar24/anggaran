@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubWorkPlansTable extends Migration
+class CreateWorkPlanTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSubWorkPlansTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_work_plans', function (Blueprint $table) {
+        Schema::create('work_plan_tags', function (Blueprint $table) {
             $table->id();
             $table->foreignId('work_plan_id')->constrained('work_plans')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('city_id')->constrained('cities')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('param_id')->constrained('params')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('category', ['indicator', 'sources_of_funding']);
         });
     }
 
@@ -28,6 +28,6 @@ class CreateSubWorkPlansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_work_plans');
+        Schema::dropIfExists('work_plan_tags');
     }
 }

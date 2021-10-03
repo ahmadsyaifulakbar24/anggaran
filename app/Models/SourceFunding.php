@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kro extends Model
+class SourceFunding extends Model
 {
-    protected $table = 'kro';
+    protected $table = 'source_fundings';
     protected $fillable = [
-        'code_kro_non_pn',
-        'code_kro_pn',
-        'kro',
-        'unit'
+        'work_plan_id',
+        'param_id',
+        'nominal'
     ];
 
     public $timestamps = false;

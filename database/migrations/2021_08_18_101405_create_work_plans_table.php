@@ -17,17 +17,13 @@ class CreateWorkPlansTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('program_id')->constrained('programs')->onUpdate('cascade');
-            $table->enum('type_kro', ['pn', 'non_pn']);
-            $table->bigInteger('kro_id')->unsigned();
-            $table->bigInteger('ro_id')->unsigned();
+            $table->bigInteger('user_ro_id')->unsigned();
             $table->string('component_code');
             $table->string('component_name');
             $table->string('title');
             $table->double('total_target');
             $table->bigInteger('unit_target')->unsigned();
             $table->double('budged');
-            $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade')->onUpdate('cascade');
             $table->text('detail')->nullable();
             $table->text('description')->nullable();
             $table->enum('deputi_status', ['accept', 'pending', 'decline']);

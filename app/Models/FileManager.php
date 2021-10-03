@@ -11,6 +11,7 @@ class FileManager extends Model
     protected $table = 'file_managers';
     protected $fillable = [
         'work_plan_id',
+        'user_ro_id',
         'file',
         'type_id'
     ];
