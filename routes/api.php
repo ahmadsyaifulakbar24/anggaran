@@ -54,6 +54,13 @@ Route::namespace('API')->group(function () {
                 Route::delete('/delete/{user_program:id}', 'UserProgramController@delete');
             });
 
+            Route::prefix('user_activity')->group(function() {
+                Route::post('/create', 'UserActivityController@create');
+                Route::get('/fetch', 'UserActivityController@fetch');
+                Route::put('/update/{user_activity:id}', 'UserActivityController@update');
+                Route::delete('/delete/{user_activity:id}', 'UserActivityController@delete');
+            });
+
             Route::prefix('user_ro')->group(function() {
                 Route::get('/', 'UserRoController@fetch');
             });

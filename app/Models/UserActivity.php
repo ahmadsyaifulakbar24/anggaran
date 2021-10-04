@@ -12,4 +12,9 @@ class UserActivity extends Model
         'user_program_id',
         'activity_id'
     ];
+
+    public function  user_kro()
+    {
+        return $this->hasMany(UserKro::class, 'user_activity_id');
+    }
 }
