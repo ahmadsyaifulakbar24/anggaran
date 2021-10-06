@@ -2,7 +2,7 @@ body {
 	background: url('../../assets/images/sirengga.png');
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center;
+	/*background-position: center;*/
 	background-attachment: fixed;
 }
 
@@ -20,7 +20,7 @@ h1,h2,h3,h4,h5,h6,th,button,label,.btn,.sidebar,.compose {
 }
 
 .auth .card {
-	margin: 125px 0 50px 0;
+	margin: 70px 0 50px 0;
 	border-radius: 10px;
 }
 
@@ -32,7 +32,7 @@ h1,h2,h3,h4,h5,h6,th,button,label,.btn,.sidebar,.compose {
 @media screen and (max-width: 576px) {
 
     .auth {
-        top: 35%;
+    	margin-top: 50px;
         width: 100%;
         padding: 20px;
         margin-bottom: 0;

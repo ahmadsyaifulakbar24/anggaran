@@ -48,6 +48,18 @@ $.ajax({
 })
 
 $.ajax({
+    url: `${root}/api/unit_target`,
+    type: 'GET',
+    success: function(result) {
+        // console.log(result.data)
+        $.each(result.data, function(index, value) {
+            append = `<option value="${value.id}">${value.name}</option>`
+            $('#unit_target').append(append)
+        })
+    }
+})
+
+$.ajax({
     url: `${root}/api/province`,
     type: 'GET',
     success: function(result) {
@@ -62,11 +74,11 @@ $.ajax({
 function city_id(province_id) {
     if (province_id != 1) {
         $.ajax({
-		    url: `${root}/api/city`,
+            url: `${root}/api/city`,
             type: 'GET',
             data: { province_id },
             success: function(result) {
-            	// console.log(result.data)
+                // console.log(result.data)
                 $status_location = 'Kab/Kota'
                 $city = result.data
                 add_location()
@@ -216,14 +228,13 @@ $('form').submit(function(e) {
                 $('#name_ro').siblings('.invalid-feedback').html('Masukkan nama RO.')
             }
             if (err.component_code) {
-	            if (err.component_code == "The component code has already been taken.") {
-	                $('#component_code').addClass('is-invalid')
-	                $('#component_code').siblings('.invalid-feedback').html('Kode komponen telah digunakan.')
-	            }
-	            else if (err.component_code == "The component code field is required.") {
-	                $('#component_code').addClass('is-invalid')
-	                $('#component_code').siblings('.invalid-feedback').html('Masukkan kode komponen.')
-	            }
+                if (err.component_code == "The component code has already been taken.") {
+                    $('#component_code').addClass('is-invalid')
+                    $('#component_code').siblings('.invalid-feedback').html('Kode komponen telah digunakan.')
+                } else if (err.component_code == "The component code field is required.") {
+                    $('#component_code').addClass('is-invalid')
+                    $('#component_code').siblings('.invalid-feedback').html('Masukkan kode komponen.')
+                }
             }
             if (err.component_name) {
                 $('#component_name').addClass('is-invalid')
