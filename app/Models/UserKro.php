@@ -13,4 +13,9 @@ class UserKro extends Model
         'kro_id',
         'type_kro'
     ];
+
+    public function user_ro()
+    {
+        return $this->hasMany(UserRo::class, 'user_kro_id');
+    }
 }

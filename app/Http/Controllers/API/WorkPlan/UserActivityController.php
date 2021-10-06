@@ -23,7 +23,9 @@ class UserActivityController extends Controller
                 'required',
                 Rule::exists('programs', 'id')->where(function($query) use ($request) {
                     $user_program = UserProgram::find($request->user_program_id);
-                    return $query->where('parent_id', $user_program->program_id);
+                    if(!empty($user_program)) {
+                        return $query->where('parent_id', $user_program->program_id);
+                    }
                 }),
                 Rule::unique('user_activities', 'activity_id')->where(function($query) use ($request, $user) {
                     return $query->where([['user_program_id', $request->user_program_id], ['user_id', $user->id]]);
@@ -51,7 +53,7 @@ class UserActivityController extends Controller
     {
         $request->validate([
             'user_activity_id' => ['nullable', 'exists:user_activities,id'],
-            'user_program_id' => ['nullable', 'exists:user_programs,id'],
+            ' ' => ['nullable', 'exists:user_programs,id'],
             'limit' => ['nullable', 'int'],
         ]);
         $limit = $request->input('limit', 10);
@@ -81,8 +83,9 @@ class UserActivityController extends Controller
                     $user_program = UserProgram::find($user_activity->user_program_id);
                     return $query->where('parent_id', $user_program->program_id);
                 }),
-                Rule::unique('user_activities', 'activity_id')->ignore($user_activity->id)->where(function($query) use ($request, $user) {
-                    return $query->where([['user_program_id', $request->user_program_id], ['user_id', $user->id]]);
+                Rule::unique('user_activities', 'activity_id')->ignore($user_activity->id)->where(function($query) use ($user_activity, $user) {
+                    $user_program = UserProgram::find($user_activity->user_program_id);
+                    return $query->where([['user_program_id', $user_program->user_program_id], ['user_id', $user->id]]);
                 })
             ]
         ]);
