@@ -16,6 +16,7 @@ class CreateUserProgramsTable extends Migration
         Schema::create('user_programs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpate('cascade');
+            $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->onUpate('cascade');
             $table->foreignId('program_id')->constrained('programs')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

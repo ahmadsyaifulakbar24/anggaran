@@ -15,17 +15,17 @@ class UserProgramController extends Controller
 {
     public function create(Request $request)
     {
-        $user = User::find(Auth::user()->id);
-
         $request->validate([
+            'unit_id' => ['required', 'exists:units,id'],
             'program_id' => [
                 'required', 
                 'exists:programs,id',
-                Rule::unique('user_programs', 'program_id')->where(function($query) use ($user) {
-                    return $query->where('user_id', $user->id);
+                Rule::unique('user_programs', 'program_id')->where(function($query) use ($request) {
+                    return $query->where('unit_id', $request->unit_id);
                 })
             ]
         ]);
+        $user = User::find(Auth::user()->id);
         if(! $user->hasRole('asdep')) {
             return ResponseFormatter::errorValidation([
                 'user_id' => 'user id is invalid'
@@ -45,6 +45,8 @@ class UserProgramController extends Controller
     {
         $request->validate([
             'user_program_id' => ['nullable', 'exists:user_programs,id'],
+            'unit_id' => ['nullable',  'exists:units,id'],
+            'user_id' => ['nullable', 'exists:users,id'],
             'limit' => ['nullable', 'integer'],
         ]);
         $limit = $request->input('limit', 10);
@@ -58,19 +60,26 @@ class UserProgramController extends Controller
         }
 
         $user_program = UserProgram::query();
+        if($request->unit_id) {
+            $user_program->where('unit_id', $request->unit_id);
+        }
+
+        if($request->user_id) {
+            $user_program->where('user_id', $request->user_id);
+        }
+        
         return UserProgramResource::collection($user_program->orderBy('id', 'desc')->paginate($limit));
 
     }
 
     public function update(Request $request, UserProgram $user_program)
     {
-        $user = User::find(Auth::user()->id);
         $request->validate([
             'program_id' => [
                 'required', 
                 'exists:programs,id',
-                Rule::unique('user_programs', 'program_id')->ignore($user_program->id)->where(function($query) use ($user) {
-                    return $query->where('user_id', $user->id);
+                Rule::unique('user_programs', 'program_id')->ignore($user_program->id)->where(function($query) use ($user_program) {
+                    return $query->where('unit_i', $user_program->unit_id);
                 })
             ]
         ]);

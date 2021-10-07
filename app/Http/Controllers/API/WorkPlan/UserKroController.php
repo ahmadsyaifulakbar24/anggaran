@@ -15,19 +15,20 @@ class UserKroController extends Controller
 {
     public function create(Request $request)
     {
-        $user = User::find(Auth::user()->id);
         $request->validate([
             'user_activity_id' => ['required', 'exists:user_activities,id'],
+            'unit_id' => ['required', 'exists:units,id'],
             'kro_id' => [
                 'required',
                 'exists:kro,id',
-                Rule::unique('user_kro', 'kro_id')->where(function($query) use ($user){
-                    return $query->where('user_id', $user->id);
+                Rule::unique('user_kro', 'kro_id')->where(function($query) use ($request){
+                    return $query->where([['user_activity_id', $request->user_activity_id], ['unit_id', $request->unit_id]]);
                 })
             ],
             'type_kro' => ['required', 'in:pn,non_pn']
         ]);
 
+        $user = User::find(Auth::user()->id);
         if(! $user->hasRole('asdep')) {
             return ResponseFormatter::errorValidation([
                 'user_id' => 'user id is invalid'
@@ -71,18 +72,18 @@ class UserKroController extends Controller
 
     public function update(Request $request, UserKro $user_kro)
     {
-        $user = User::find(Auth::user()->id);
         $request->validate([
             'kro_id' => [
                 'required',
                 'exists:kro,id',
-                Rule::unique('user_kro', 'kro_id')->ignore($user_kro->id)->where(function($query) use ($user, $user_kro){
-                    return $query->where([['user_id', $user->id], ['kro_id', $user_kro->kro_id]]);
+                Rule::unique('user_kro', 'kro_id')->ignore($user_kro->id)->where(function($query) use ($user_kro){
+                    return $query->where([['unit_id', $user_kro->unit_id], ['user_activity_id', $user_kro->user_activity_id]]);
                 })
             ],
             'type_kro' => ['required', 'in:pn,non_pn']
         ]);
 
+        $user = User::find(Auth::user()->id);
         if(! $user->hasRole('asdep')) {
             return ResponseFormatter::errorValidation([
                 'user_id' => 'user id is invalid'

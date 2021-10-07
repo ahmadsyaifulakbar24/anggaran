@@ -9,6 +9,7 @@ class UserKro extends Model
     protected $table = 'user_kro';
     protected $fillable = [
         'user_id',
+        'unit_id',
         'user_activity_id',
         'kro_id',
         'type_kro'

@@ -55,7 +55,10 @@ Route::namespace('API')->group(function () {
             });
 
             Route::prefix('user_ro')->group(function() {
-                Route::get('/', 'UserRoController@fetch');
+                Route::post('/create', 'UserRoController@create');
+                Route::get('/fetch', 'UserRoController@fetch');
+                Route::put('/update/{user_ro:id}', 'UserRoController@update');
+                Route::delete('/delete/{user_ro:id}', 'UserRoController@delete');
             });
         });
 

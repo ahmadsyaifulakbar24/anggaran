@@ -14,4 +14,9 @@ class UserRo extends Model
         'ro',
         'unit_id'
     ];
+
+    public function work_plan ()
+    {
+        return $this->hasMany(WorkPlan::class, 'user_ro_id');
+    }
 }

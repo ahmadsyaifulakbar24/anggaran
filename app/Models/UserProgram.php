@@ -9,6 +9,7 @@ class UserProgram extends Model
     protected $table = 'user_programs';
     protected $fillable = [
         'user_id',
+        'unit_id',
         'program_id'
     ];
 
