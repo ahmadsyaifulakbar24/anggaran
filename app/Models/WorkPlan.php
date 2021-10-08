@@ -42,29 +42,14 @@ class WorkPlan extends Model
         return $this->belongsTo(Unit::class, 'unit_id');
     }
 
-    public function program()
-    {
-        return $this->belongsTo(Program::class, 'program_id');
-    }
-
     public function history()
     {
         return $this->hasMany(History::class, 'work_plan_id');
     }
 
-    public function province()
+    public function user_ro()
     {
-        return $this->belongsTo(Province::class, 'province_id');
-    }
-
-    public function kro()
-    {
-        return $this->belongsTo(Kro::class, 'kro_id');
-    }
-
-    public function ro()
-    {
-        return $this->belongsTo(CodeRo::class, 'ro_id');
+        return $this->belongsTo(UserRo::class, 'user_ro_id');
     }
     
     public function file_manager()
@@ -82,9 +67,29 @@ class WorkPlan extends Model
         return $this->hasMany(SubWorkPlan::class, 'work_plan_id');
     }
 
+    public function source_funding()
+    {
+        return $this->hasMany(SourceFunding::class, 'work_plan_id');
+    }
+
+    public function work_plan_tag()
+    {
+        return $this->hasMany(WorkPlanTag::class, 'work_plan_id');
+    }
+
     public function sub_work_plan_many()
     {
         return $this->belongsToMany(City::class, 'sub_work_plans', 'work_plan_id', 'city_id');
+    }
+
+    public function source_funding_many()
+    {
+        return $this->belongsToMany(SourceFunding::class, 'source_fundings', 'work_plan_id', 'id');
+    }
+
+    public function work_plan_tag_many()
+    {
+        return $this->belongsToMany(WorkPlanTag::class, 'work_plan_tags', 'work_plan_id', 'id');
     }
 
     public function notification()

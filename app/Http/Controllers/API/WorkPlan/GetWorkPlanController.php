@@ -20,6 +20,7 @@ class GetWorkPlanController extends Controller
         $this->validate($request, [
             'id' => ['nullable', 'exists:work_plans,id'],
             'user_id' => ['nullable', 'exists:users,id'],
+            'user_ro_id' => ['nullable', 'exists:user_ro,id'],
             'unit_id' => ['nullable', 'exists:units,id'],
             'search' => ['nullable', 'string'],
             'limit' => ['nullable', 'integer']
@@ -41,6 +42,10 @@ class GetWorkPlanController extends Controller
 
         if($request->user_id) {
             $work_plan->where('user_id', $request->user_id);
+        }
+
+        if($request->user_ro_id) {
+            $work_plan->where('user_ro_id', $request->user_ro_id);
         }
 
         if($request->unit_id) {
