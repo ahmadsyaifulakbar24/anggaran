@@ -15,17 +15,17 @@ class UserProgramController extends Controller
 {
     public function create(Request $request)
     {
+        $user = User::find(Auth::user()->id);
         $request->validate([
-            'unit_id' => ['required', 'exists:units,id'],
             'program_id' => [
                 'required', 
                 'exists:programs,id',
-                Rule::unique('user_programs', 'program_id')->where(function($query) use ($request) {
-                    return $query->where('unit_id', $request->unit_id);
+                Rule::unique('user_programs', 'program_id')->where(function($query) use ($user) {
+                    return $query->where('unit_id', $user->unit_id);
                 })
             ]
         ]);
-        $user = User::find(Auth::user()->id);
+        
         if(! $user->hasRole('asdep')) {
             return ResponseFormatter::errorValidation([
                 'user_id' => 'user id is invalid'
@@ -34,6 +34,8 @@ class UserProgramController extends Controller
 
         $input = $request->all();
         $input['user_id'] = $user->id;
+        $input['unit_id'] = $user->unit_id;
+
         $user_program = UserProgram::create($input);
         return ResponseFormatter::success(
             new UserProgramResource($user_program),

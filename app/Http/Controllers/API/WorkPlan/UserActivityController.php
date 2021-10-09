@@ -16,8 +16,8 @@ class UserActivityController extends Controller
 {
     public function create(Request $request)
     {
+        $user = User::find(Auth::user()->id);
         $request->validate([
-            'unit_id' => ['required', 'exists:units,id'],
             'user_program_id' => ['required', 'exists:user_programs,id'],
             'activity_id' => [
                 'required',
@@ -27,13 +27,12 @@ class UserActivityController extends Controller
                         return $query->where('parent_id', $user_program->program_id);
                     }
                 }),
-                Rule::unique('user_activities', 'activity_id')->where(function($query) use ($request) {
-                    return $query->where([['user_program_id', $request->user_program_id], ['unit_id', $request->unit_id]]);
+                Rule::unique('user_activities', 'activity_id')->where(function($query) use ($user, $request) {
+                    return $query->where([['user_program_id', $request->user_program_id], ['unit_id', $user->unit_id]]);
                 })
             ]
         ]);
 
-        $user = User::find(Auth::user()->id);
         if(! $user->hasRole('asdep')) {
             return ResponseFormatter::errorValidation([
                 'user_id' => 'user id is invalid'
@@ -42,6 +41,7 @@ class UserActivityController extends Controller
 
         $input = $request->all();
         $input['user_id'] = $user->id;
+        $input['unit_id'] = $user->unit_id;
 
         $user_activity = UserActivity::create($input);
         return ResponseFormatter::success(

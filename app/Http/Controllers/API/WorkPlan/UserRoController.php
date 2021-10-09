@@ -15,19 +15,19 @@ class UserRoController extends Controller
 {
     public function create(Request $request)
     {
+        $user = User::find(Auth::user()->id);
         $request->validate([
             'user_kro_id' => ['required', 'exists:user_kro,id'],
             'unit_id' => ['required', 'exists:units,id'],
             'code_ro' => [
                 'required',
-                Rule::unique('user_ro', 'code_ro')->where(function($query) use ($request) {
-                    return $query->where([['user_kro_id', $request->user_kro_id], ['unit_id', $request->unit_id]]);
+                Rule::unique('user_ro', 'code_ro')->where(function($query) use ($request, $user) {
+                    return $query->where([['user_kro_id', $request->user_kro_id], ['unit_id', $user->unit_id]]);
                 })
             ],
             'ro' => ['required', 'string'],
         ]);
 
-        $user = User::find(Auth::user()->id);
         if(! $user->hasRole('asdep')) {
             return ResponseFormatter::errorValidation([
                 'user_id' => 'user id is invalid'
@@ -36,6 +36,7 @@ class UserRoController extends Controller
 
         $input = $request->all();
         $input['user_id'] = $user->id;
+        $input['unit_id'] = $user->unit_id;
 
         $user_ro = UserRo::create($input);
         return ResponseFormatter::success(
