@@ -3,6 +3,7 @@
 namespace App\Http\Resources\WorkPlan;
 
 use App\Http\Resources\Program\ProgramResource;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserProgramResource extends JsonResource
@@ -17,8 +18,11 @@ class UserProgramResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            'user' => new UserResource($this->user),
+            'unit' => $this->unit,
             'program' => new ProgramResource($this->program),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

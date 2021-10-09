@@ -13,9 +13,19 @@ class UserProgram extends Model
         'program_id'
     ];
 
+    public function user() 
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function program()
     {
         return $this->belongsTo(Program::class, 'program_id');
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id');
     }
 
     public function user_activity()

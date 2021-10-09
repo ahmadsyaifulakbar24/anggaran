@@ -15,6 +15,21 @@ class UserKro extends Model
         'type_kro'
     ];
 
+    public function user() 
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function unit () 
+    {
+        return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    public function kro()
+    {
+        return $this->belongsTo(Kro::class, 'kro_id');
+    }
+    
     public function user_ro()
     {
         return $this->hasMany(UserRo::class, 'user_kro_id');

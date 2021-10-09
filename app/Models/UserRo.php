@@ -15,6 +15,16 @@ class UserRo extends Model
         'unit_id'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id');
+    }
+    
     public function work_plan ()
     {
         return $this->hasMany(WorkPlan::class, 'user_ro_id');
