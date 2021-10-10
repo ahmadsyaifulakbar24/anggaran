@@ -25,7 +25,7 @@ class FileManagerController extends Controller
                 Rule::RequiredIf($request->category == 'user_ro'), 
                 'exists:user_ro,id'
             ],
-            'file' => ['required', 'file'],
+            'file' => ['required', 'file', 'mimes:xls,xlsx,doc,docx,pdf,ppt,pptx'],
             'type_id' => [
                 'required',
                 Rule::exists('params', 'id')->where(function($query) {
