@@ -30,6 +30,18 @@ class CreateWorkPlanController extends Controller
             'unit_target' => ['required', 'exists:unit_targets,id'],
             'detail' => ['required', 'string'],
             'description' => ['required', 'string'],
+            'target_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'target');
+                })
+            ],
+            'indicator_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'indicator');
+                })
+            ],
 
             // Sub work plan validation
             'sub_work_plan' => ['required', 'array'],
@@ -45,16 +57,6 @@ class CreateWorkPlanController extends Controller
                 })
             ],
             'source_funding.*.nominal' => [ 'required','int' ],
-
-            // work plan tag validation
-            'work_plan_tag' => ['required', 'array'],
-            'work_plan_tag.*.param_id' => [
-                'required',
-                Rule::exists('params', 'id')->where(function($query) {
-                    return $query->whereIn('category', ['target', 'indicator']);
-                })
-            ],
-            'work_plan_tag.*.category' => [ 'required', 'in:indicator,sources_of_funding' ]
 
         ]);
 
@@ -82,9 +84,6 @@ class CreateWorkPlanController extends Controller
         }
         $work_plan->source_funding()->createMany($request->source_funding);
         $work_plan->update([ 'budged' => $budged ]);
-
-        // Inser Work Plan Tag
-        $work_plan->work_plan_tag()->createMany($request->work_plan_tag);
 
         // Insert History Work Plan
         $history = $work_plan->history()->create([ 'action_by' => $user->id, 'status' => 'create work plan' ]);

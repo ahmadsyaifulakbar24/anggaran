@@ -20,6 +20,8 @@ class WorkPlan extends Model
         'budged',
         'detail',
         'description',
+        'indicator_id',
+        'target_id',
         'deputi_status',
         'admin_status'
     ];
@@ -72,9 +74,14 @@ class WorkPlan extends Model
         return $this->hasMany(SourceFunding::class, 'work_plan_id');
     }
 
-    public function work_plan_tag()
+    public function target_id()
     {
-        return $this->hasMany(WorkPlanTag::class, 'work_plan_id');
+        return $this->hasMany(Param::class, 'target_id');
+    }
+
+    public function indicator_id()
+    {
+        return $this->hasMany(Param::class, 'indicator');
     }
 
     public function sub_work_plan_many()

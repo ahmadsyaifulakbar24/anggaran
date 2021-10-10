@@ -5,6 +5,7 @@ namespace App\Http\Resources\WorkPlan;
 use App\Http\Resources\FileManager\FileManagerResource;
 use App\Http\Resources\History\HistoryResource;
 use App\Http\Resources\Comment\CommentResource;
+use App\Http\Resources\Param\ParamResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class WorkPlanDetailResource extends JsonResource
@@ -36,11 +37,12 @@ class WorkPlanDetailResource extends JsonResource
             'budged' => $this->budged,
             'detail' => $this->detail,
             'description' => $this->description,
+            'target' => new ParamResource($this->target),
+            'indicator' => new ParamResource($this->indicator),
             'deputi_status' => $this->deputi_status,
             'admin_status' => $this->admin_status,
             'sub_work_plan' => SubWorkPlanResource::collection($this->sub_work_plan),
             'source_funding' => SourceFundingResource::collection($this->source_funding),
-            'work_plan_tag' => WorkPlanTagResource::collection($this->work_plan_tag),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'file_manager' => FileManagerResource::collection($this->file_manager),

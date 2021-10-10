@@ -33,6 +33,18 @@ class UpdateWorkPlanController extends Controller
             'unit_target' => ['required', 'exists:unit_targets,id'],
             'detail' => ['required', 'string'],
             'description' => ['required', 'string'],
+            'target_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'target');
+                })
+            ],
+            'indicator_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'indicator');
+                })
+            ],
 
             // Sub work plan validation
             'sub_work_plan' => ['required', 'array'],
@@ -48,16 +60,6 @@ class UpdateWorkPlanController extends Controller
                 })
             ],
             'source_funding.*.nominal' => [ 'required','int' ],
-
-            // work plan tag validation
-            'work_plan_tag' => ['required', 'array'],
-            'work_plan_tag.*.param_id' => [
-                'required',
-                Rule::exists('params', 'id')->where(function($query) {
-                    return $query->whereIn('category', ['target', 'indicator']);
-                })
-            ],
-            'work_plan_tag.*.category' => [ 'required', 'in:indicator,sources_of_funding' ]
         ]);
         
         $input = $request->all();
@@ -88,17 +90,6 @@ class UpdateWorkPlanController extends Controller
         }
         $work_plan->source_funding_many()->sync($source_fundings);
         $work_plan->update(['budged' => $budged]);
-
-        // Insert work plan tag 
-        foreach($request->work_plan_tag as $key => $work_plan_tag) {
-            $param_id = $work_plan_tag['param_id'];
-            $category = $work_plan_tag['category'];
-            $work_plan_tags[$key] = [
-                'param_id' => $param_id,
-                'category' => $category
-            ];
-        }
-        $work_plan->work_plan_tag_many()->sync($work_plan_tags);
 
         return ResponseFormatter::success(
             new WorkPlanResource($work_plan),

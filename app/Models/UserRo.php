@@ -12,6 +12,7 @@ class UserRo extends Model
         'user_kro_id',
         'code_ro',
         'ro',
+        'unit_target',
         'unit_id'
     ];
 

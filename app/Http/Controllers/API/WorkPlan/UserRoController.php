@@ -18,7 +18,6 @@ class UserRoController extends Controller
         $user = User::find(Auth::user()->id);
         $request->validate([
             'user_kro_id' => ['required', 'exists:user_kro,id'],
-            'unit_id' => ['required', 'exists:units,id'],
             'code_ro' => [
                 'required',
                 Rule::unique('user_ro', 'code_ro')->where(function($query) use ($request, $user) {
@@ -26,6 +25,7 @@ class UserRoController extends Controller
                 })
             ],
             'ro' => ['required', 'string'],
+            'unit_target' => ['required', 'exists:unit_targets,id'],
         ]);
 
         if(! $user->hasRole('asdep')) {
@@ -79,6 +79,7 @@ class UserRoController extends Controller
                 })
             ],
             'ro' => ['required', 'string'],
+            'unit_target' => ['required', 'exists:unit_targets,id'],
         ]);
 
         $user = User::find(Auth::user()->id);
@@ -91,6 +92,7 @@ class UserRoController extends Controller
         $user_ro->update([
             'code_ro' => $request->code_ro,
             'ro' => $request->ro,
+            'unit_target' => $request->unit_target,
         ]);
 
         return ResponseFormatter::success(

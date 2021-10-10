@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\WorkPlan;
 
+use App\Http\Resources\Param\ParamResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class WorkPlanResource extends JsonResource
@@ -34,6 +35,8 @@ class WorkPlanResource extends JsonResource
             'sub_work_plan' => SubWorkPlanResource::collection($this->sub_work_plan),
             'detail' => $this->detail,
             'description' => $this->description,
+            'target' => new ParamResource($this->target),
+            'indicator' => new ParamResource($this->indicator),
             'deputi_status' => $this->deputi_status,
             'admin_status' => $this->admin_status,
             'source_funding' => SourceFundingResource::collection($this->source_funding),

@@ -26,6 +26,8 @@ class CreateWorkPlansTable extends Migration
             $table->double('budged');
             $table->text('detail')->nullable();
             $table->text('description')->nullable();
+            $table->foreignId('target_id')->constrained('params')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('indicator_id')->constrained('params')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('deputi_status', ['accept', 'pending', 'decline']);
             $table->enum('admin_status', ['accept', 'pending', 'decline'])->nullable();
             $table->timestamps();

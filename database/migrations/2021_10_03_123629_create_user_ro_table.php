@@ -19,6 +19,7 @@ class CreateUserRoTable extends Migration
             $table->foreignId('user_kro_id')->constrained('user_kro')->onDelete('cascade')->onUpate('cascade');
             $table->string('code_ro');
             $table->string('ro');
+            $table->foreignId('unit_target')->constrained('unit_targets')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
