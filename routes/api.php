@@ -8,6 +8,11 @@ Route::namespace('API')->group(function () {
         Route::namespace('Param')->group(function() {
             Route::get('province', 'GetParamController@provinsi');
             Route::get('city', 'GetParamController@city');
+            Route::prefix('param')->group(function() {
+                Route::get('target', 'GetParamController@target');
+                Route::get('indicator', 'GetParamController@indicator');
+                Route::get('sources_of_funding', 'GetParamController@sources_of_funding');
+            });
         });
         
         Route::namespace('Auth')->prefix('auth')->group(function () {

@@ -29,7 +29,7 @@ class UserKro extends Model
     {
         return $this->belongsTo(Kro::class, 'kro_id');
     }
-    
+
     public function user_ro()
     {
         return $this->hasMany(UserRo::class, 'user_kro_id');
