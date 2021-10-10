@@ -15,4 +15,9 @@ class Kro extends Model
     ];
 
     public $timestamps = false;
+
+    public function user_ro()
+    {
+        return $this->hasMany(UserRo::class, 'user_ro_id');
+    }
 }

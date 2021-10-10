@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Export;
 
+use App\Http\Resources\User\UserResource;
 use App\Models\VwWorkPlanDetail;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,11 +16,18 @@ class KroResource extends JsonResource
      */
     public function toArray($request)
     {
-        $ro = VwWorkPlanDetail::where([['kro_id', $this->kro_id], ['admin_status', 'accept']])->groupBy('ro')->get();
         return [
-            'code_kro' => ($this->type_kro == 'code_kro_pn') ? $this->code_kro_pn : $this->code_kro_non_pn,
+            'id' => $this->id,
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+            ],
+            'unit' => $this->unit,
+            'user_activity_id' => $this->user_activiy_id,
             'kro' => $this->kro,
-            'ro' => RoResource::collection($ro)
+            'type_kro' => $this->type_kro,
+            'total_budged_user_ro' => VwWorkPlanDetail::where([['user_kro_id', $request->id], ['admin_status', 'accept']])->sum('budged'),
+            'user_ro' => RoResource::collection($this->user_ro),
         ];
     }
 }

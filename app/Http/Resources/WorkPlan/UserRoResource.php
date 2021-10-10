@@ -21,6 +21,7 @@ class UserRoResource extends JsonResource
             'user_kro_id' => $this->user_kro_id,
             'code_ro' => $this->code_ro,
             'ro' => $this->ro,
+            'unit_target' => $this->unit_target_data,
             'unit' => $this->unit,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

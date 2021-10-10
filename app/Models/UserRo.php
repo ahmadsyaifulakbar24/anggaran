@@ -25,7 +25,11 @@ class UserRo extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_id');
     }
-    
+
+    public function unit_target_data()
+    {
+        return $this->belongsTo(UnitTarget::class, 'unit_target');
+    } 
     public function work_plan ()
     {
         return $this->hasMany(WorkPlan::class, 'user_ro_id');

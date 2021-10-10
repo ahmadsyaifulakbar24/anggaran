@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Export;
 
+use App\Http\Resources\Program\ProgramResource;
+use App\Http\Resources\User\UserResource;
 use App\Models\VwWorkPlanDetail;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,11 +17,16 @@ class ExcelWorkPlanResource extends JsonResource
      */
     public function toArray($request)
     {
-        $activity = VwWorkPlanDetail::where([['program_id', $this->program_id], ['admin_status', 'accept']])->groupBy('activity_id')->get();
         return [
-            'program_code' => $this->program,
-            'program_description' => $this->program_description,
-            'activity' => ActivityResource::collection($activity)
+            'id' => $this->id,
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+            ],
+            'unit' => $this->unit,
+            'program' => new ProgramResource($this->program),
+            'total_budged_user_activity' => VwWorkPlanDetail::where([['user_program_id', $request->id], ['admin_status', 'accept']])->sum('budged'),
+            'user_activity' => ActivityResource::collection($this->user_activity),
         ];
     }
 }

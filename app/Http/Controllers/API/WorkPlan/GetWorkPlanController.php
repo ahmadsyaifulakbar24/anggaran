@@ -9,6 +9,7 @@ use App\Http\Resources\WorkPlan\SubWorkPlanByProvinceResource;
 use App\Http\Resources\WorkPlan\WorkPlanDetailResource;
 use App\Http\Resources\WorkPlan\WorkPlanResource;
 use App\Models\SubWorkPlan;
+use App\Models\UserProgram;
 use App\Models\VwSubWorkPlanDetail;
 use App\Models\VwWorkPlanDetail;
 use App\Models\WorkPlan;
@@ -112,9 +113,11 @@ class GetWorkPlanController extends Controller
             'unit_id' => ['required', 'exists:units,id']
         ]);
 
-        $program = VwWorkPlanDetail::where([['unit_id', $request->unit_id], ['admin_status', 'accept']])->groupBy('program_id')->get();
-        return ResponseFormatter::success(
-            ExcelWorkPlanResource::collection($program)
-        );
+        $user_program = UserProgram::where('unit_id', $request->unit_id)->get();
+        //
+        return ResponseFormatter::success([
+            'total_budged_user_program' => VwWorkPlanDetail::where([['unit_id', $request->unit_id], ['admin_status', 'accept']])->sum('budged'),
+            'user_program' => ExcelWorkPlanResource::collection($user_program)
+        ], 'success get excel data' );
     }
 }

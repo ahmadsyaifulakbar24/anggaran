@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Export;
 
+use App\Http\Resources\User\UserResource;
 use App\Models\VwWorkPlanDetail;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,11 +16,18 @@ class RoResource extends JsonResource
      */
     public function toArray($request)
     {
-        $component = VwWorkPlanDetail::where([['ro_id', $this->ro_id], ['admin_status', 'accept']])->get();
         return [
+            'id' => $this->id,
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+            ],
+            'user_kro_id' => $this->user_kro_id,
             'code_ro' => $this->code_ro,
             'ro' => $this->ro,
-            'compenent' => ComponentResource::collection($component)
+            'unit_target' => $this->unit_target_data,
+            'unit' => $this->unit,
+            'work_plan' => ComponentResource::collection($this->work_plan)
         ];
     }
 }
