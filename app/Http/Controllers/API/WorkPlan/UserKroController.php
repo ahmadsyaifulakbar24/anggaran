@@ -67,7 +67,8 @@ class UserKroController extends Controller
             $user_kro->where('user_activity_id', $request->user_activity_if);
         }
 
-        return $user_kro->orderBy('id', 'desc')->paginate($limit);
+        $result = $user_kro->orderBy('id', 'desc')->paginate($limit);
+        return UserKroResource::collection($result);
     }
 
     public function update(Request $request, UserKro $user_kro)
