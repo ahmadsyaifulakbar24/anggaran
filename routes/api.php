@@ -79,6 +79,8 @@ Route::namespace('API')->group(function () {
             Route::get('/get_file', 'FileManagerController@fetch');
             Route::delete('/delete_file/{file_manager:id}', 'FileManagerController@delete');
             Route::delete('/delete_file/{file_manager:id}', 'FileManagerController@delete');
+
+            Route::get('/total_budged', 'GetTotalBudgedController@totalBudget');
         });
 
         Route::namespace('Comment')->prefix('comment')->group(function() {
