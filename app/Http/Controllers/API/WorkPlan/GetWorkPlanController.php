@@ -5,8 +5,11 @@ namespace App\Http\Controllers\API\WorkPlan;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Export\ExcelWorkPlanResource;
+use App\Http\Resources\WorkPlan\SubWorkPlanByProvinceResource;
 use App\Http\Resources\WorkPlan\WorkPlanDetailResource;
 use App\Http\Resources\WorkPlan\WorkPlanResource;
+use App\Models\SubWorkPlan;
+use App\Models\VwSubWorkPlanDetail;
 use App\Models\VwWorkPlanDetail;
 use App\Models\WorkPlan;
 use Illuminate\Http\Request;
@@ -58,6 +61,27 @@ class GetWorkPlanController extends Controller
             WorkPlanResource::collection($result),
             $this->message
         );
+    }
+
+    public function get_by_province(Request $request) 
+    {
+        $request->validate([
+            'province_id' => ['required', 'exists:provinces,id'],
+            'unit_id' => ['nullable', 'exists:units,id'],
+            'user_id' => ['nullable', 'exists:users,id'],
+            'limit' => ['nullable', 'integer'],
+        ]);
+        $limit = $request->input('limit', 10);
+        $sub_work_plan = VwSubWorkPlanDetail::where('province_id', $request->province_id)->groupBy('work_plan_id');
+        
+        if($request->unit_id) {
+            $sub_work_plan->where('unit_id', $request->unit_id);
+        } else if($request->user_id) {
+            $sub_work_plan->where('user_id', $request->user_id);
+        }
+
+        return SubWorkPlanByProvinceResource::collection($sub_work_plan->paginate($limit));
+        
     }
 
     public function excel(Request $request)

@@ -60,6 +60,22 @@ class CreateViewsTable extends Migration
             GROUP BY a.id
         ");
 
+        DB::statement("DROP VIEW IF EXISTS vw_sub_work_plan_detail");
+        DB::statement("
+            CREATE VIEW vw_sub_work_plan_detail as
+            SELECT 
+                a.*, 
+                b.unit_id, 
+                b.user_id, 
+                b.budged, 
+                b.admin_status
+            FROM sub_work_plans a
+            LEFT JOIN work_plans b ON a.work_plan_id = b.id
+        ");
+
+
+        
+
         
     }
 

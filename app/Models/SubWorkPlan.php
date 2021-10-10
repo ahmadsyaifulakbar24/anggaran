@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SubWorkPlan extends Model
 {
@@ -15,8 +16,18 @@ class SubWorkPlan extends Model
 
     public $timestamps = false;
 
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id');
+    }
+
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function work_plan()
+    {
+        return $this->belongsTo(WorkPlan::class, 'work_plan_id');
     }
 }

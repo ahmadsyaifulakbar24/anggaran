@@ -4,7 +4,7 @@ namespace App\Http\Resources\WorkPlan;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubWorkPlanResource extends JsonResource
+class SubWorkPlanByProvinceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,6 +23,7 @@ class SubWorkPlanResource extends JsonResource
                 'id' => $this->city->id,
                 'city' => $this->city->city,
             ],
+            'work_plan' => new WorkPlanResource($this->work_plan),
         ];
     }
 }

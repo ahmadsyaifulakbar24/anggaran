@@ -81,6 +81,8 @@ Route::namespace('API')->group(function () {
             Route::delete('/delete_file/{file_manager:id}', 'FileManagerController@delete');
 
             Route::get('/total_budged', 'GetTotalBudgedController@totalBudget');
+            Route::get('/total_budged_by_province', 'GetTotalBudgedController@totalBudgetByProvince');
+            Route::get('/get_by_province', 'GetWorkPlanController@get_by_province');
         });
 
         Route::namespace('Comment')->prefix('comment')->group(function() {
