@@ -81,7 +81,7 @@ class UserProgramController extends Controller
                 'required', 
                 'exists:programs,id',
                 Rule::unique('user_programs', 'program_id')->ignore($user_program->id)->where(function($query) use ($user_program) {
-                    return $query->where('unit_i', $user_program->unit_id);
+                    return $query->where('unit_id', $user_program->unit_id);
                 })
             ]
         ]);

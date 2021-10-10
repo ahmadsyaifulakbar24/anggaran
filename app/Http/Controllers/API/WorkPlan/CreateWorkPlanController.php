@@ -28,7 +28,6 @@ class CreateWorkPlanController extends Controller
             'title' => ['required', 'string'],
             'total_target' => ['required', 'integer'],
             'unit_target' => ['required', 'exists:unit_targets,id'],
-            'budged' => ['required', 'integer'],
             'detail' => ['required', 'string'],
             'description' => ['required', 'string'],
 
@@ -77,7 +76,12 @@ class CreateWorkPlanController extends Controller
         $work_plan->sub_work_plan()->createMany($request->sub_work_plan);
 
         // Insert Source Funding
+        $budged = 0;
+        foreach($request->source_funding as $source_funding) {
+            $budged += $source_funding['nominal'];
+        }
         $work_plan->source_funding()->createMany($request->source_funding);
+        $work_plan->update([ 'budged' => $budged ]);
 
         // Inser Work Plan Tag
         $work_plan->work_plan_tag()->createMany($request->work_plan_tag);

@@ -31,7 +31,6 @@ class UpdateWorkPlanController extends Controller
             'title' => ['required', 'string'],
             'total_target' => ['required', 'integer'],
             'unit_target' => ['required', 'exists:unit_targets,id'],
-            'budged' => ['required', 'integer'],
             'detail' => ['required', 'string'],
             'description' => ['required', 'string'],
 
@@ -77,6 +76,7 @@ class UpdateWorkPlanController extends Controller
         $work_plan->sub_work_plan_many()->sync($sub_work_plans);
         
         // Inser source funding 
+        $budged = 0;
         foreach($request->source_funding as $key => $source_funding) {
             $param_id = $source_funding['param_id'];
             $nominal = $source_funding['nominal'];
@@ -84,8 +84,10 @@ class UpdateWorkPlanController extends Controller
                 'param_id' => $param_id,
                 'nominal' => $nominal
             ];
+            $budged += $nominal;
         }
         $work_plan->source_funding_many()->sync($source_fundings);
+        $work_plan->update(['budged' => $budged]);
 
         // Insert work plan tag 
         foreach($request->work_plan_tag as $key => $work_plan_tag) {
