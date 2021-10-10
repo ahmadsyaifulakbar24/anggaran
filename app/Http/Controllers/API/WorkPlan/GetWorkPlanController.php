@@ -13,6 +13,7 @@ use App\Models\VwSubWorkPlanDetail;
 use App\Models\VwWorkPlanDetail;
 use App\Models\WorkPlan;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class GetWorkPlanController extends Controller
 {
@@ -82,6 +83,27 @@ class GetWorkPlanController extends Controller
 
         return SubWorkPlanByProvinceResource::collection($sub_work_plan->paginate($limit));
         
+    }
+
+    public function get_by_indicator_target(Request $request)
+    {
+        $request->validate([
+            'target_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'target');
+                })
+            ],
+            'indicator_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'indicator');
+                })
+            ],
+        ]);
+
+        $work_plan = WorkPlan::where([['target_id', $request->target_id], ['indicator_id', $request->indicator_id]])->get();
+        return WorkPlanResource::collection($work_plan);
     }
 
     public function excel(Request $request)

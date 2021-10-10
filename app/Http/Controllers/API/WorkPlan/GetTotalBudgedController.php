@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SubWorkPlan;
 use App\Models\VwSubWorkPlanDetail;
 use App\Models\VwWorkPlanDetail;
+use App\Models\WorkPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -68,4 +69,28 @@ class GetTotalBudgedController extends Controller
             'total_budged' => $sub_work_plan->where('admin_status', 'accept')->sum('budged'),
         ], 'success get total budged by province');
     } 
+
+    public function total_budged_by_indicator_target(Request $request)
+    {
+        $request->validate([
+            'target_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'target');
+                })
+            ],
+            'indicator_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'indicator');
+                })
+            ],
+        ]);
+
+        $work_plan = WorkPlan::where([['target_id', $request->target_id], ['indicator_id', $request->indicator_id]])->get();
+        return ResponseFormatter::success([
+            'total_work_plan' => $work_plan->count(),
+            'total_budged' => $work_plan->sum('budged'),
+        ], 'success get total budged by indicator target data');
+    }
 }
