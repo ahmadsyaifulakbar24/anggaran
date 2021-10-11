@@ -1,22 +1,19 @@
 @extends('layouts/app')
 
-@section('title', 'Ubah Kegiatan')
+@section('title', 'Buat Kegiatan')
 
 @section('content')
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
-			<h4>Ubah Kegiatan</h4>
+			<h4>Buat Kegiatan</h4>
 		</div>
 		<div class="card card-custom">
 			<form class="card-body">
 				<div class="form-group">
-					<label for="code_program">Kode</label>
-					<input class="form-control" id="code_program"></select>
-					<div class="invalid-feedback"></div>
-				</div>
-				<div class="form-group">
-					<label for="parent_id">Keterangan</label>
-					<input class="form-control" id="description"></select>
+					<label for="activity_id">Kegiatan</label>
+					<select class="custom-select" id="activity_id" role="button">
+						<option value="" disabled selected>Pilih</option>
+					</select>
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
@@ -28,6 +25,6 @@
 @endsection
 
 @section('script')
-	<script>const id = {{$id}}</script>
-	<script src="{{asset('api/edit-kegiatan.js')}}"></script>
+	<script>const user_program_id = {{$user_program_id}}</script>
+	<script src="{{asset('api/asdep/create-kegiatan.js')}}"></script>
 @endsection

@@ -18,6 +18,7 @@ $('form').submit(function(e) {
             // console.log(value)
             localStorage.setItem('token', value.access_token)
             localStorage.setItem('user', value.user.id)
+            localStorage.setItem('unit', value.user.unit_id)
             localStorage.setItem('name', value.user.name)
             localStorage.setItem('role', value.user.role)
             $.ajax({

@@ -87,11 +87,21 @@
 					</a>
 				</div>
 				@endif
+				@if(session("role") == "asdep")
+				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
+					<a href="{{url('asdep/program')}}" class="card card-menu rounded {{Request::is('asdep/program')?'active':''}}">
+						<div class="text-center p-2">
+							<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
+							<h6>Entri Komponen</h6>
+						</div>
+					</a>
+				</div>
+				@endif
 				<div class="col col-md-4 col-lg-2 mb-4">
 					<a href="{{url('rancangan-anggaran')}}" class="card card-menu rounded {{Request::is('rancangan-anggaran')?'active':''}}">
 						<div class="text-center p-2">
-							<i class="mdi mdi-file-document-edit-outline mdi-48px pr-0"></i>
-							<h6>Rancangan Anggaran</h6>
+							<i class="mdi mdi-file-excel-outline mdi-48px pr-0"></i>
+							<h6>Status & Rekap Anggaran</h6>
 						</div>
 					</a>
 				</div>

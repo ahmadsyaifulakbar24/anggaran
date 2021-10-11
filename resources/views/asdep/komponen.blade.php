@@ -1,13 +1,13 @@
 @extends('layouts/app')
 
-@section('title','Rancangan Anggaran')
+@section('title','Komponen')
 
 @section('content')
 	<div class="container">
 		<div class="d-sm-flex justify-content-between align-items-center mb-2">
-			<h4>Rancangan Anggaran</h4>
+			<h4>Komponen</h4>
 			<div class="text-right">
-				<a href="{{url('rancangan-anggaran/create')}}" class="btn btn-primary create mb-1">Buat Kegiatan</a>
+				<a href="{{url('asdep/komponen/create/'.$user_ro_id)}}" class="btn btn-primary create mb-1">Buat Kegiatan</a>
 				<div class="btn btn-outline-primary view mb-1" data-toggle="modal" data-target="#modal-view">View Sebagai</div>
 				<div class="btn btn-outline-primary export mb-1">Export Excel</div>
 			</div>
@@ -127,5 +127,6 @@
 @section('script')
 	<script src="{{asset('assets/js/number.js')}}"></script>
 	<script src="{{asset('assets/js/exportCsv.js')}}"></script>
-	<script src="{{asset('api/rancangan-anggaran.js')}}"></script>
+	<script>const user_ro_id = {{$user_ro_id}}</script>
+	<script src="{{asset('api/asdep/komponen.js')}}"></script>
 @endsection

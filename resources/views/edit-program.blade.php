@@ -20,7 +20,7 @@
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
-					<button class="btn btn-primary">Submit</button>
+					<button class="btn btn-primary" id="submit" disabled>Submit</button>
 				</div>
 			</form>
 		</div>

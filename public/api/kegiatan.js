@@ -55,6 +55,7 @@ $(document).on('click', '.delete', function() {
 
 $(document).on('click', '#delete', function() {
     let id = $(this).attr('data-id')
+    $('#delete').attr('disabled', true)
     $.ajax({
         url: `${root}/api/program/${id}`,
         type: 'DELETE',
@@ -63,6 +64,7 @@ $(document).on('click', '#delete', function() {
             get_data()
             customAlert('success', 'Kegiatan berhasil dihapus')
             $('#modal-delete').modal('hide')
+            $('#delete').attr('disabled', false)
         }
     })
 })

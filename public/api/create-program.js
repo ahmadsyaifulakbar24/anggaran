@@ -1,5 +1,6 @@
 $('form').submit(function(e) {
     e.preventDefault()
+    $('#submit').attr('disabled', true)
     $('.is-invalid').removeClass('is-invalid')
     let formData = new FormData()
     formData.append('code_program', $('#code_program').val())
@@ -18,6 +19,7 @@ $('form').submit(function(e) {
             }, 1000)
         },
         error: function(xhr) {
+		    $('#submit').attr('disabled', false)
         	// console.log(xhr)
         	let err = xhr.responseJSON.errors
             if (err.code_program) {

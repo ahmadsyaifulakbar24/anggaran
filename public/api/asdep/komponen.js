@@ -1,25 +1,40 @@
-if (role == 'admin' || role == 'deputi') {
-    $.ajax({
-        url: `${root}/api/user`,
-        type: 'GET',
-        data: {
-            id: user
-        },
-        success: function(result) {
-            // console.log(result.data)
-            let value = result.data
-            $unit_id = value.unit_id
-            if (value.role == 'admin') {
-                get_unit('deputi')
-            } else if (value.role == 'deputi') {
-                get_unit('asdep')
-            }
-        }
-    })
-} else {
-    get_data()
-    $('#card').show()
-}
+$.ajax({
+    url: `${root}/api/user_ro/fetch`,
+    type: 'GET',
+    data: {
+    	user_ro_id
+    },
+    success: function(result) {
+        // console.log(result.data)
+		if (role == 'admin' || role == 'deputi') {
+		    $.ajax({
+		        url: `${root}/api/user`,
+		        type: 'GET',
+		        data: {
+		            id: user
+		        },
+		        success: function(result) {
+		            // console.log(result.data)
+		            let value = result.data
+		            $unit_id = value.unit_id
+		            if (value.role == 'admin') {
+		                get_unit('deputi')
+		            } else if (value.role == 'deputi') {
+		                get_unit('asdep')
+		            }
+		        }
+		    })
+		} else {
+		    get_data()
+		    $('#card').show()
+		}
+    },
+    error: function(xhr) {
+        // console.log(xhr)
+        let err = xhr.responseJSON.errors
+        if (err.user_ro_id) history.back()
+    }
+})
 
 function get_unit(role) {
     $.ajax({

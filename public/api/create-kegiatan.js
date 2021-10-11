@@ -15,6 +15,7 @@ $.ajax({
 
 $('form').submit(function(e) {
     e.preventDefault()
+    $('#submit').attr('disabled', true)
     $('.is-invalid').removeClass('is-invalid')
     let formData = new FormData()
     formData.append('code_program', $('#code_program').val())
@@ -30,10 +31,11 @@ $('form').submit(function(e) {
             // console.log(result.data)
             customAlert('success', 'Kegiatan berhasil dibuat')
             setTimeout(function() {
-                location.href = `${root}/program/${parent_id}`
+                location.href = `${root}/kegiatan/${parent_id}`
             }, 1000)
         },
         error: function(xhr) {
+		    $('#submit').attr('disabled', false)
         	// console.log(xhr)
         	let err = xhr.responseJSON.errors
             if (err.code_program) {
@@ -43,7 +45,7 @@ $('form').submit(function(e) {
 	            }
 	            else if (err.code_program == "The code program field is required.") {
 	                $('#code_program').addClass('is-invalid')
-	                $('#code_program').siblings('.invalid-feedback').html('Masukkan Kode.')
+	                $('#code_program').siblings('.invalid-feedback').html('Masukkan kode.')
 	            }
 	        }
             if (err.description) {

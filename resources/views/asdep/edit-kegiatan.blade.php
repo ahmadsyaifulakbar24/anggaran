@@ -10,13 +10,10 @@
 		<div class="card card-custom">
 			<form class="card-body">
 				<div class="form-group">
-					<label for="code_program">Kode</label>
-					<input class="form-control" id="code_program"></select>
-					<div class="invalid-feedback"></div>
-				</div>
-				<div class="form-group">
-					<label for="parent_id">Keterangan</label>
-					<input class="form-control" id="description"></select>
+					<label for="activity_id">Kegiatan</label>
+					<select class="custom-select" id="activity_id" role="button">
+						<option value="" disabled selected>Pilih</option>
+					</select>
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
@@ -28,6 +25,6 @@
 @endsection
 
 @section('script')
-	<script>const id = {{$id}}</script>
-	<script src="{{asset('api/edit-kegiatan.js')}}"></script>
+	<script>const user_activity_id = {{$user_activity_id}}</script>
+	<script src="{{asset('api/asdep/edit-kegiatan.js')}}"></script>
 @endsection

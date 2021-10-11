@@ -1,5 +1,6 @@
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
+const unit = localStorage.getItem('unit')
 const name = localStorage.getItem('name')
 const role = localStorage.getItem('role')
 // const photo = localStorage.getItem('photo')

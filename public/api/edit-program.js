@@ -7,6 +7,7 @@ $.ajax({
         let value = result.data
         $('#code_program').val(value.code_program)
         $('#description').val(value.description)
+	    $('#submit').attr('disabled', false)
     },
     error: function(xhr) {
         // console.log(xhr)
@@ -17,7 +18,7 @@ $.ajax({
 
 $('form').submit(function(e) {
     e.preventDefault()
-    addLoading()
+    $('#submit').attr('disabled', true)
     $('.is-invalid').removeClass('is-invalid')
 
     let code_program = $('#code_program').val()
@@ -35,6 +36,7 @@ $('form').submit(function(e) {
             }, 1000)
         },
         error: function(xhr) {
+		    $('#submit').attr('disabled', false)
             // console.log(xhr)
             let err = xhr.responseJSON.errors
             if (err.code_program) {
