@@ -48,7 +48,6 @@ class CreateViewWorkPlan extends Migration
                 j.name as work_plan_user_name,
                 e.component_code,
                 e.component_name,
-                e.title,
                 e.total_target,
                 n.id as unit_target_id,
                 n.name as unit_target_name,

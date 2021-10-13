@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API\WorkPlan;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\WorkPlan\WorkPlanResource;
-use App\Models\CodeRo;
 use App\Models\User;
 use App\Models\WorkPlan;
 use Illuminate\Http\Request;
@@ -28,7 +27,6 @@ class UpdateWorkPlanController extends Controller
                 })
             ],
             'component_name' => ['required', 'string'],
-            'title' => ['required', 'string'],
             'total_target' => ['required', 'integer'],
             'unit_target' => ['required', 'exists:unit_targets,id'],
             'detail' => ['required', 'string'],

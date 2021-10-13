@@ -31,7 +31,6 @@ class WorkPlanDetailResource extends JsonResource
             'user_ro' => new UserRoResource($this->user_ro),
             'component_code' => $this->component_code,
             'component_name' => $this->component_name,
-            'title' => $this->title,
             'total_target' => $this->total_target,
             'unit_target' => $this->unit_target_data,
             'budged' => $this->budged,

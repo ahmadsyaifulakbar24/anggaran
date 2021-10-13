@@ -20,7 +20,6 @@ class CreateWorkPlansTable extends Migration
             $table->bigInteger('user_ro_id')->unsigned();
             $table->string('component_code');
             $table->string('component_name');
-            $table->string('title');
             $table->double('total_target');
             $table->bigInteger('unit_target')->unsigned();
             $table->double('budged');

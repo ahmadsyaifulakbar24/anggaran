@@ -14,7 +14,6 @@ class WorkPlan extends Model
         'user_ro_id',
         'component_code',
         'component_name',
-        'title',
         'total_target',
         'unit_target',
         'budged',
