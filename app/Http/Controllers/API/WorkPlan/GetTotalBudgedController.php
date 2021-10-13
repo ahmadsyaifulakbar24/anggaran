@@ -87,7 +87,7 @@ class GetTotalBudgedController extends Controller
             ],
         ]);
 
-        $work_plan = WorkPlan::where([['target_id', $request->target_id], ['indicator_id', $request->indicator_id]])->get();
+        $work_plan = WorkPlan::where([['target_id', $request->target_id], ['indicator_id', $request->indicator_id], ['admin_status', 'accept']])->get();
         return ResponseFormatter::success([
             'total_work_plan' => $work_plan->count(),
             'total_budged' => $work_plan->sum('budged'),
