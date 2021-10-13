@@ -64,7 +64,7 @@ class UserKroController extends Controller
 
         $user_kro = UserKro::query();
         if($request->user_activity_id) {
-            $user_kro->where('user_activity_id', $request->user_activity_if);
+            $user_kro->where('user_activity_id', $request->user_activity_id);
         }
 
         $result = $user_kro->orderBy('id', 'desc')->paginate($limit);
