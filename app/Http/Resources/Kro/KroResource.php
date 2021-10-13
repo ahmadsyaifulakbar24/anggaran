@@ -18,7 +18,8 @@ class KroResource extends JsonResource
             'id' => $this->id,
             'code_kro_non_pn' => $this->code_kro_non_pn,
             'code_kro_pn' => $this->code_kro_pn,
-            'kro' => $this->kro
+            'kro' => $this->kro,
+            'unit' => $this->unit,
         ];
     }
 }
