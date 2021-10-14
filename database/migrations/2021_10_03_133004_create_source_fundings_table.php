@@ -17,7 +17,7 @@ class CreateSourceFundingsTable extends Migration
             $table->id();
             $table->foreignId('work_plan_id')->constrained('work_plans')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('param_id')->constrained('params')->onUpdate('cascade')->onUpdate('cascade');
-            $table->float('nominal');
+            $table->double('nominal');
         });
     }
 

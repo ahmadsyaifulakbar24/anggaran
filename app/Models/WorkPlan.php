@@ -73,14 +73,14 @@ class WorkPlan extends Model
         return $this->hasMany(SourceFunding::class, 'work_plan_id');
     }
 
-    public function target_id()
+    public function target()
     {
         return $this->hasMany(Param::class, 'target_id');
     }
 
-    public function indicator_id()
+    public function indicator()
     {
-        return $this->hasMany(Param::class, 'indicator');
+        return $this->hasMany(Param::class, 'indicator_id');
     }
 
     public function sub_work_plan_many()
