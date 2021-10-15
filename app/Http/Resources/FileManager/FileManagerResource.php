@@ -18,6 +18,7 @@ class FileManagerResource extends JsonResource
         return [
             'id' => $this->id, 
             'work_plan_id' => $this->work_plan_id,
+            'user_ro_id' => $this->user_ro_id,
             'file' => $this->file_url,
             'type' => new ParamResource($this->type),
             'created_at' => $this->created_at,

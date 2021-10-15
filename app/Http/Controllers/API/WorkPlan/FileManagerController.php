@@ -7,6 +7,7 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FileManager\FileManagerResource;
 use App\Models\FileManager;
+use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -57,12 +58,25 @@ class FileManagerController extends Controller
     public function fetch(Request $request)
     {
         $this->validate($request, [
-            'work_plan_id' => ['required', 'exists:work_plans,id'],
+            'category' => ['required', 'in:work_plan,user_ro'],
+            'work_plan_id' => [
+                Rule::RequiredIf($request->category == 'work_plan'), 
+                'exists:work_plans,id'
+            ],
+            'user_ro_id' => [
+                Rule::RequiredIf($request->category == 'user_ro'), 
+                'exists:user_ro,id'
+            ],
         ]);
 
-        $file_manager = FileManager::where('work_plan_id', $request->work_plan_id)->orderBy('id', 'desc')->get();
+        $file_manager = FileManager::query();
+        if($request->work_plan_id) {
+            $file_manager->where('work_plan_id', $request->work_plan_id);
+        } else if($request->user_ro_id) {
+            $file_manager->where('user_ro_id', $request->user_ro_id);
+        }
         return ResponseFormatter::success(
-            FileManagerResource::collection($file_manager),
+            FileManagerResource::collection($file_manager->orderBy('id', 'desc')->get()),
             'success get file manager data'
         );
     }
