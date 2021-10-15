@@ -28,6 +28,7 @@ class GetWorkPlanController extends Controller
             'user_ro_id' => ['nullable', 'exists:user_ro,id'],
             'unit_id' => ['nullable', 'exists:units,id'],
             'search' => ['nullable', 'string'],
+            'status' => ['nullable', 'in:accept,pending,decline,all'],
             'limit' => ['nullable', 'integer']
         ]);
 
@@ -57,6 +58,16 @@ class GetWorkPlanController extends Controller
             $work_plan->where('unit_id', $request->unit_id);
         }
 
+        $status = $request->status;
+        if($status) {
+            if($status == 'accept') {
+                $work_plan->where('admin_status', 'accept');
+            } else if($status == 'pending') {
+                $work_plan->where('admin_status', 'pending')->orWhereNull('admin_status');
+            } else if($status == 'decline') {
+                $work_plan->where('admin_status', 'decline');
+            }
+        }
         $result = $work_plan->orderBy('updated_at', 'desc')->paginate($limit);
         
         return ResponseFormatter::success(

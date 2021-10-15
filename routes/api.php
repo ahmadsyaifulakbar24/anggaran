@@ -12,6 +12,7 @@ Route::namespace('API')->group(function () {
                 Route::get('target', 'GetParamController@target');
                 Route::get('indicator', 'GetParamController@indicator');
                 Route::get('sources_of_funding', 'GetParamController@sources_of_funding');
+                Route::get('units', 'GetParamController@units');
             });
         });
         

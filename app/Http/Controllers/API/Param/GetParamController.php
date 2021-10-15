@@ -10,6 +10,7 @@ use App\Http\Resources\Param\ProvinceResource;
 use App\Models\City;
 use App\Models\Param;
 use App\Models\Province;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class GetParamController extends Controller
@@ -60,6 +61,15 @@ class GetParamController extends Controller
         return ResponseFormatter::success(
             ParamResource::collection($sources_of_funding),
             'success get sources_of_funding data',
+        );
+    }
+
+    public function units()
+    {
+        $units = Unit::all();
+        return ResponseFormatter::success(
+            $units,
+            'success get units data'
         );
     }
 }
