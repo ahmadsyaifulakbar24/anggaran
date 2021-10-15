@@ -86,6 +86,8 @@ Route::namespace('API')->group(function () {
             Route::get('/total_budged_by_indicator_target', 'GetTotalBudgedController@total_budged_by_indicator_target');
             Route::get('/get_by_province', 'GetWorkPlanController@get_by_province');
             Route::get('/get_by_indicator_target', 'GetWorkPlanController@get_by_indicator_target');
+
+            Route::get('/breadcrumb', 'BreadcrumbController');
         });
 
         Route::namespace('Comment')->prefix('comment')->group(function() {
