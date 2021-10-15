@@ -75,12 +75,12 @@ class WorkPlan extends Model
 
     public function target()
     {
-        return $this->hasMany(Param::class, 'target_id');
+        return $this->belongsTo(Param::class, 'target_id');
     }
 
     public function indicator()
     {
-        return $this->hasMany(Param::class, 'indicator_id');
+        return $this->belongsTo(Param::class, 'indicator_id');
     }
 
     public function sub_work_plan_many()
