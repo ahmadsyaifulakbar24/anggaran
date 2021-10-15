@@ -21,9 +21,6 @@ if (role == 'admin') {
 $.ajax({
     url: `${root}/api/user_ro/fetch`,
     type: 'GET',
-    data: {
-        user_ro_id
-    },
     success: function(result) {
         // console.log(result.data)
         if (role == 'admin' || role == 'deputi') {
@@ -78,13 +75,11 @@ function get_data(unit_id = '', user_id = '', search = '') {
     if (role == 'admin') {
         if (unit_id == '') {
             data = {
-                search,
-                user_ro_id
+                search
             }
         } else {
             data = {
                 search,
-                user_ro_id,
                 unit_id
             }
         }
@@ -93,13 +88,11 @@ function get_data(unit_id = '', user_id = '', search = '') {
         if (user_id == '') {
             data = {
                 search,
-                user_ro_id,
                 unit_id
             }
         } else {
             data = {
                 search,
-                user_ro_id,
                 unit_id,
                 user_id
             }

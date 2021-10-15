@@ -17,7 +17,7 @@
 				</div>
 			</div>
 			<div>
-				<a href="{{url('asdep/program/create')}}" class="btn btn-primary mb-1">Buat Program</a>
+				<a href="{{url('asdep/program/create')}}" class="btn btn-primary">Buat Program</a>
 			</div>
 		</div>
 		<div class="card card-custom">

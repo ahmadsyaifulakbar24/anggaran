@@ -362,17 +362,17 @@ $(document).on('keyup', '.rupiah', function() {
 function status(param) {
 	let status = ''
     switch (param) {
+        case null:
+            status = '<span class="text-warning"><i class="mdi mdi-clock-outline"></i>Pending</span>'
+            break;
         case 'pending':
-            status = '<span class="text-warning">Pending</span>'
+            status = '<span class="text-warning"><i class="mdi mdi-clock-outline"></i>Pending</span>'
             break;
         case 'accept':
-            status = '<span class="text-primary">Disetujui</span>'
+            status = '<span class="text-success"><i class="mdi mdi-check-circle-outline"></i>Disetujui</span>'
             break;
         case 'decline':
-            status = '<span class="text-danger">Ditolak</span>'
-            break;
-        case null:
-            status = ''
+            status = '<span class="text-danger"><i class="mdi mdi-close-circle-outline"></i>Ditolak</span>'
     }
     return status
 }

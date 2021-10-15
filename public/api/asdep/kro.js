@@ -37,6 +37,10 @@ function get_data() {
     $.ajax({
         url: `${root}/api/user_kro/fetch`,
         type: 'GET',
+        data: {
+        	user_activity_id,
+        	// unit_id: unit
+        },
         success: function(result) {
             // console.log(result.data)
             if (result.data.length != 0) {

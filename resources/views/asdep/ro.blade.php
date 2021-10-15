@@ -17,7 +17,7 @@
 				</div>
 			</div>
 			<div>
-				<a href="{{url('asdep/ro/create/'.$user_kro_id)}}" class="btn btn-primary mb-1">Buat RO</a>
+				<a href="{{url('asdep/ro/create/'.$user_kro_id)}}" class="btn btn-primary">Buat RO</a>
 			</div>
 		</div>
 		<div class="card card-custom">
@@ -26,9 +26,9 @@
 					<thead>
 						<tr>
 							<th class="text-truncate">No.</th>
-							<th class="text-truncate">Kode</th>
-							<th class="text-truncate">Keterangan</th>
-							<th class="text-truncate">Satuan</th>
+							<th class="text-truncate">Kode RO</th>
+							<th class="text-truncate">Nama RO</th>
+							<th class="text-truncate">Satuan RO</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -60,5 +60,6 @@
 
 @section('script')
 	<script>const user_kro_id = {{$user_kro_id}}</script>
+	<script src="{{asset('assets/js/file.js')}}"></script>
 	<script src="{{asset('api/asdep/ro.js')}}"></script>
 @endsection

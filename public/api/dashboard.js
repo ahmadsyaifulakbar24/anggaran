@@ -27,10 +27,10 @@ function get_by_province(province_id) {
             // user_id: user
         },
         success: function(result) {
-        	console.log(result.data)
+        	// console.log(result.data)
         	let value = result.data
         	$('#total-province').html(`Total Komponen: ${convert(value.total_work_plan)}`)
-        	$('#total-province-budged').html(`Total Anggaran: ${rupiah(value.total_budged)}`)
+        	$('#total-province-budged').html(`Total Anggaran ACC: ${rupiah(value.total_budged)}`)
         }
     })
     $.ajax({
@@ -52,9 +52,8 @@ function get_by_province(province_id) {
 	            		<td class="text-center">${index + 1}.</td>
 	            		<td>${value.work_plan.component_code}</td>
 	            		<td>${value.work_plan.component_name}</td>
-	            		<td>${convert(value.work_plan.budged)}</td>
-	            		<td>${convert(value.work_plan.total_target)}</td>
-	            		<td>${value.work_plan.unit_target.name}</td>
+	            		<td>${rupiah(value.work_plan.budged)}</td>
+	            		<td class="text-truncate">${convert(value.work_plan.total_target)} ${value.work_plan.unit_target.name}</td>
 	            		<td class="text-truncate">${sub_work_plan}</td>
 	            	</tr>`
                     $('#province').append(append)
@@ -104,7 +103,7 @@ function get_by_indicator(indicator_id) {
         	// console.log(result.data)
         	let value = result.data
         	$('#total-indicator').html(`Total Komponen: ${convert(value.total_work_plan)}`)
-        	$('#total-indicator-budged').html(`Total Anggaran: ${rupiah(value.total_budged)}`)
+        	$('#total-indicator-budged').html(`Total Anggaran ACC: ${rupiah(value.total_budged)}`)
         }
     })
     $.ajax({
@@ -112,10 +111,11 @@ function get_by_indicator(indicator_id) {
         type: 'GET',
         data: {
             target_id: 4,
-            indicator_id
+            indicator_id,
+            limit: 1
         },
         success: function(result) {
-            // console.log(result.data)
+            console.log(result.data)
             if (result.data != 0) {
                 $.each(result.data, function(index, value) {
                     sub_work_plan = ''
@@ -126,9 +126,8 @@ function get_by_indicator(indicator_id) {
 	            		<td class="text-center">${index + 1}.</td>
 	            		<td>${value.component_code}</td>
 	            		<td>${value.component_name}</td>
-	            		<td>${convert(value.budged)}</td>
-	            		<td>${convert(value.total_target)}</td>
-	            		<td>${value.unit_target.name}</td>
+	            		<td>${rupiah(value.budged)}</td>
+	            		<td class="text-truncate">${convert(value.total_target)} ${value.unit_target.name}</td>
 	            		<td class="text-truncate">${sub_work_plan}</td>
 	            	</tr>`
                     $('#indicator').append(append)
@@ -161,7 +160,7 @@ $.ajax({
             $.each(value.budged_asdep, function(index, value) {
                 append += `<tr>
 	        		<td class="text-center"></td>
-	        		<td>${value.name}</td>
+	        		<td>- ${value.name}</td>
 	        		<td>${rupiah(value.budged_acc)}</td>
 	        		<td>${rupiah(value.budged_pending)}</td>
 	        	</tr>`

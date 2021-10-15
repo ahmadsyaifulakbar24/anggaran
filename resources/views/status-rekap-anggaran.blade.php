@@ -4,54 +4,11 @@
 
 @section('content')
 	<div class="container">
-		<div class="d-xl-flex justify-content-between align-items-end mb-2">
-			<div>
-				<h4>Komponen</h4>
-				<div class="card card-custom mb-3 mb-xl-0">
-					<div class="card-bodys px-0 py-2">
-						<table class="table table-borderless">
-							<tr>
-								<td><b>Program</b></td>
-								<td>:</td>
-								<td>I - Program Dukungan Manajemen</td>
-							</tr>
-							<tr>
-								<td><b>Kegiatan</b></td>
-								<td>:</td>
-								<td>4946 - Koordinasi Perencanaan, Pelaksanaan dan Monev Bidang Perkoperasian</td>
-							</tr>
-							<tr>
-								<td><b>KRO</b></td>
-								<td>:</td>
-								<td>EBA - Layanan Dukungan Manajemen Internal</td>
-							</tr>
-							<tr>
-								<td><b>RO</b></td>
-								<td>:</td>
-								<td>994 - Layanan Perkantoran Bidang Perkoperasian</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="d-flex justify-content-end">
-				<div id="type-4">
-					<button class="btn btn-outline-primary mr-2 uploads create" data-type="4" data-category="user_ro">Upload File RO</button>
-				</div>
-				<input type="file" class="none" id="file" accept="
-					application/msword,
-					application/vnd.ms-excel,
-					application/vnd.ms-powerpoint,
-					application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-					application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
-					application/vnd.openxmlformats-officedocument.presentationml.presentation,
-					application/pdf,
-				">
-				<div class="text-right">
-					<a href="{{url('asdep/komponen/create/'.$user_ro_id)}}" class="btn btn-primary create mb-1">Buat Komponen</a>
-					<div class="btn btn-outline-primary view mb-1" data-toggle="modal" data-target="#modal-view">View Sebagai</div>
-					<!-- <div class="btn btn-outline-primary export mb-1">Export Excel</div> -->
-				</div>
+		<div class="d-flex justify-content-between align-items-center mb-2">
+			<h4>Komponen</h4>
+			<div class="text-right">
+				<div class="btn btn-outline-primary view mb-1" data-toggle="modal" data-target="#modal-view">View Sebagai</div>
+				<div class="btn btn-outline-primary export mb-1">Export Excel</div>
 			</div>
 		</div>
 		<div class="card card-custom none" id="card">
@@ -75,7 +32,7 @@
 							<th class="text-truncate" rowspan="2">Nama Komponen</th>
 							<th class="text-truncate" rowspan="2">Target</th>
 							<th class="text-truncate text-center border-left border-right" colspan="3">Anggaran</th>
-							<th class="text-truncate unit">Unit</th>
+							<th class="text-truncate unit border-right" rowspan="2">Unit</th>
 							<th class="text-truncate pengguna border-right" rowspan="2">Pengguna</th>
 							<th class="text-truncate text-center border-left border-right" colspan="2">Approval</th>
 							<th colspan="2" rowspan="2"></th>
@@ -209,6 +166,5 @@
 @section('script')
 	<script src="{{asset('assets/js/number.js')}}"></script>
 	<script src="{{asset('assets/js/exportCsv.js')}}"></script>
-	<script>const user_ro_id = {{$user_ro_id}}</script>
-	<script src="{{asset('api/asdep/komponen.js')}}"></script>
+	<script src="{{asset('api/status-rekap-anggaran.js')}}"></script>
 @endsection

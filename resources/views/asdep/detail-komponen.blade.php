@@ -12,11 +12,11 @@
 				<div class="col-xl-10 offset-xl-1">
 					<div class="card-body">
 						<div class="form-group">
-							<b class="font-weight-bold">Kode</b>
-							<div id="code"></div>
+							<b class="font-weight-bold">Kode Komponen</b>
+							<div id="component_code"></div>
 						</div>
 						<div class="form-group">
-							<b class="font-weight-bold">Nama Kegiatan</b>
+							<b class="font-weight-bold">Nama Komponen</b>
 							<div id="component_name"></div>
 						</div>
 						<div class="form-group">
@@ -24,13 +24,31 @@
 							<div id="target"></div>
 						</div>
 						<div class="form-group">
-							<b class="font-weight-bold">Anggaran (Rp.)</b>
-							<div id="budged"></div>
-						</div>
-						<div class="form-group">
 							<b class="font-weight-bold" class="col-form-label">Lokasi</b>
 							<div id="province"></div>
 							<div id="city"></div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-6 col-md-4">
+								<b class="font-weight-bold">Anggaran (RM)</b>
+								<div id="rm">Rp0</div>
+							</div>
+							<div class="form-group col-6 col-md-4">
+								<b class="font-weight-bold">Anggaran (BLU)</b>
+								<div id="blu">Rp0</div>
+							</div>
+							<div class="form-group col-md-4">
+								<b class="font-weight-bold">Anggaran (Total)</b>
+								<div id="budged">Rp0</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<b class="font-weight-bold">Sasaran</b>
+							<div id="sasaran"></div>
+						</div>
+						<div class="form-group">
+							<b class="font-weight-bold">Indikator</b>
+							<div id="indicator"></div>
 						</div>
 						<div class="form-group">
 							<b class="font-weight-bold">Rincian Detail</b>
@@ -46,25 +64,33 @@
 									<b class="font-weight-bold" class="col-form-label pb-0">File TOR</b>
 									<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
 									<div id="type-1"></div>
-									<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-1" data-type="1">Upload File</button>
+									<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="1" data-category="work_plan">Upload File</div>
 									<div class="invalid-feedback"></div>
 								</div>
 								<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
 									<b class="font-weight-bold" class="col-form-label pb-0">File RAB</b>
 									<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
 									<div id="type-2"></div>
-									<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-2" data-type="2">Upload File</button>
+									<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="2" data-category="work_plan">Upload File</div>
 									<div class="invalid-feedback"></div>
 								</div>
 								<div class="col-md-6 col-lg-4 mb-2">
 									<b class="font-weight-bold" class="col-form-label pb-0">File Dukungan Lainnya</b>
 									<div class="small text-secondary mb-2">*Maksimal 5 file.</div>
 									<div id="type-3"></div>
-									<button type="button" class="btn btn-sm btn-block btn-outline-primary upload" id="btn-type-3" data-type="3">Upload File</button>
+									<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="3" data-category="work_plan">Upload File</div>
 									<div class="invalid-feedback"></div>
 								</div>
 							</div>
-							<input type="file" class="none" id="file">
+							<input type="file" class="none" id="file" accept="
+								application/msword,
+								application/vnd.ms-excel,
+								application/vnd.ms-powerpoint,
+								application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+								application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+								application/vnd.openxmlformats-officedocument.presentationml.presentation,
+								application/pdf,
+							">
 						</div><hr>
 						<div class="row">
 							<div class="col-md-6">
@@ -116,5 +142,5 @@
 @section('script')
 	<script>const id = {{$id}}</script>
 	<script src="{{asset('assets/js/file.js')}}"></script>
-	<script src="{{asset('api/detail-rancangan-anggaran.js')}}"></script>
+	<script src="{{asset('api/asdep/detail-komponen.js')}}"></script>
 @endsection

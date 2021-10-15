@@ -3,20 +3,31 @@ $.ajax({
     type: 'GET',
     data: { id },
     success: function(result) {
-        // console.log(result.data)
+        console.log(result.data)
         let value = result.data
-        $('#code').append(`${value.program.parent.code_program}/`)
-        $('#code').append(`${value.program.code_program}/`)
-        $('#code').append(`${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`)
-        $('#code').append(`${value.ro.code_ro}/`)
-        $('#code').append(`${value.component_code}`)
+        // $('#component_code').append(`${value.program.parent.code_program}/`)
+        // $('#component_code').append(`${value.program.code_program}/`)
+        // $('#component_code').append(`${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`)
+        // $('#component_code').append(`${value.ro.code_ro}/`)
+        // $('#component_code').append(`${value.component_code}`)
+        $('#component_code').html(value.component_code)
         $('#component_name').html(value.component_name)
         $('#target').html(`${value.total_target} ${value.unit_target.name}`)
+        // $('#province').html(value.province.id == 1 ? value.province.province : 'Provinsi ' + value.province.province)
+        // $.each(result.data.sub_work_plan, function(index, value) {
+        //     $('#city').append(`<div>- ${value.city.city}</div>`)
+        // })
         $('#budged').html(convert(value.budged))
-        $('#province').html(value.province.id == 1 ? value.province.province : 'Provinsi ' + value.province.province)
-        $.each(result.data.sub_work_plan, function(index, value) {
-            $('#city').append(`<div>- ${value.city.city}</div>`)
+        $.each(value.source_funding, function(index, value) {
+            if(value.param_id == 8) {
+                $('#rm').html(rupiah(value.nominal))
+            } else if (value.param_id == 9) {
+                $('#blu').html(rupiah(value.nominal))
+            }
         })
+        $('#sasaran').html(value.target.param)
+        $('#indicator').html(value.indicator.param)
+        $('#budged').html(rupiah(value.budged))
         $('#detail').html(value.detail)
         $('#description').html(value.description)
 
@@ -62,15 +73,15 @@ $.ajax({
             $('#history').prepend(append)
         })
 
-        if (value.user.id != user) {
-            $('.upload').remove()
-            $('.delete').remove()
-        }
+        //      if (value.user.id != user) {
+        //          $('.upload').remove()
+        //          $('.delete').remove()
+        //      }
     },
     error: function(xhr) {
-        // console.log(xhr)
+        console.log(xhr)
         let err = xhr.responseJSON.errors
-        if (err.id) history.back()
+        // if (err.id) history.back()
     }
 })
 
@@ -118,7 +129,7 @@ $('#form-comment').submit(function(e) {
 })
 
 function auto_grow(element) {
-	element.value != '' ? $('#submit-comment').attr('disabled', false) : $('#submit-comment').attr('disabled', true)
+    element.value != '' ? $('#submit-comment').attr('disabled', false) : $('#submit-comment').attr('disabled', true)
     element.style.height = "0px";
-    element.style.height = (element.scrollHeight)+"px";
+    element.style.height = (element.scrollHeight) + "px";
 }
