@@ -1,3 +1,11 @@
+// $.ajax({
+//     url: `${root}/api/work_plan/get_file`,
+//     type: 'GET',
+//     success: function(result) {
+//     	console.log(result)
+//     }
+// })
+
 $.ajax({
     url: `${root}/api/user_kro/fetch`,
     type: 'GET',
@@ -37,6 +45,9 @@ function get_data() {
     $.ajax({
         url: `${root}/api/user_ro/fetch`,
         type: 'GET',
+        data: {
+        	user_kro_id
+        },
         success: function(result) {
             // console.log(result.data)
             if (result.data.length != 0) {

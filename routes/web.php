@@ -114,19 +114,19 @@ Route::group(['middleware'=>['beforeMiddleware']], function () {
 	Route::get('asdep/komponen/edit/{user_ro_id}/{id}', function ($user_ro_id, $id) {
 		return view('asdep/edit-komponen', compact('user_ro_id', 'id'));
 	});
+	Route::get('asdep/komponen/detail/{id}', function ($id) {
+		return view('asdep/detail-komponen', compact('id'));
+	});
+
+
+	// Status & Rekap Anggaran
+	Route::get('status-rekap-anggaran', function () {
+		return view('status-rekap-anggaran');
+	});
 
 
 	// Rancangan Anggaran
 	Route::get('rancangan-anggaran', function () {
 		return view('rancangan-anggaran');
-	});
-	Route::get('rancangan-anggaran/create', function () {
-		return view('create-rancangan-anggaran');
-	});
-	Route::get('rancangan-anggaran/{id}', function ($id) {
-		return view('detail-rancangan-anggaran', compact('id'));
-	});
-	Route::get('rancangan-anggaran/edit/{id}', function ($id) {
-		return view('edit-rancangan-anggaran', compact('id'));
 	});
 });

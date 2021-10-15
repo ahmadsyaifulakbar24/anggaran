@@ -33,7 +33,7 @@ function get_data() {
         success: function(result) {
             // console.log(result.data)
             $.each(result.data, function(index, value) {
-                append = `<option value="${value.id}">${value.param}</option>`
+                append = `<option value="${value.id}" selected>${value.param}</option>`
                 $('#target_id').append(append)
             })
         }
@@ -54,10 +54,8 @@ function get_data() {
         type: 'GET',
         success: function(result) {
             // console.log(result.data)
-            // $.each(result.data, function(index, value) {
-            //     append = `<option value="${value.id}">${value.param}</option>`
-            //     $('#indicator_id').append(append)
-            // })
+            $sources_funding = result.data
+            add_sources_funding()
         }
     })
     $.ajax({
@@ -71,33 +69,63 @@ function get_data() {
             })
             $province = result.data
             $status_location = null
+            add_province()
         }
     })
 }
 
 $(document).on('change', '.province_id', function() {
-	let id = $(this).parents('.card').attr('data-id')
-    $(`#city${id}`).empty()
-    city_id(id, $(this).val())
-    console.clear()
-    console.log(id)
-    console.log($(this).val())
+    $(this).parents('.location').find('.city').empty()
+    let location_id = $(this).parents('.location').attr('data-id')
+    let province_id = $(this).val()
+    add_city(location_id, province_id)
+    // console.clear()
+    // console.log(location_id)
+    // console.log(province_id)
 })
 
-$(document).on('change', '.city_id', function() {
-    $(this).removeClass('is-invalid')
+function add_province() {
+    let length = $('.location').length
+    let option = `<option value="" disabled selected>Pilih Lokasi</option>`
+    $.each($province, function(index, value) {
+        option += `<option value="${value.id}">${value.province}</option>`
+    })
+    append = `<div class="location mb-2" data-id=${length}>
+		<div class="form-row">
+			<div class="col-md-6 mb-2">
+				<select class="custom-select province_id" role="button">
+					${option}
+				</select>
+				<div class="invalid-feedback">Pilih lokasi.</div>
+			</div>
+			<div class="col-md-6">
+				<div class="city"></div>
+				<div class="btn btn-block btn-outline-primary py-1 mb-2 add_city">
+					<i class="mdi mdi-plus"></i>
+				</div>
+			</div>
+		</div>
+	</div>`
+    $('#location').append(append)
+}
+
+$(document).on('click', '.add_city', function() {
+    let location_id = $(this).parents('.location').attr('data-id')
+    let province_id = $(this).parents('.location').find('.province_id').val()
+    province_id == undefined ? $(`.location[data-id=${location_id}] .province_id`).addClass('is-invalid') : add_city(location_id, province_id)
+    // console.clear()
+    // console.log(location_id)
+    // console.log(province_id)
 })
 
-function city_id(card_id, province_id) {
+function add_city(card_id, province_id) {
     if (province_id == 1) {
         let option = [
             { id: 101, city: 'KEMENKOP UKM' },
             { id: 102, city: 'LPDB' },
             { id: 103, city: 'LLP KUKM' }
         ]
-        $status_location = 'Pusat'
-        $city = option
-        add_city(card_id, province_id)
+        add_cities(card_id, province_id, option, 'Pusat')
     } else {
         $.ajax({
             url: `${root}/api/city`,
@@ -105,70 +133,25 @@ function city_id(card_id, province_id) {
             data: { province_id },
             success: function(result) {
                 // console.log(result.data)
-                $status_location = 'Kab/Kota'
-                $city = result.data
-                add_city(card_id, province_id)
+                add_cities(card_id, province_id, result.data, 'Kab/Kota')
             }
         })
     }
 }
 
-function add_province(province_id) {
-	let length = $('.location').length + 1
-    let option = `<option value="" disabled selected>Pilih Lokasi</option>`
-    $.each($province, function(index, value) {
-        option += `<option value="${value.id}">${value.province}</option>`
-    })
-    append = `<div class="card card-body location shadow mb-3" data-id=${length}>
-		<div class="form-row">
-			<div class="col-md-6 mb-2">
-				<select class="custom-select province_id" role="button">
-					${option}
-				</select>
-				<div class="invalid-feedback"></div>
-			</div>
-			<div class="col-md-6">
-				<div id="city${length}"></div>
-				<div class="btn btn-block btn-outline-primary py-1" onclick="return add_city(${length})">Tambah</div>
-			</div>
-		</div>
-	</div>`
-    $('#province').append(append)
-}
-
-function add_city(card_id, province_id) {
-	// console.log($status_location)
-	$status_location == null ? customAlert('danger', 'Pilih lokasi terlebih dahulu') : ''
-    let option = `<option value="" disabled selected>Pilih ${$status_location}</option>`
-    $.each($city, function(index, value) {
+function add_cities(location_id, province_id, city_id, status_location) {
+    let option = `<option value="" disabled selected>Pilih ${status_location}</option>`
+    $.each(city_id, function(index, value) {
         option += `<option value="${value.id}">${value.city}</option>`
     })
     let append = `<div class="d-flex align-items-start mb-2">
 		<div class="col">
 			<div class="row">
-				<div class="col-12 mb-2 px-0">
+				<div class="col-12 px-0">
 					<select class="custom-select city_id" role="button">
 						${option}
 					</select>
-					<div class="invalid-feedback">Pilih ${$status_location}</div>
-				</div>
-				<div class="col-12 mb-2 px-0">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Rp.</span>
-						</div>
-						<input type="tel" class="form-control number" placeholder="Anggaran (RM)">
-					</div>
-					<div class="invalid-feedback"></div>
-				</div>
-				<div class="col-12 mb-2 px-0">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Rp.</span>
-						</div>
-						<input type="tel" class="form-control number" placeholder="Anggaran (BLU)">
-					</div>
-					<div class="invalid-feedback"></div>
+					<div class="invalid-feedback">Pilih ${status_location}</div>
 				</div>
 			</div>
 		</div>
@@ -176,67 +159,111 @@ function add_city(card_id, province_id) {
 			<i class="mdi mdi-18px mdi-trash-can-outline remove-location pr-0" role="button"></i>
 		</div>
 	</div>`
-	$(`#city${card_id}`).append(append)
+    $(`.location[data-id=${location_id}] .city`).append(append)
 }
 
 $(document).on('click', '.remove-location', function() {
-    let length = $('.city_id').length
-    length > 1 ? $(this).parents('.d-flex').remove() : ''
+    let location_id = $(this).parents('.location').attr('data-id')
+    let province_length = $('.province_id').length
+    let city_length = $(`.location[data-id*=${location_id}] .d-flex`).length
+    // console.clear()
+    // console.log(province_length)
+    // console.log(city_length)
+    if (city_length > 1) {
+        $(this).parents('.d-flex').remove()
+    } else {
+        if (province_length > 1) {
+            $(this).parents('.location').remove()
+            $('.location').each(function(index, value) {
+                $(this).attr('data-id', index)
+            })
+        }
+    }
 })
 
-function add_location() {
-    let option = `<option value="" disabled selected>Pilih ${$status_location}</option>`
-    $.each($city, function(index, value) {
-        option += `<option value="${value.id}">${value.city}</option>`
+function add_sources_funding() {
+    let length = $('.sources_funding').length
+    let option = `<option value="" disabled selected>Pilih</option>`
+    $.each($sources_funding, function(index, value) {
+        option += `<option value="${value.id}">${value.param}</option>`
     })
-    let append = `<div class="d-flex align-items-start mb-2">
-		<div class="col-12 px-0">
-			<select class="custom-select city_id" role="button">
-				${option}
-			</select>
-			<div class="invalid-feedback">Pilih ${$status_location}</div>
-		</div>
-		<div class="col-1 pt-1">
-			<i class="mdi mdi-18px mdi-trash-can-outline remove-location pr-0" role="button"></i>
+    append = `<div class="sources_funding mb-2" data-id=${length}>
+		<div class="form-row">
+			<div class="col-md-6 col-3 mb-2">
+				<select class="custom-select param_id" role="button">
+					${option}
+				</select>
+				<div class="invalid-feedback">Pilih sumber pendanaan.</div>
+			</div>
+			<div class="col-md-6 col-9">
+				<div class="d-flex align-items-start hidee mb-2">
+					<div class="col">
+						<div class="row">
+							<div class="col-12 px-0">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Rp.</span>
+									</div>
+									<input type="tel" class="form-control number nominal" placeholder="Anggaran">
+									<div class="invalid-feedback">Masukkan anggaran.</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-1 pt-1">
+						<i class="mdi mdi-18px mdi-trash-can-outline remove-sources-funding pr-0" role="button"></i>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>`
-    $('#province_id').val() != null ? $('#location').append(append) : ''
+    $('#sources_funding').append(append)
+    if (length < 1) {
+        $('.add_sources_funding').show()
+    } else {
+        $('.add_sources_funding').hide()
+    }
 }
 
-function validation() {
-    $('.is-invalid').removeClass('is-invalid')
-    $('#parent').val() == null ? $('#parent').addClass('is-invalid') : ''
-    $('.city_id').each(function(index, value) {
-        if ($(this).find(':selected').val() == '') {
-            $(this).addClass('is-invalid')
-        }
-    })
-}
+$(document).on('change', '.param_id', function() {
+    // 	$(this).parents('.form-row').find('.d-flex').removeClass('hide')
+})
+
+$(document).on('click', '.remove-sources-funding', function() {
+    let length = $('.sources_funding').length
+    if (length > 1) {
+        $(this).parents('.sources_funding').remove()
+        $('.add_sources_funding').show()
+        $('.sources_funding').each(function(index, value) {
+            $(this).attr('data-id', index)
+        })
+    }
+})
 
 $(document).on('keyup', '.number', function() {
     $(this).val(convert($(this).val()))
 })
 
-
 $('form').submit(function(e) {
-    validation()
     e.preventDefault()
     $('#submit').attr('disabled', true)
+    $('.is-invalid').removeClass('is-invalid')
     let formData = new FormData()
-    formData.append('program_id', $('#program_id').val())
-    formData.append('type_kro', $('#type_kro').val())
-    formData.append('kro_id', $('#kro_id').val())
-    formData.append('code_ro', $('#code_ro').val())
-    formData.append('name_ro', $('#name_ro').val())
+    formData.append('user_ro_id', user_ro_id)
     formData.append('component_code', $('#component_code').val())
     formData.append('component_name', $('#component_name').val())
-    formData.append('title', $('#component_name').val())
+    formData.append('title', $('#title').val())
     formData.append('total_target', number($('#total_target').val()))
     formData.append('unit_target', $('#unit_target').val())
-    formData.append('budged', number($('#budged').val()))
-    formData.append('province_id', $('#province_id').val())
+    formData.append('target_id', $('#target_id').val())
+    formData.append('indicator_id', $('#indicator_id').val())
     $('.city_id').each(function(index, value) {
+        formData.append(`sub_work_plan[${index}][province_id]`, $(this).parents('.location').find('.province_id').val())
         formData.append(`sub_work_plan[${index}][city_id]`, $(this).find(':selected').val())
+    })
+    $('.sources_funding').each(function(index, value) {
+        formData.append(`source_funding[${index}][param_id]`, $(this).find(':selected').val())
+        formData.append(`source_funding[${index}][nominal]`, number($(this).find('.nominal').val()))
     })
     formData.append('detail', $('#detail').val())
     formData.append('description', $('#description').val())
@@ -248,34 +275,14 @@ $('form').submit(function(e) {
         contentType: false,
         success: function(result) {
             // console.log(result.data)
-            customAlert('success', 'Kegiatan berhasil dibuat.')
+            customAlert('success', 'Komponen berhasil dibuat.')
             setTimeout(function() {
-                location.href = `${root}/asdep/komponen/${result.data.id}`
+                location.href = `${root}/asdep/komponen/detail/${result.data.id}`
             }, 1000)
         },
         error: function(xhr) {
             // console.log(xhr)
             let err = xhr.responseJSON.errors
-            if (err.program_id) {
-                $('#program_id').addClass('is-invalid')
-                $('#program_id').siblings('.invalid-feedback').html('Pilih kegiatan.')
-            }
-            if (err.type_kro) {
-                $('#type_kro').addClass('is-invalid')
-                $('#type_kro').siblings('.invalid-feedback').html('Pilih tipe KRO.')
-            }
-            if (err.kro_id) {
-                $('#kro_id').addClass('is-invalid')
-                $('#kro_id').siblings('.invalid-feedback').html('Pilih KRO.')
-            }
-            if (err.code_ro) {
-                $('#code_ro').addClass('is-invalid')
-                $('#code_ro').siblings('.invalid-feedback').html('Masukkan kode RO.')
-            }
-            if (err.name_ro) {
-                $('#name_ro').addClass('is-invalid')
-                $('#name_ro').siblings('.invalid-feedback').html('Masukkan nama RO.')
-            }
             if (err.component_code) {
                 if (err.component_code == "The component code has already been taken.") {
                     $('#component_code').addClass('is-invalid')
@@ -289,10 +296,6 @@ $('form').submit(function(e) {
                 $('#component_name').addClass('is-invalid')
                 $('#component_name').siblings('.invalid-feedback').html('Masukkan nama komponen.')
             }
-            // if (err.title) {
-            //     $('#title').addClass('is-invalid')
-            //     $('#title').siblings('.invalid-feedback').html('Masukkan nama kegiatan.')
-            // }
             if (err.total_target) {
                 $('#total_target').addClass('is-invalid')
                 $('#total_target').siblings('.invalid-feedback').html('Masukkan jumlah.')
@@ -301,14 +304,28 @@ $('form').submit(function(e) {
                 $('#unit_target').addClass('is-invalid')
                 $('#unit_target').siblings('.invalid-feedback').html('Masukkan satuan.')
             }
-            if (err.budged) {
-                $('#budged').addClass('is-invalid')
-                $('#budged').siblings('.invalid-feedback').html('Masukkan anggaran.')
+            if (err.indicator_id) {
+                $('#indicator_id').addClass('is-invalid')
+                $('#indicator_id').siblings('.invalid-feedback').html('Masukkan indikator.')
             }
-            if (err.province_id) {
-                $('#province_id').addClass('is-invalid')
-                $('#province_id').siblings('.invalid-feedback').html('Pilih provinsi.')
-            }
+            $('.province_id').each(function(index, value) {
+                if ($(this).find(':selected').val() == '') {
+                    $(this).addClass('is-invalid')
+                }
+            })
+            $('.city_id').each(function(index, value) {
+                if ($(this).find(':selected').val() == '') {
+                    $(this).addClass('is-invalid')
+                }
+            })
+            $('.sources_funding').each(function(index, value) {
+                if ($(this).find(':selected').val() == '') {
+                    $(`.sources_funding[data-id=${index}] .param_id`).addClass('is-invalid')
+                }
+                if ($(this).find('.nominal').val() == '') {
+                    $(`.sources_funding[data-id=${index}] .nominal`).addClass('is-invalid')
+                }
+            })
             if (err.detail) {
                 $('#detail').addClass('is-invalid')
                 $('#detail').siblings('.invalid-feedback').html('Masukkan rincian detail.')

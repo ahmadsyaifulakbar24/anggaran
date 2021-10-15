@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="card card-custom mb-3">
 			<div class="card-body">
-				<h6>Total Anggaran Per Provinsi</h6>
+				<h6>Dashboard Per Provinsi</h6>
 				<form class="row mb-xl-2 align-items-center" id="get_by_province">
 					<div class="col-md-10">
 						<select class="custom-select mb-2 mb-md-0" id="province_id" role="button" required>
@@ -26,9 +26,8 @@
 								<th class="text-truncate">No.</th>
 								<th class="text-truncate">Kode Komponen</th>
 								<th class="text-truncate">Nama Komponen</th>
-								<th class="text-truncate">Anggaran (Rp.)</th>
+								<th class="text-truncate">Anggaran (RM+BLU)</th>
 								<th class="text-truncate">Target</th>
-								<th class="text-truncate">Satuan</th>
 								<th class="text-truncate">Lokasi</th>
 							</tr>
 						</thead>
@@ -39,7 +38,7 @@
 		</div>
 		<div class="card card-custom mb-3">
 			<div class="card-body">
-				<h6>Total Anggaran Per Indikator</h6>
+				<h6>Dashboard Per Indikator</h6>
 				<form class="row mb-xl-2 align-items-center" id="get_by_indicator">
 					<div class="col-md-10">
 						<select class="custom-select mb-2 mb-md-0" id="indicator_id" role="button" required>
@@ -59,9 +58,8 @@
 								<th class="text-truncate">No.</th>
 								<th class="text-truncate">Kode Komponen</th>
 								<th class="text-truncate">Nama Komponen</th>
-								<th class="text-truncate">Anggaran (Rp.)</th>
+								<th class="text-truncate">Anggaran (RM+BLU)</th>
 								<th class="text-truncate">Target</th>
-								<th class="text-truncate">Satuan</th>
 								<th class="text-truncate">Lokasi</th>
 							</tr>
 						</thead>
@@ -72,7 +70,7 @@
 		</div>
 		<div class="card card-custom mb-3">
 			<div class="card-body">
-				<h6>Total Anggaran Per Unit</h6>
+				<h6>Dashboard Per Unit</h6>
 				<div id="statistic-table" class="table-responsive">
 					<!-- <h6 class="pt-3 pb-2" id="total-rekapitulasi">asd</h6> -->
 					<table class="table mt-3">

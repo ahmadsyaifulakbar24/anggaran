@@ -55,20 +55,20 @@ $('form').submit(function(e) {
             if (err.code_ro) {
                 if (err.code_ro == "The code ro field is required.") {
                     $('#code_ro').addClass('is-invalid')
-                    $('#code_ro').siblings('.invalid-feedback').html('Masukkan kode.')
+                    $('#code_ro').siblings('.invalid-feedback').html('Masukkan kode RO.')
                 }
                 else if (err.code_ro == "The code ro has already been taken.") {
                     $('#code_ro').addClass('is-invalid')
-                    $('#code_ro').siblings('.invalid-feedback').html('Kode telah digunakan.')
+                    $('#code_ro').siblings('.invalid-feedback').html('Kode RO telah digunakan.')
                 }
             }
             if (err.ro == "The ro field is required.") {
                 $('#ro').addClass('is-invalid')
-                $('#ro').siblings('.invalid-feedback').html('Masukkan keterangan.')
+                $('#ro').siblings('.invalid-feedback').html('Masukkan nama RO.')
             }
             if (err.unit_target == "The selected unit target is invalid.") {
                 $('#unit_target').addClass('is-invalid')
-                $('#unit_target').siblings('.invalid-feedback').html('Pilih satuan.')
+                $('#unit_target').siblings('.invalid-feedback').html('Pilih satuan RO.')
             }
         }
     })

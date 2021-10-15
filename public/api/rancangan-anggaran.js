@@ -54,9 +54,10 @@ function get_data(unit_id = null, search = null) {
     $.ajax({
         url: `${root}/api/work_plan`,
         type: 'GET',
-        data: data,
+        // data: data,
+        data: {user_ro_id: 3},
         success: function(result) {
-            // console.log(result.data)
+            console.log(result.data)
     //         if (result.data.length > 0) {
     //             $.each(result.data, function(index, value) {
     //                 deputi_status = ''
@@ -177,7 +178,7 @@ $(document).on('click', '.status', function(e) {
     let status = $(this).attr('data-status')
     let formData = new FormData()
     formData.append('status', status)
-    formData.append('comment', 'ACC')
+    formData.append('comment', 'Disetujui')
     $.ajax({
         url: `${root}/api/work_plan/status/${id}`,
         type: 'POST',

@@ -17,7 +17,7 @@
 				</div>
 			</div>
 			<div>
-				<a href="{{url('asdep/kro/create/'.$user_activity_id)}}" class="btn btn-primary mb-1">Buat KRO</a>
+				<a href="{{url('asdep/kro/create/'.$user_activity_id)}}" class="btn btn-primary">Buat KRO</a>
 			</div>
 		</div>
 		<div class="card card-custom">

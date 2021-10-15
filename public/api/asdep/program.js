@@ -11,7 +11,7 @@ $.ajax({
     },
     error: function(xhr) {
     	let err = xhr.responseJSON.errors
-    	// console.log(err)
+    	console.log(err)
     }
 })
 
@@ -23,7 +23,7 @@ function get_data() {
 	    url: `${root}/api/user_program/fetch`,
 	    type: 'GET',
 	    data: {
-	    	user_id: user
+	    	unit_id: unit
 	    },
 	    success: function(result) {
 	        // console.log(result.data)
