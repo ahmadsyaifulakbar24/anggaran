@@ -14,12 +14,51 @@ $.ajax({
         $('#component_name').html(value.component_name)
         $('#target').html(`${value.total_target} ${value.unit_target.name}`)
         // $('#province').html(value.province.id == 1 ? value.province.province : 'Provinsi ' + value.province.province)
-        // $.each(result.data.sub_work_plan, function(index, value) {
-        //     $('#city').append(`<div>- ${value.city.city}</div>`)
-        // })
+		let first = null
+        $.each(result.data.sub_work_plan, function(index, value) {
+        	if (first == null) {
+        		first = value.province.id
+        		$('#location').append(`<div>${value.province.province}</div>`)
+        		$('#location').append(`<div>- ${value.city.city}</div>`)
+        	} else if (first == value.province.id) {
+        		$('#location').append(`<div>- ${value.city.city}</div>`)
+        	} else if (first != value.province.id) {
+        		first = value.province.id
+        		$('#location').append(`<div>${value.province.province}</div>`)
+        		$('#location').append(`<div>- ${value.city.city}</div>`)
+	        }
+        })
+
+        // things = new Object();
+        // things.thing = new Array();
+        // things.thing.push({ place: "here", name: "stuff" });
+        // things.thing.push({ place: "there", name: "morestuff" });
+        // things.thing.push({ place: "there", name: "morestuffs" });
+        // console.log(things)
+        // things.thing = things.thing.filter((thing, index, self) =>
+        //     index === self.findIndex((t) => (
+        //         t.place === thing.place && t.name === thing.name
+        //     ))
+        // )
+        // console.log(things)
+
+        // const arr = [
+        //     { id: 1, name: "test1" },
+        //     { id: 2, name: "test2" },
+        //     { id: 2, name: "test3" },
+        //     { id: 3, name: "test4" },
+        //     { id: 4, name: "test5" },
+        //     { id: 5, name: "test6" },
+        //     { id: 5, name: "test7" },
+        //     { id: 6, name: "test8" }
+        // ];
+        // console.log(arr)
+        // const uniqueObjects = [...new Map(arr.map(item => [item.id, item])).values()]
+        // console.log(uniqueObjects)
+
         $('#budged').html(convert(value.budged))
         $.each(value.source_funding, function(index, value) {
-            if(value.param_id == 8) {
+            if (value.param_id == 8) {
                 $('#rm').html(rupiah(value.nominal))
             } else if (value.param_id == 9) {
                 $('#blu').html(rupiah(value.nominal))
@@ -72,11 +111,10 @@ $.ajax({
             </div>`
             $('#history').prepend(append)
         })
-
-        //      if (value.user.id != user) {
-        //          $('.upload').remove()
-        //          $('.delete').remove()
-        //      }
+        if (value.user.id != user) {
+            $('.upload').remove()
+            $('.delete').remove()
+        }
     },
     error: function(xhr) {
         console.log(xhr)
@@ -123,7 +161,7 @@ $('#form-comment').submit(function(e) {
         },
         complete: function() {
             $('#comment').val('')
-            $('#submit-comment').attr('disabled', false)
+            $('#submit-comment').attr('disabled', true)
         }
     })
 })

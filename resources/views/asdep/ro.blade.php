@@ -17,7 +17,7 @@
 				</div>
 			</div>
 			<div>
-				<a href="{{url('asdep/ro/create/'.$user_kro_id)}}" class="btn btn-primary">Buat RO</a>
+				<a href="{{url('asdep/ro/create/'.$user_kro_id)}}" class="btn btn-primary create none">Buat RO</a>
 			</div>
 		</div>
 		<div class="card card-custom">
@@ -29,7 +29,7 @@
 							<th class="text-truncate">Kode RO</th>
 							<th class="text-truncate">Nama RO</th>
 							<th class="text-truncate">Satuan RO</th>
-							<th></th>
+							<th class="option"></th>
 						</tr>
 					</thead>
 					<tbody id="table"></tbody>

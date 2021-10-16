@@ -1,6 +1,6 @@
 $(document).on('click', '.upload', function(e) {
-    let type = $(this).attr('data-type')
-    $('#file').attr('data-type', type)
+    $('#file').attr('data-type', $(this).attr('data-type'))
+    $('#file').attr('data-category',  $(this).attr('data-category'))
     $('#file').val('')
     $('#file').click()
 })
@@ -18,23 +18,27 @@ $(document).on('change', 'input[type=file]', function(e) {
         file.type == "application/pdf") { // .pdf
     	if (type_id == 1 || type_id == 2) { // TOR & RAB
 	        if (file.size <= 10000000) { // 10MB
-	        	upload_file(file, type_id, id, category)
+	        	if (category == 'work_plan') {
+	        		upload_file(file, type_id, id, category)
+	        	} else {
+	        		upload_file(file, type_id, user_ro_id, category)
+	        	}
 	        } else {
 	            customAlert('danger', 'Ukuran file maksimal 10MB.')
 	        }
 	    } else { // Lainnya / RO
-	    	upload_file(file, type_id, id, category)
+    		upload_file(file, type_id, id, category)
 	    }
     } else {
         customAlert('danger', 'Format file Word/Excel/PowerPoint/PDF.')
     }
 })
 
-function upload_file(file, type_id, work_plan_id, category) {
+function upload_file(file, type_id, id, category) {
     let formData = new FormData()
+    category == 'work_plan' ? formData.append('work_plan_id', id) : formData.append('user_ro_id', id)
     formData.append('file', file)
     formData.append('type_id', type_id)
-    formData.append('work_plan_id', work_plan_id)
     formData.append('category', category)
     $.ajax({
         url: `${root}/api/work_plan/upload_file`,
@@ -50,9 +54,9 @@ function upload_file(file, type_id, work_plan_id, category) {
             check_max(value.type.id)
         },
         error: function(xhr) {
-            // console.log(xhr)
-            if (xhr.status == 413) customAlert('warning', xhr.statusText)
-        	if (xhr.status == 422) customAlert('danger', xhr.responseJSON.errors.file[0])
+            console.log(xhr)
+         //    if (xhr.status == 413) customAlert('warning', xhr.statusText)
+        	// if (xhr.status == 422) customAlert('danger', xhr.responseJSON.errors.file[0])
         }
     })
 }
@@ -64,7 +68,7 @@ function add_file(id, title, type_id) {
 				<i class="mdi mdi-24px ${icon(title.split('.').pop())} text-dark"></i>
 				<div class="text-primary text-truncate" title="${title.split('/').pop()}">${title.split('/').pop()}</div>
 			</a>
-			<i class="mdi mdi-24px mdi-trash-can-outline ml-auto delete px-3" role="button"></i>
+			<i class="mdi mdi-24px mdi-trash-can-outline ml-auto delete-file px-3" role="button"></i>
 		</div>
 	</div>`
     $(`#type-${type_id}`).append(append)
@@ -73,30 +77,30 @@ function add_file(id, title, type_id) {
 function check_max(type_id) {
     if (type_id == 1 || type_id == 2) {
         if ($(`#type-${type_id}`).children('div').length < 2) {
-            $(`#btn-type-${type_id}`).show()
+            $(`.upload[data-type=${type_id}]`).show()
         } else {
-            $(`#btn-type-${type_id}`).hide()
+            $(`.upload[data-type=${type_id}]`).hide()
         }
     } else if (type_id == 3) {
         if ($(`#type-${type_id}`).children('div').length < 5) {
-            $(`#btn-type-${type_id}`).show()
+            $(`.upload[data-type=${type_id}]`).show()
         } else {
-            $(`#btn-type-${type_id}`).hide()
+            $(`.upload[data-type=${type_id}]`).hide()
         }
     }
 }
 
-$(document).on('click', '.delete', function(e) {
+$(document).on('click', '.delete-file', function(e) {
     let id = $(this).parents('.card').attr('data-id')
     let title = $(this).parents('.card').attr('data-title')
     let type = $(this).parents('.card').attr('data-type')
-    $('#title').html(title)
-    $('#delete').attr('data-id', id)
-    $('#delete').attr('data-type', type)
-    $('#modal-delete').modal('show')
+    $('#modal-delete-file b').html(title)
+    $('#delete-file').attr('data-id', id)
+    $('#delete-file').attr('data-type', type)
+    $('#modal-delete-file').modal('show')
 })
 
-$(document).on('click', '#delete', function(e) {
+$(document).on('click', '#delete-file', function(e) {
     let id = $(this).attr('data-id')
     let type = $(this).attr('data-type')
     $(this).attr('disabled', true)
@@ -106,12 +110,12 @@ $(document).on('click', '#delete', function(e) {
         success: function(result) {
             // console.log(result.data)
             $(`#file-${id}`).remove()
-            $('#modal-delete').modal('hide')
+            $('#modal-delete-file').modal('hide')
             customAlert('trash', 'File berhasil dihapus.')
             check_max(type)
         },
         complete: function() {
-            $('#delete').attr('disabled', false)
+            $('#delete-file').attr('disabled', false)
         }
     })
 })

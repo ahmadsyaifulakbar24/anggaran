@@ -42,12 +42,12 @@ $.ajax({
 function type_kro(value, kro_id) {
     if (value == 'pn') {
         $.each($kro, function(index, value) {
-            append = `<option value="${value.id}">${value.code_kro_pn} - ${value.kro}</option>`
+            append = `<option value="${value.id}">${value.code_kro_pn} - ${value.kro} - ${value.unit}</option>`
             $('#kro_id').append(append)
         })
     } else {
         $.each($kro, function(index, value) {
-            append = `<option value="${value.id}">${value.code_kro_non_pn} - ${value.kro}</option>`
+            append = `<option value="${value.id}">${value.code_kro_non_pn} - ${value.kro} - ${value.unit}</option>`
             $('#kro_id').append(append)
         })
     }

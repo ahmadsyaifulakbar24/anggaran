@@ -17,7 +17,7 @@
 				</div>
 			</div>
 			<div>
-				<a href="{{url('asdep/kegiatan/create/'.$user_program_id)}}" class="btn btn-primary">Buat Kegiatan</a>
+				<a href="{{url('asdep/kegiatan/create/'.$user_program_id)}}" class="btn btn-primary create none">Buat Kegiatan</a>
 			</div>
 		</div>
 		<div class="card card-custom">
@@ -28,7 +28,7 @@
 							<th class="text-truncate">No.</th>
 							<th class="text-truncate">Kode</th>
 							<th class="text-truncate">Keterangan</th>
-							<th></th>
+							<th class="option"></th>
 						</tr>
 					</thead>
 					<tbody id="table"></tbody>
