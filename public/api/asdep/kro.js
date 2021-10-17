@@ -12,7 +12,7 @@ $.ajax({
             url: `${root}/api/work_plan/total_budged`,
             type: 'GET',
             data: {
-                unit_id: unit,
+                unit_id: role == 'asdep' ? unit : localStorage.getItem('unit_id'),
                 user_activity_id,
                 get_by: 'kro'
             },

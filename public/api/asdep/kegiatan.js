@@ -12,7 +12,7 @@ $.ajax({
             url: `${root}/api/work_plan/total_budged`,
             type: 'GET',
             data: {
-                unit_id: unit,
+                unit_id: role == 'asdep' ? unit : localStorage.getItem('unit_id'),
                 user_program_id,
                 get_by: 'activity'
             },
@@ -39,13 +39,13 @@ function get_data() {
         url: `${root}/api/user_activity/fetch`,
         type: 'GET',
         data: {
-            user_program_id
+        	user_program_id
         },
         success: function(result) {
             // console.log(result.data)
             if (result.data.length != 0) {
                 $.each(result.data, function(index, value) {
-                	option = `<td>
+                    option = `<td>
 						<div class="d-flex">
 							<a href="${root}/asdep/kegiatan/edit/${value.id}" class="btn btn-sm btn-outline-primary mr-2">Ubah</a>
 							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>

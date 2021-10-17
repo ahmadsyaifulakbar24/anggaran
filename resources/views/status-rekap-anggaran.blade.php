@@ -25,8 +25,8 @@
 			<h4>Status & Rekap Anggaran</h4>
 			<div class="text-right mb-2">
 				<div class="btn btn-outline-primary view mb-1" data-toggle="modal" data-target="#modal-view">View Sebagai</div>
-				<div class="btn btn-outline-primary excel mb-1" data-toggle="modal" data-target="#modal-excel" onclick="return view_excel()">View Excel</div>
-				<div class="btn btn-primary excel mb-1" id="download">Download Excel</div>
+				<div class="btn btn-outline-primary excel mb-1" onclick="return view_excel()">View Excel</div>
+				<div class="btn btn-primary excel mb-1" onclick="return view_excel('download')">Download Excel</div>
 			</div>
 		</div>
 		<div class="card card-custom none" id="card">
@@ -50,7 +50,7 @@
 							<th class="text-truncate" rowspan="2">Nama Komponen</th>
 							<th class="text-truncate" rowspan="2">Target</th>
 							<th class="text-truncate text-center border-left border-right" colspan="3">Anggaran</th>
-							<th class="text-truncate unit" rowspan="2">Unit</th>
+							<th class="text-truncate unit border-right" rowspan="2">Unit</th>
 							<th class="text-truncate pengguna border-right" rowspan="2">Pengguna</th>
 							<th class="text-truncate text-center border-left border-right" colspan="2">Approval</th>
 							<th colspan="2" rowspan="2"></th>
@@ -104,7 +104,7 @@
 									<th>BLU</th>
 									<th>Total</th>
 								</tr>
-								<tr class="text-center">
+								<!-- <tr class="text-center">
 									<th>1</th>
 									<th colspan="4">2</th>
 									<th colspan="2">3</th>
@@ -113,7 +113,7 @@
 									<th></th>
 									<th>5</th>
 									<th></th>
-								</tr>
+								</tr> -->
 							</thead>
 							<tbody id="table-excel"></tbody>
 						</table>

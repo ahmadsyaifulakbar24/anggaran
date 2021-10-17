@@ -18,6 +18,7 @@
 			</div>
 			<div>
 				<a href="{{url('asdep/program/create')}}" class="btn btn-primary create none">Buat Program</a>
+				<div class="btn btn-outline-primary view mb-1" data-toggle="modal" data-target="#modal-view">View Sebagai</div>
 			</div>
 		</div>
 		<div class="card card-custom">
@@ -52,6 +53,27 @@
 	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
 	                <button class="btn btn-danger" id="delete">Hapus</button>
 	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="modal" id="modal-view" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-sm modal-dialog modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-bottom-0">
+	                <h5 class="modal-title" id="exampleModalLabel">View Sebagai</h5>
+	            </div>
+	            <form>
+		            <div class="modal-body">
+						<div class="form-group">
+							<label for="title">Akun</label>
+							<select class="custom-select" id="view-as" role="button"></select>
+							<div class="invalid-feedback"></div>
+						</div>
+		            </div>
+		            <div class="modal-footer border-top-0">
+		                <button class="btn btn-primary" id="submit">Terapkan</button>
+		            </div>
+		        </form>
 	        </div>
 	    </div>
 	</div>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<title>@yield('title') - SIRENGGA</title>
+	<title>@yield('title')</title>
 	<link rel="stylesheet" href="{{asset('assets/vendors/bootstrap/css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/vendors/mdi/css/materialdesignicons.min.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
@@ -20,7 +20,7 @@
     	<div class="container">
 	        <div class="form-inline">
 	            <!-- <i class="mdi mdi-menu mdi-24px d-block d-lg-none pointer text-dark mr-2" id="menu"></i> -->
-	            <a class="navbar-brand" href="{{url('dashboard')}}">SIRENGGA
+	            <a class="navbar-brand" href="{{url('dashboard')}}">
 					<!-- <img src="{{asset('assets/images/logo.png')}}" width="120" class="d-inline-block align-top mr-2" alt="Logo" loading="lazy"> -->
 	            </a>
 	        </div>

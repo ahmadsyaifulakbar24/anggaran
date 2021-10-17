@@ -35,7 +35,7 @@ $.ajax({
         role == 'admin' ? $('.delete-file').remove() : ''
     },
     error: function(xhr) {
-        console.log(xhr)
+        // console.log(xhr)
     }
 })
 
@@ -59,7 +59,7 @@ $.ajax({
     	$('#user_ro').html(`${value.user_ro.code_ro} - ${value.user_ro.ro}`)
     },
     error: function(xhr) {
-        console.log(xhr)
+        // console.log(xhr)
     }
 })
 
@@ -71,27 +71,10 @@ $.ajax({
     },
     success: function(result) {
         // console.log(result.data)
-        if (role == 'admin' || role == 'deputi') {
-            $.ajax({
-                url: `${root}/api/user`,
-                type: 'GET',
-                data: {
-                    id: user
-                },
-                success: function(result) {
-                    // console.log(result.data)
-                    let value = result.data
-                    $unit_id = value.unit_id
-                    if (value.role == 'admin') {
-                        get_unit('deputi')
-                    } else if (value.role == 'deputi') {
-                        get_unit('asdep')
-                    }
-                }
-            })
-        } else {
+        if (role == 'asdep') {
             get_data(unit, user)
-            $('#card').show()
+        } else {
+            get_data(localStorage.getItem('unit_id'))
         }
     },
     error: function(xhr) {
@@ -100,21 +83,6 @@ $.ajax({
         if (err.user_ro_id) history.back()
     }
 })
-
-function get_unit(role) {
-    $.ajax({
-        url: `${root}/api/user`,
-        type: 'GET',
-        data: { role },
-        success: function(result) {
-            // console.log(result.data)
-            $.each(result.data, function(index, value) {
-                append = `<option value="${value.id}">${value.name}</option>`
-                $('#view-as').append(append)
-            })
-        }
-    })
-}
 
 function get_data(unit_id = '', user_id = '', search = '') {
     $('#table').empty()
@@ -232,27 +200,6 @@ function get_data(unit_id = '', user_id = '', search = '') {
         error: function(xhr) {
             // console.log(xhr)
             let err = xhr.responseJSON.errors
-        }
-    })
-}
-
-if (role != 'asdep') {
-    $('#modal-view').modal('show')
-    if (role == 'admin') {
-        $('.option-asdep').remove()
-    } else if (role == 'deputi') {
-        $('.option-deputi').remove()
-    }
-    $('form').submit(function(e) {
-        e.preventDefault()
-        $('#card').show()
-        $('#search').val('')
-        $('#modal-view').modal('hide')
-        $('#view').html($('#view-as option:selected').text())
-        if (role == 'admin') {
-            get_data($('#view-as').val())
-        } else if (role == 'deputi') {
-            get_data(unit, $('#view-as').val())
         }
     })
 }
