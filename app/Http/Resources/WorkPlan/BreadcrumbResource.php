@@ -45,15 +45,14 @@ class BreadcrumbResource extends JsonResource
                 'user_activity' => [
                     'user_activity_id' => $data->user_activity_id_w,
                     'user_id' => $data->user_activity_id,
-                    'user_name' => $data->user_activit_name,
-                    'activity_id' => $data->activity_name,
+                    'user_name' => $data->user_activity_name,
+                    'activity_id' => $data->activity_id,
                     'code_activity' => $data->code_activity,
                     'description' => $data->activity_description,
                 ]
             ];
         } else if($breadcrumb_type == 'ro') {
             $data = $work_plan->where('user_kro_id_w', $this->user_kro_id)->first();
-            $code_kro = $data->type_kro == 'pn' ? $data->code_kro_pn : $data->code_kro_non_pn;
             $result = [
                 'user_program' => [
                     'user_program_id' => $data->id,
@@ -67,8 +66,8 @@ class BreadcrumbResource extends JsonResource
                 'user_activity' => [
                     'user_activity_id' => $data->user_activity_id_w,
                     'user_id' => $data->user_activity_id,
-                    'user_name' => $data->user_activit_name,
-                    'activity_id' => $data->activity_name,
+                    'user_name' => $data->user_activity_name,
+                    'activity_id' => $data->activity_id,
                     'code_activity' => $data->code_activity,
                     'description' => $data->activity_description,
                 ],
@@ -99,8 +98,8 @@ class BreadcrumbResource extends JsonResource
                 'user_activity' => [
                     'user_activity_id' => $data->user_activity_id_w,
                     'user_id' => $data->user_activity_id,
-                    'user_name' => $data->user_activit_name,
-                    'activity_id' => $data->activity_name,
+                    'user_name' => $data->user_activity_name,
+                    'activity_id' => $data->activity_id,
                     'code_activity' => $data->code_activity,
                     'description' => $data->activity_description,
                 ],
@@ -125,8 +124,6 @@ class BreadcrumbResource extends JsonResource
             ];
         }
 
-        return [
-           $result
-        ];
+        return $result;
     }
 }
