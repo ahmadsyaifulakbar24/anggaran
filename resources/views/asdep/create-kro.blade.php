@@ -20,7 +20,7 @@
 				</div>
 				<div class="form-group">
 					<label for="kro_id">KRO</label>
-					<select class="custom-select" id="kro_id" role="button" disabled>
+					<select class="custom-select" id="kro_id" role="button">
 						<option value="" disabled selected>Pilih</option>
 					</select>
 					<div class="invalid-feedback"></div>

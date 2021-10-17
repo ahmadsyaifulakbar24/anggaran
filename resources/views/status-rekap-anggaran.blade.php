@@ -4,10 +4,10 @@
 
 @section('style')
 	<style>
-		.table-excel th:first-child, td:first-child {
+		.table-excel th:first-child, .table-excel td:first-child {
 			padding-left: 0 !important;
 		}
-		.table-excel th:last-child, td:last-child {
+		.table-excel th:last-child, .table-excel td:last-child {
 			padding-right: 0 !important;
 		}
 		.table-excel th {
@@ -82,10 +82,10 @@
 	<div class="modal" id="modal-excel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	    <div class="modal-xl modal-dialog modal-dialog-centered">
 	        <div class="modal-content">
-	            <div class="modal-header border-bottom-0">
+	            <div class="modal-header border-bottom-0 pb-0">
 	                <h5 class="modal-title" id="exampleModalLabel">View Excel</h5>
 	            </div>
-	            <div class="modal-body">
+	            <div class="modal-body pt-0">
 	            	<div class="table-responsive">
 						<table class="table-excel mt-3" border="1" id="excel">
 							<thead>

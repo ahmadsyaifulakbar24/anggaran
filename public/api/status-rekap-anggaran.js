@@ -47,9 +47,13 @@ function get_unit(role) {
         type: 'GET',
         data: { role },
         success: function(result) {
-            // console.log(result.data)
+            console.log(result.data)
             $.each(result.data, function(index, value) {
-                append = `<option value="${value.id}">${value.name}</option>`
+            	if (role == 'admin') {
+	                append = `<option value="${value.unit_id}">${value.name}</option>`
+            	} else {
+	                append = `<option value="${value.id}">${value.name}</option>`
+            	}
                 $('#view-as').append(append)
             })
         }
@@ -63,13 +67,11 @@ function get_data(unit_id = '', user_id = '', search = '') {
     if (role == 'admin') {
         if (unit_id == '') {
             data = {
-                search,
-                // user_ro_id
+                search
             }
         } else {
             data = {
                 search,
-                // user_ro_id,
                 unit_id
             }
         }
@@ -78,13 +80,11 @@ function get_data(unit_id = '', user_id = '', search = '') {
         if (user_id == '') {
             data = {
                 search,
-                // user_ro_id,
                 unit_id
             }
         } else {
             data = {
                 search,
-                // user_ro_id,
                 unit_id,
                 user_id
             }
@@ -93,26 +93,25 @@ function get_data(unit_id = '', user_id = '', search = '') {
     if (role == 'asdep') {
         data = {
             search,
-            // user_ro_id,
             unit_id,
             user_id
         }
     }
-    // console.clear()
-    // console.log(data)
+    console.clear()
+    console.log(data)
     $.ajax({
         url: `${root}/api/work_plan`,
         type: 'GET',
         data: data,
         success: function(result) {
-            console.log(result.data)
+            // console.log(result.data)
             if (result.data.length > 0) {
                 $.each(result.data, function(index, value) {
                     deputi_status = ''
                     admin_status = ''
                     if (value.deputi_status != 'accept') {
                         deputi_status = `
-                        <a href="${root}/rancangan-anggaran/edit/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
+                        <a href="${root}/asdep/komponen/edit/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
 						<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
                     }
                     if (value.deputi_status == 'pending') {
@@ -492,8 +491,8 @@ function view_excel(status = null) {
 				            		<td class="text-truncate">${value.component_name}</td>
 				            		<td class="text-right">${convert(value.total_target)}</td>
 				            		<td>${value.unit_target.name}</td>
-				            		<td class="text-right">${rm != 0 ? convert(rm) : 'Rp0'}</td>
-				            		<td class="text-right">${blu != 0 ? convert(blu) : 'Rp0'}</td>
+				            		<td class="text-right">${rm != 0 ? convert(rm) : '0'}</td>
+				            		<td class="text-right">${blu != 0 ? convert(blu) : '0'}</td>
 				            		<td class="text-right">${convert(value.budged)}</td>
 				            		<td class="text-truncate">${sub_work_plan}</td>
 				            		<td><pre>${value.detail}</pre></td>

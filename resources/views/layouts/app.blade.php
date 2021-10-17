@@ -87,26 +87,18 @@
 					</a>
 				</div>
 				@endif
-				@if(session("role") == "deputi")
 				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
 					<a href="{{url('asdep/program')}}" class="card card-menu rounded {{Request::is('asdep/program')?'active':''}}">
 						<div class="text-center p-2">
 							<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
-							<h6>Data Komponen</h6>
-						</div>
-					</a>
-				</div>
-				@endif
-				@if(session("role") == "asdep")
-				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
-					<a href="{{url('asdep/program')}}" class="card card-menu rounded {{Request::is('asdep/program')?'active':''}}">
-						<div class="text-center p-2">
-							<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
+							@if(session("role") == "asdep")
 							<h6>Entri Komponen</h6>
+							@else
+							<h6>Data Komponen</h6>
+							@endif
 						</div>
 					</a>
 				</div>
-				@endif
 				<div class="col col-md-4 col-lg-2 mb-4">
 					<a href="{{url('status-rekap-anggaran')}}" class="card card-menu rounded {{Request::is('status-rekap-anggaran')?'active':''}}">
 						<div class="text-center p-2">

@@ -43,7 +43,7 @@ function get_data() {
         	// unit_id: unit
         },
         success: function(result) {
-            console.log(result.data)
+            // console.log(result.data)
             if (result.data.length != 0) {
                 $.each(result.data, function(index, value) {
                 	if (value.type_kro == 'pn') {

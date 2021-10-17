@@ -20,22 +20,22 @@
 							<tr>
 								<td><b>Program</b></td>
 								<td>:</td>
-								<td>I - Program Dukungan Manajemen</td>
+								<td id="user_program"></td>
 							</tr>
 							<tr>
 								<td><b>Kegiatan</b></td>
 								<td>:</td>
-								<td>4946 - Koordinasi Perencanaan, Pelaksanaan dan Monev Bidang Perkoperasian</td>
+								<td id="user_activity"></td>
 							</tr>
 							<tr>
 								<td><b>KRO</b></td>
 								<td>:</td>
-								<td>EBA - Layanan Dukungan Manajemen Internal</td>
+								<td id="user_kro"></td>
 							</tr>
 							<tr>
 								<td><b>RO</b></td>
 								<td>:</td>
-								<td>994 - Layanan Perkantoran Bidang Perkoperasian</td>
+								<td id="user_ro"></td>
 							</tr>
 						</table>
 					</div>

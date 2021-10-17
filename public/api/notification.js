@@ -14,7 +14,7 @@ $.ajax({
 					</div>
 					<div class="ml-3">
 						<div class="font-weight-bold">${value.created_by.name}</div>
-						<div>${notification_status(value.history.status)} <i>${value.work_plan.title}.</i></div>
+						<div>${notification_status(value.history.status)} <i>${value.work_plan.component_name}.</i></div>
 						<small class="text-secondary">${tanggal(value.created_at)}</small>
 					</div>
 				</div>`
@@ -48,10 +48,10 @@ $(document).on('click', '.notification', function() {
             type: 'PATCH',
             success: function(result) {
                 // console.log(result.data)
-                location.href = `${root}/rancangan-anggaran/${workplan}`
+                location.href = `${root}/asdep/komponen/detail/${workplan}`
             }
         })
     } else {
-        location.href = `${root}/rancangan-anggaran/${workplan}`
+        location.href = `${root}/asdep/komponen/detail/${workplan}`
     }
 })

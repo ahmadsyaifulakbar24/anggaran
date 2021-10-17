@@ -63,12 +63,12 @@ $('#type_kro').change(function() {
     $('#kro_id').attr('disabled', false)
     if ($(this).val() == 'pn') {
         $.each($kro, function(index, value) {
-            append = `<option value="${value.id}">${value.code_kro_pn} - ${value.kro}</option>`
+            append = `<option value="${value.id}">${value.code_kro_pn} - ${value.kro} - ${value.unit}</option>`
             $('#kro_id').append(append)
         })
     } else {
         $.each($kro, function(index, value) {
-            append = `<option value="${value.id}">${value.code_kro_non_pn} - ${value.kro}</option>`
+            append = `<option value="${value.id}">${value.code_kro_non_pn} - ${value.kro} - ${value.unit}</option>`
             $('#kro_id').append(append)
         })
     }

@@ -53,7 +53,7 @@ function get_data() {
 					</td>`
                     append = `<tr data-id="${value.id}" data-title="${value.activity.description}">
 						<td class="text-center">${index + 1}.</td>
-						<td class="text-truncate">${value.activity.parent.code_program}/${value.activity.code_program}</td>
+						<td class="text-truncate">${value.activity.code_program}</td>
 						<td class="text-truncate"><a href="${root}/asdep/kro/${value.id}">${value.activity.description}</a></td>
 						${role == 'asdep' ? option : ''}
 					</tr>`

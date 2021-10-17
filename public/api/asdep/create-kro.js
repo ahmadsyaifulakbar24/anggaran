@@ -25,7 +25,6 @@ $.ajax({
 
 $('#type_kro').change(function() {
     $('#kro_id').html('<option value="" disabled selected>Pilih</option')
-    $('#kro_id').attr('disabled', false)
     if ($(this).val() == 'pn') {
         $.each($kro, function(index, value) {
             append = `<option value="${value.id}">${value.code_kro_pn} - ${value.kro} - ${value.unit}</option>`
