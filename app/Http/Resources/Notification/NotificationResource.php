@@ -19,7 +19,7 @@ class NotificationResource extends JsonResource
             'id' => $this->id,
             'work_plan' => [
                 'id' => $this->work_plan->id,
-                'title' => $this->work_plan->title,
+                'component_name' => $this->work_plan->component_name,
             ],
             'history' => new HistoryResource($this->history),
             'created_by' => [

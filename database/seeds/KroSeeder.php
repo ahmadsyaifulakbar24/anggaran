@@ -81,7 +81,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABA',
             'code_kro_pn' => 'PBA',
             'kro' => 'Kebijakan Bidang Ekonomi dan Keuangan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -89,7 +89,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABB',
             'code_kro_pn' => 'PBB',
             'kro' => 'Kebijakan Bidang Investasi dan Perdagangan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -97,7 +97,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABC',
             'code_kro_pn' => 'PBC',
             'kro' => 'Kebijakan Bidang Politik',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -105,7 +105,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABD',
             'code_kro_pn' => 'PBD',
             'kro' => 'Kebijakan Bidang Hukum dan HAM',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -113,7 +113,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABE',
             'code_kro_pn' => 'PBE',
             'kro' => 'Kebijakan Bidang Pertahanan dan Keamanan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -121,7 +121,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABF',
             'code_kro_pn' => 'PBF',
             'kro' => 'Kebijakan Bidang Sarana dan Prasarana',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -129,7 +129,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABG',
             'code_kro_pn' => 'PBG',
             'kro' => 'Kebijakan Bidang Kesehatan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -137,7 +137,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABH',
             'code_kro_pn' => 'PBH',
             'kro' => 'Kebijakan Bidang IPTEK, Pendidikan dan Kebudayaan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -145,7 +145,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABI',
             'code_kro_pn' => 'PBI',
             'kro' => 'Kebijakan Bidang Energi dan Sumber Daya Alam',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -153,7 +153,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABJ',
             'code_kro_pn' => 'PBJ',
             'kro' => 'Kebijakan Bidang Lingkungan Hidup',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -161,7 +161,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABK',
             'code_kro_pn' => 'PBK',
             'kro' => 'Kebijakan Bidang Tenaga Kerja, Industri dan UMKM',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -169,7 +169,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABL',
             'code_kro_pn' => 'PBL',
             'kro' => 'Kebijakan Bidang Tata Kelola Pemerintahan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -177,7 +177,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABM',
             'code_kro_pn' => 'PBM',
             'kro' => 'Kebijakan Bidang Pelayanan Publik',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -185,7 +185,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABN',
             'code_kro_pn' => 'PBN',
             'kro' => 'Kebijakan Bidang Sosial',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -193,7 +193,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABO',
             'code_kro_pn' => 'PBO',
             'kro' => 'Kebijakan Bidang Teknologi Informasi',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -201,7 +201,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABP',
             'code_kro_pn' => 'PBP',
             'kro' => 'Kebijakan Bidang Pengembangan Wilayah',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -209,7 +209,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABQ',
             'code_kro_pn' => 'PBQ',
             'kro' => 'Kebijakan Bidang Aparatur',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -217,7 +217,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABR',
             'code_kro_pn' => 'PBR',
             'kro' => 'Kebijakan Bidang Pertanian dan Perikanan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -225,7 +225,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABS',
             'code_kro_pn' => 'PBS',
             'kro' => 'Kebijakan Bidang Ketahanan bencana dan perubahan iklim',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -233,7 +233,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABT',
             'code_kro_pn' => 'PBT',
             'kro' => 'Kebijakan Bidang Ruang dan Pertanahan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -241,7 +241,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABU',
             'code_kro_pn' => 'PBU',
             'kro' => 'Kebijakan Bidang Tenaga Nuklir',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -249,7 +249,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABV',
             'code_kro_pn' => 'PBV',
             'kro' => 'Kebijakan Bidang Kehutanan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -257,7 +257,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ABW',
             'code_kro_pn' => 'PBW',
             'kro' => 'Kebijakan Bidang Kemaritiman dan Kelautan',
-            'unit' => 'Rekomendasi\nKebijakan'
+            'unit' => 'Rekomendasi Kebijakan'
         ]);
 
         Kro::create([
@@ -281,7 +281,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'ACC',
             'code_kro_pn' => 'PCC',
             'kro' => 'Perizinan Kelompok Masyarakat',
-            'unit' => 'Kelompok\nMasyarakat'
+            'unit' => 'Kelompok Masyarakat'
         ]);
 
         Kro::create([
@@ -529,7 +529,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'BBC',
             'code_kro_pn' => 'QBC',
             'kro' => 'Layanan Bantuan Hukum Kelompok Masyarakat',
-            'unit' => 'Kelompok\nMasyarakat'
+            'unit' => 'Kelompok Masyarakat'
         ]);
 
         Kro::create([
@@ -609,7 +609,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'BDD',
             'code_kro_pn' => 'QDD',
             'kro' => 'Fasilitasi dan Pembinaan Kelompok Masyarakat',
-            'unit' => 'Kelompok\nMasyarakat'
+            'unit' => 'Kelompok Masyarakat'
         ]);
 
         Kro::create([
@@ -721,7 +721,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'BEH',
             'code_kro_pn' => 'QEH',
             'kro' => 'Bantuan Kelompok Masyarakat',
-            'unit' => 'Kelompok\nMasyarakat'
+            'unit' => 'Kelompok Masyarakat'
         ]);
 
         Kro::create([
@@ -897,7 +897,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'BID',
             'code_kro_pn' => 'QID',
             'kro' => 'Pengawasan dan Pengendalian Kelompok Masyarakat',
-            'unit' => 'Kelompok\nMasyarakat'
+            'unit' => 'Kelompok Masyarakat'
         ]);
 
         Kro::create([
@@ -905,7 +905,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'BIE',
             'code_kro_pn' => 'QIE',
             'kro' => 'Pengawasan dan Pengendalian Pemerintah Daerah',
-            'unit' => 'Pemerintah\nDaerah'
+            'unit' => 'Pemerintah Daerah'
         ]);
 
         Kro::create([
@@ -1849,7 +1849,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'DDD',
             'code_kro_pn' => 'SDD',
             'kro' => 'Penelitian dan Pengembangan yang Dipatenkan',
-            'unit' => 'kekayaan\nintelektual'
+            'unit' => 'kekayaan intelektual'
         ]);
 
         Kro::create([
@@ -1897,7 +1897,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'FAB',
             'code_kro_pn' => 'UAB',
             'kro' => 'Sistem Informasi Pemerintahan',
-            'unit' => 'Sistem\nInformasi'
+            'unit' => 'Sistem Informasi'
         ]);
 
         Kro::create([
@@ -1952,7 +1952,7 @@ class KroSeeder extends Seeder
             'id' => 243,
             'code_kro_non_pn' => 'FAI',
             'code_kro_pn' => 'UAI',
-            'kro' => 'Peningkatan Manajemen Lembaga\nPemerintahan',
+            'kro' => 'Peningkatan Manajemen Lembaga Pemerintahan',
             'unit' => 'Lembaga'
         ]);
 
@@ -1993,7 +1993,7 @@ class KroSeeder extends Seeder
             'code_kro_non_pn' => 'FBA',
             'code_kro_pn' => 'UBA',
             'kro' => 'Fasilitasi dan Pembinaan Pemerintah Daerah',
-            'unit' => 'Daerah\n(Prov/Kab/Kota)'
+            'unit' => 'Daerah (Prov/Kab/Kota)'
         ]);
 
         Kro::create([
