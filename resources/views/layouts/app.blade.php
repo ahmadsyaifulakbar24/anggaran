@@ -87,15 +87,15 @@
 					</a>
 				</div>
 				@endif
-				@if(session("role") != "asdep")
-				<!-- <div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
+				@if(session("role") == "deputi")
+				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
 					<a href="{{url('asdep/program')}}" class="card card-menu rounded {{Request::is('asdep/program')?'active':''}}">
 						<div class="text-center p-2">
 							<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
 							<h6>Data Komponen</h6>
 						</div>
 					</a>
-				</div> -->
+				</div>
 				@endif
 				@if(session("role") == "asdep")
 				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">

@@ -25,8 +25,7 @@
 						</div>
 						<div class="form-group">
 							<b class="font-weight-bold" class="col-form-label">Lokasi</b>
-							<div id="province"></div>
-							<div id="city"></div>
+							<div id="location"></div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-6 col-md-4">
@@ -120,7 +119,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal" id="modal-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal" id="modal-delete-file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	    <div class="modal-sm modal-dialog modal-dialog-centered">
 	        <div class="modal-content">
 	            <div class="modal-header border-bottom-0">
@@ -132,7 +131,7 @@
 	            <div class="modal-body">Anda yakin ingin menghapus file <b id="title"></b>?</div>
 	            <div class="modal-footer border-top-0">
 	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
-	                <button class="btn btn-danger" id="delete">Hapus</button>
+	                <button class="btn btn-danger" id="delete-file">Hapus</button>
 	            </div>
 	        </div>
 	    </div>

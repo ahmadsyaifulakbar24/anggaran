@@ -3,6 +3,7 @@ if (role == 'admin') {
     $('.edit').remove()
     $('.delete').remove()
     $('.request').remove()
+    $('.upload').remove()
 } else if (role == 'deputi') {
     $('.create').remove()
     $('.unit').remove()
@@ -17,6 +18,52 @@ if (role == 'admin') {
     $('.decline').remove()
     $('.request').remove()
 }
+
+$.ajax({
+    url: `${root}/api/work_plan/get_file`,
+    type: 'GET',
+    data: {
+    	category: 'user_ro',
+    	user_ro_id
+    },
+    success: function(result) {
+        // console.log(result.data)
+        $.each(result.data, function(index, value) {
+            add_file(value.id, value.file, value.type.id)
+            check_max(value.type.id)
+        })
+        role == 'admin' ? $('.delete-file').remove() : ''
+    },
+    error: function(xhr) {
+        console.log(xhr)
+    }
+})
+
+$.ajax({
+    url: `${root}/api/param/units`,
+    type: 'GET',
+    success: function(result) {
+        console.log(result.data)
+    },
+    error: function(xhr) {
+        console.log(xhr)
+    }
+})
+
+$.ajax({
+    url: `${root}/api/work_plan/breadcrumb`,
+    type: 'GET',
+    data: {
+        breadcrumb_type: 'work_plan',
+        user_ro_id
+    },
+    success: function(result) {
+        console.log(result.data)
+    },
+    error: function(xhr) {
+        console.log(xhr)
+    }
+})
 
 $.ajax({
     url: `${root}/api/user_ro/fetch`,
@@ -151,7 +198,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
                     // title += `${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`
                     // title += `${value.ro.code_ro}/`
                     // title += `${value.component_code}`
-                    let rm, blu
+                    let rm = 0, blu = 0
                     $.each(value.source_funding, function(index, value) {
                         if (value.param_id == 8) {
                             rm = value.nominal
@@ -164,13 +211,11 @@ function get_data(unit_id = '', user_id = '', search = '') {
 						<td class="text-truncate">${value.component_code}</td>
 						<td class="text-truncate"><a href="${root}/asdep/komponen/detail/${value.id}">${value.component_name}</a></td>
 						<td class="text-truncate">${value.total_target} ${value.unit_target.name}</td>
-						<td class="text-truncate">${rupiah(rm)}</td>
-						<td class="text-truncate">${rupiah(blu)}</td>
+	            		<td class="text-right">${rm != 0 ? rupiah(rm) : 'Rp0'}</td>
+	            		<td class="text-right">${blu != 0 ? rupiah(blu) : 'Rp0'}</td>
 						<td class="text-truncate">${rupiah(value.budged)}</td>
 						<td class="text-truncate unit">${value.unit.name}</td>
 						<td class="text-truncate pengguna">${value.user.name}</td>
-						<td class="text-danger deputi_status">${status(value.deputi_status)}</td>
-						<td class="text-danger admin_status">${status(value.admin_status)}</td>
 						<td>
 							<div class="d-flex">
 								${deputi_status}
@@ -268,8 +313,8 @@ $(document).on('keyup', '#search', delay(function(e) {
 $(document).on('click', '.approve', function(e) {
     let id = $(this).parents('tr').attr('data-id')
     let title = $(this).parents('tr').attr('data-title')
-    $('#approve-title').html(title)
     $('#approve').attr('data-id', id)
+    $('#modal-approve b').html(title)
     $('#modal-approve').modal('show')
 })
 $(document).on('click', '#approve', function(e) {
@@ -281,8 +326,8 @@ $(document).on('click', '#approve', function(e) {
 $(document).on('click', '.decline', function(e) {
     let id = $(this).parents('tr').attr('data-id')
     let title = $(this).parents('tr').attr('data-title')
-    $('#decline-title').html(title)
     $('#decline').attr('data-id', id)
+    $('#modal-decline b').html(title)
     $('#modal-decline').modal('show')
 })
 $(document).on('click', '#decline', function(e) {
@@ -294,7 +339,7 @@ $(document).on('click', '#decline', function(e) {
 function approval(id, status) {
     let search = $('#search').val()
     let viewas = $('#view-as').val()
-    let comment = status == 'approve' ? 'Disetujui' : 'Ditolak'
+    let comment = status == 'accept' ? 'Disetujui' : 'Ditolak'
     let formData = new FormData()
     formData.append('status', status)
     formData.append('comment', comment)
@@ -319,10 +364,11 @@ function approval(id, status) {
                     search != '' ? get_data(unit, viewas, value) : get_data(unit, viewas, '')
                 }
             }
-            // $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
             if (status == 'accept') {
-                customAlert('accept', 'Kegiatan disetujui.')
+                $('#modal-approve').modal('hide')
+                customAlert('success', 'Kegiatan disetujui.')
             } else {
+                $('#modal-decline').modal('hide')
                 customAlert('danger', 'Kegiatan ditolak.')
             }
         },

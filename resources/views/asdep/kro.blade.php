@@ -17,7 +17,7 @@
 				</div>
 			</div>
 			<div>
-				<a href="{{url('asdep/kro/create/'.$user_activity_id)}}" class="btn btn-primary">Buat KRO</a>
+				<a href="{{url('asdep/kro/create/'.$user_activity_id)}}" class="btn btn-primary create none">Buat KRO</a>
 			</div>
 		</div>
 		<div class="card card-custom">
@@ -29,7 +29,8 @@
 							<th class="text-truncate">Kode</th>
 							<th class="text-truncate">Keterangan</th>
 							<th class="text-truncate">Tipe KRO</th>
-							<th></th>
+							<th class="text-truncate">Satuan KRO</th>
+							<th class="option"></th>
 						</tr>
 					</thead>
 					<tbody id="table"></tbody>

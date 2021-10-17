@@ -18,40 +18,28 @@ if (role == 'admin') {
     $('.request').remove()
 }
 
-$.ajax({
-    url: `${root}/api/user_ro/fetch`,
-    type: 'GET',
-    success: function(result) {
-        // console.log(result.data)
-        if (role == 'admin' || role == 'deputi') {
-            $.ajax({
-                url: `${root}/api/user`,
-                type: 'GET',
-                data: {
-                    id: user
-                },
-                success: function(result) {
-                    // console.log(result.data)
-                    let value = result.data
-                    $unit_id = value.unit_id
-                    if (value.role == 'admin') {
-                        get_unit('deputi')
-                    } else if (value.role == 'deputi') {
-                        get_unit('asdep')
-                    }
-                }
-            })
-        } else {
-            get_data(unit, user)
-            $('#card').show()
+if (role == 'admin' || role == 'deputi') {
+    $.ajax({
+        url: `${root}/api/user`,
+        type: 'GET',
+        data: {
+            id: user
+        },
+        success: function(result) {
+            // console.log(result.data)
+            let value = result.data
+            $unit_id = value.unit_id
+            if (value.role == 'admin') {
+                get_unit('deputi')
+            } else if (value.role == 'deputi') {
+                get_unit('asdep')
+            }
         }
-    },
-    error: function(xhr) {
-        // console.log(xhr)
-        let err = xhr.responseJSON.errors
-        if (err.user_ro_id) history.back()
-    }
-})
+    })
+} else {
+    get_data(unit, user)
+    $('#card').show()
+}
 
 function get_unit(role) {
     $.ajax({
@@ -75,11 +63,13 @@ function get_data(unit_id = '', user_id = '', search = '') {
     if (role == 'admin') {
         if (unit_id == '') {
             data = {
-                search
+                search,
+                // user_ro_id
             }
         } else {
             data = {
                 search,
+                // user_ro_id,
                 unit_id
             }
         }
@@ -88,11 +78,13 @@ function get_data(unit_id = '', user_id = '', search = '') {
         if (user_id == '') {
             data = {
                 search,
+                // user_ro_id,
                 unit_id
             }
         } else {
             data = {
                 search,
+                // user_ro_id,
                 unit_id,
                 user_id
             }
@@ -101,7 +93,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
     if (role == 'asdep') {
         data = {
             search,
-            user_ro_id,
+            // user_ro_id,
             unit_id,
             user_id
         }
@@ -113,7 +105,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
         type: 'GET',
         data: data,
         success: function(result) {
-            // console.log(result.data)
+            console.log(result.data)
             if (result.data.length > 0) {
                 $.each(result.data, function(index, value) {
                     deputi_status = ''
@@ -144,7 +136,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
                     // title += `${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`
                     // title += `${value.ro.code_ro}/`
                     // title += `${value.component_code}`
-                    let rm, blu
+                    let rm = 0, blu = 0
                     $.each(value.source_funding, function(index, value) {
                         if (value.param_id == 8) {
                             rm = value.nominal
@@ -157,9 +149,9 @@ function get_data(unit_id = '', user_id = '', search = '') {
 						<td class="text-truncate">${value.component_code}</td>
 						<td class="text-truncate"><a href="${root}/asdep/komponen/detail/${value.id}">${value.component_name}</a></td>
 						<td class="text-truncate">${value.total_target} ${value.unit_target.name}</td>
-						<td class="text-truncate">${rupiah(rm)}</td>
-						<td class="text-truncate">${rupiah(blu)}</td>
-						<td class="text-truncate">${rupiah(value.budged)}</td>
+	            		<td class="text-right">${rm != 0 ? rupiah(rm) : 'Rp0'}</td>
+	            		<td class="text-right">${blu != 0 ? rupiah(blu) : 'Rp0'}</td>
+						<td class="text-right">${rupiah(value.budged)}</td>
 						<td class="text-truncate unit">${value.unit.name}</td>
 						<td class="text-truncate pengguna">${value.user.name}</td>
 						<td class="text-danger deputi_status">${status(value.deputi_status)}</td>
@@ -261,8 +253,8 @@ $(document).on('keyup', '#search', delay(function(e) {
 $(document).on('click', '.approve', function(e) {
     let id = $(this).parents('tr').attr('data-id')
     let title = $(this).parents('tr').attr('data-title')
-    $('#approve-title').html(title)
     $('#approve').attr('data-id', id)
+    $('#modal-approve b').html(title)
     $('#modal-approve').modal('show')
 })
 $(document).on('click', '#approve', function(e) {
@@ -274,8 +266,8 @@ $(document).on('click', '#approve', function(e) {
 $(document).on('click', '.decline', function(e) {
     let id = $(this).parents('tr').attr('data-id')
     let title = $(this).parents('tr').attr('data-title')
-    $('#decline-title').html(title)
     $('#decline').attr('data-id', id)
+    $('#modal-decline b').html(title)
     $('#modal-decline').modal('show')
 })
 $(document).on('click', '#decline', function(e) {
@@ -287,7 +279,7 @@ $(document).on('click', '#decline', function(e) {
 function approval(id, status) {
     let search = $('#search').val()
     let viewas = $('#view-as').val()
-    let comment = status == 'approve' ? 'Disetujui' : 'Ditolak'
+    let comment = status == 'accept' ? 'Disetujui' : 'Ditolak'
     let formData = new FormData()
     formData.append('status', status)
     formData.append('comment', comment)
@@ -314,8 +306,10 @@ function approval(id, status) {
             }
             // $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
             if (status == 'accept') {
-                customAlert('accept', 'Kegiatan disetujui.')
+                $('#modal-approve').modal('hide')
+                customAlert('success', 'Kegiatan disetujui.')
             } else {
+                $('#modal-decline').modal('hide')
                 customAlert('danger', 'Kegiatan ditolak.')
             }
         },
@@ -356,17 +350,17 @@ $(document).on('click', '#delete', function(e) {
     })
 })
 
-$(document).on('click', '.export', function(e) {
+$(document).on('click', '#download', function(e) {
     if (!$(this).hasClass('loading')) {
         $(this).html('Loading...')
         $(this).addClass('loading')
-        export_excel()
+        view_excel('download')
     } else {
         alert('wait')
     }
 })
 
-function export_excel() {
+function view_excel(status = null) {
     let excel = []
     $.ajax({
         url: `${root}/api/work_plan/excel_data`,
@@ -376,7 +370,7 @@ function export_excel() {
         },
         success: function(result) {
             // console.log(result.data)
-            $.each(result.data, function(index, value) {
+            $.each(result.data.user_program, function(index, value) {
                 excel.push(value)
             })
         },
@@ -384,14 +378,18 @@ function export_excel() {
             console.log(excel)
             $('#table-excel').empty()
             $.each(excel, function(index, value) {
-                budged_program = 0
+                rm_program = 0
+                blu_program = 0
+                total_program = 0
                 program = `<tr>
-            		<th class="text-center">${value.program_code}</th>
-            		<th colspan="4">${value.program_description}</th>
+            		<td class="text-center"><b>${value.program.code_program}</b></td>
+            		<td class="text-truncate" colspan="4"><b>${value.program.description}</b></td>
             		<td></td>
             		<td></td>
-            		<td id="budged_program_${value.program_code}">${value.program_code}</td>
-            		<td></td>
+            		<td class="text-right" id="rm_program_${value.id}">${rm_program}</td>
+            		<td class="text-right" id="blu_program_${value.id}">${blu_program}</td>
+            		<td class="text-right" id="total_program_${value.id}">${total_program}</td>
+            		<!--<td class="text-right">${rupiah(value.total_budged_user_activity)}</td>-->
             		<td></td>
             		<td></td>
             		<td></td>
@@ -399,15 +397,19 @@ function export_excel() {
             	</tr>`
                 $('#table-excel').append(program)
 
-                $.each(value.activity, function(index, value) {
-                    budged_kegiatan = 0
+                $.each(value.user_activity, function(index, value) {
+                    rm_activity = 0
+                    blu_activity = 0
+                    total_activity = 0
                     kegiatan = `<tr>
-	            		<td class="text-center">${value.activity_code}</td>
-	            		<td colspan="4">${value.activity_description}</td>
+	            		<td class="text-center">${value.activity.code_program}</td>
+	            		<td class="text-truncate" colspan="4">${value.activity.description}</td>
 	            		<td></td>
 	            		<td></td>
-	            		<td id="budged_kegiatan_${value.activity_code}"></td>
-	            		<td></td>
+	            		<td class="text-right" id="rm_activity_${value.id}"></td>
+	            		<td class="text-right" id="blu_activity_${value.id}"></td>
+	            		<td class="text-right" id="total_activity_${value.id}"></td>
+	            		<!--<td class="text-right">${rupiah(value.total_budged_user_kro)}</td>-->
 	            		<td></td>
 	            		<td></td>
 	            		<td></td>
@@ -415,18 +417,21 @@ function export_excel() {
 	            	</tr>`
                     $('#table-excel').append(kegiatan)
 
-                    $.each(value.kro, function(index, value) {
+                    $.each(value.user_kro, function(index, value) {
+                        rm_kro = 0
+                        blu_kro = 0
                         total_kro = 0
-                        unit_kro = ''
-                        budged_kro = 0
+                        code = value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn
                         kro = `<tr>
 		            		<td></td>
-		            		<td class="text-center">${value.code_kro}</td>
-		            		<td colspan="3">${value.kro}</td>
-		            		<td class="text-right" id="total_kro_${value.code_kro}"></td>
-		            		<td id="unit_kro_${value.code_kro}"></td>
-		            		<td class="text-right" id="budged_kro_${value.code_kro}"></td>
-		            		<td></td>
+		            		<td class="text-center">${code}</td>
+		            		<td class="text-truncate" colspan="3">${value.kro.kro}</td>
+		            		<td class="text-right" id="total_kro_${code}"></td>
+		            		<td id="unit_kro_${code}"></td>
+		            		<td class="text-right" id="rm_kro_${value.id}"></td>
+		            		<td class="text-right" id="blu_kro_${value.id}"></td>
+		            		<td class="text-right" id="total_kro_${value.id}"></td>
+		            		<!--<td class="text-right">${rupiah(value.total_budged_user_ro)}</td>-->
 		            		<td></td>
 		            		<td></td>
 		            		<td></td>
@@ -434,19 +439,20 @@ function export_excel() {
 		            	</tr>`
                         $('#table-excel').append(kro)
 
-                        $.each(value.ro, function(index, value) {
+                        $.each(value.user_ro, function(index, value) {
+                            rm_ro = 0
+                            blu_ro = 0
                             total_ro = 0
-                            unit_ro = ''
-                            budged_ro = 0
                             ro = `<tr>
 			            		<td></td>
 			            		<td></td>
 			            		<td class="text-center">${value.code_ro}</td>
-			            		<td colspan="2">${value.ro}</td>
-			            		<td class="text-right" id="total_ro_${value.code_ro}"></td>
-			            		<td id="unit_ro_${value.code_ro}"></td>
-			            		<td class="text-right" id="budged_ro_${value.code_ro}"></td>
+			            		<td class="text-truncate" colspan="2">${value.ro}</td>
 			            		<td></td>
+			            		<td></td>
+			            		<td class="text-right" id="rm_ro_${value.id}"></td>
+			            		<td class="text-right" id="blu_ro_${value.id}"></td>
+			            		<td class="text-right" id="total_ro_${value.id}"></td>
 			            		<td></td>
 			            		<td></td>
 			            		<td></td>
@@ -454,66 +460,76 @@ function export_excel() {
 			            	</tr>`
                             $('#table-excel').append(ro)
 
-                            $.each(value.compenent, function(index, value) {
-                                total_ro += value.total_target
-                                unit_ro = value.unit_target
-                                budged_ro += value.budged
+                            $.each(value.work_plan, function(index, value) {
+                                rm = 0
+                                blu = 0
+                                $.each(value.source_funding, function(index, value) {
+                                    value.param_id == 8 ? rm = value.nominal : blu = value.nominal
+                                })
+                            	first = null
+                            	sub_work_plan = ''
+						        $.each(value.sub_work_plan, function(index, value) {
+						        	if (first == null) {
+						        		first = value.province.id
+						        		sub_work_plan += `<div>${value.province.province}</div>`
+						        		sub_work_plan += `<div>- ${value.city.city}</div>`
+						        	} else if (first == value.province.id) {
+						        		sub_work_plan += `<div>- ${value.city.city}</div>`
+						        	} else if (first != value.province.id) {
+						        		first = value.province.id
+						        		sub_work_plan += `<div>${value.province.province}</div>`
+						        		sub_work_plan += `<div>- ${value.city.city}</div>`
+							        }
+						        })
+                                rm_ro += rm
+                                blu_ro += blu
+                                total_ro += rm + blu
                                 component = `<tr>
 				            		<td></td>
 				            		<td></td>
 				            		<td></td>
 				            		<td class="text-center">${value.component_code}</td>
-				            		<td>${value.component}</td>
+				            		<td class="text-truncate">${value.component_name}</td>
 				            		<td class="text-right">${convert(value.total_target)}</td>
-				            		<td>${value.unit_target}</td>
+				            		<td>${value.unit_target.name}</td>
+				            		<td class="text-right">${rm != 0 ? convert(rm) : 'Rp0'}</td>
+				            		<td class="text-right">${blu != 0 ? convert(blu) : 'Rp0'}</td>
 				            		<td class="text-right">${convert(value.budged)}</td>
-				            		<td>1.</td>
-				            		<td>${value.province}</td>
+				            		<td class="text-truncate">${sub_work_plan}</td>
 				            		<td><pre>${value.detail}</pre></td>
 				            		<td><pre>${value.description}</pre></td>
-				            		<td>${value.asdep}</td>
+				            		<td>${value.user.name}</td>
 				            	</tr>`
                                 $('#table-excel').append(component)
-
-                                $.each(value.sub_work_plan.city, function(index, value) {
-                                    sub_work_plan = `<tr>
-					            		<td></td>
-					            		<td></td>
-					            		<td></td>
-					            		<td></td>
-					            		<td></td>
-					            		<td></td>
-					            		<td></td>
-					            		<td></td>
-					            		<td>-</td>
-					            		<td>${value.city.city}</td>
-					            		<td></td>
-					            		<td></td>
-					            		<td></td>
-					            	</tr>`
-                                    $('#table-excel').append(sub_work_plan)
-                                })
                             })
-                            $(`#total_ro_${value.code_ro}`).html(convert(total_ro))
-                            $(`#unit_ro_${value.code_ro}`).html(unit_ro)
-                            $(`#budged_ro_${value.code_ro}`).html(convert(budged_ro))
+                            $(`#rm_ro_${value.id}`).html(convert(rm_ro))
+                            $(`#blu_ro_${value.id}`).html(convert(blu_ro))
+                            $(`#total_ro_${value.id}`).html(convert(total_ro))
+                            rm_kro += rm_ro
+                            blu_kro += blu_ro
                             total_kro += total_ro
-                            unit_kro = unit_ro
-                            budged_kro += budged_ro
-                            // console.log(budged)
                         })
-                        $(`#total_kro_${value.code_kro}`).html(convert(total_kro))
-                        $(`#unit_kro_${value.code_kro}`).html(unit_kro)
-                        $(`#budged_kro_${value.code_kro}`).html(convert(budged_kro))
-                        budged_kegiatan += budged_kro
+                        $(`#rm_kro_${value.id}`).html(convert(rm_kro))
+                        $(`#blu_kro_${value.id}`).html(convert(blu_kro))
+                        $(`#total_kro_${value.id}`).html(convert(total_kro))
+                        rm_activity += rm_kro
+                        blu_activity += blu_kro
+                        total_activity += total_kro
                     })
-                    $(`#budged_kegiatan_${value.activity_code}`).html(convert(budged_kegiatan))
-                    budged_program += budged_kegiatan
+                    $(`#rm_activity_${value.id}`).html(convert(rm_activity))
+                    $(`#blu_activity_${value.id}`).html(convert(blu_activity))
+                    $(`#total_activity_${value.id}`).html(convert(total_activity))
+                    rm_program += rm_activity
+                    blu_program += blu_activity
+                    total_program += total_activity
                 })
-                $(`#budged_program_${value.program_code}`).html(convert(budged_program))
+                $(`#rm_program_${value.id}`).html(convert(rm_program))
+                $(`#blu_program_${value.id}`).html(convert(blu_program))
+                $(`#total_program_${value.id}`).html(convert(total_program))
             })
-            $('.export').html('Export Excel')
-            $('.export').removeClass('loading')
+            $('#download').html('Download Excel')
+            $('#download').removeClass('loading')
+            status != null ? exportTableToExcel('excel', 'Status & Rekap Anggaran') : ''
         }
     })
 }

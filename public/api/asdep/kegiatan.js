@@ -1,3 +1,4 @@
+role == 'asdep' ? $('.create').show() : $('.option').remove()
 $.ajax({
     url: `${root}/api/user_program/fetch`,
     type: 'GET',
@@ -44,16 +45,17 @@ function get_data() {
             // console.log(result.data)
             if (result.data.length != 0) {
                 $.each(result.data, function(index, value) {
+                	option = `<td>
+						<div class="d-flex">
+							<a href="${root}/asdep/kegiatan/edit/${value.id}" class="btn btn-sm btn-outline-primary mr-2">Ubah</a>
+							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
+						</div>
+					</td>`
                     append = `<tr data-id="${value.id}" data-title="${value.activity.description}">
 						<td class="text-center">${index + 1}.</td>
 						<td class="text-truncate">${value.activity.parent.code_program}/${value.activity.code_program}</td>
 						<td class="text-truncate"><a href="${root}/asdep/kro/${value.id}">${value.activity.description}</a></td>
-						<td>
-							<div class="d-flex">
-								<a href="${root}/asdep/kegiatan/edit/${value.id}" class="btn btn-sm btn-outline-primary mr-2">Ubah</a>
-								<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
-							</div>
-						</td>
+						${role == 'asdep' ? option : ''}
 					</tr>`
                     $('#table').append(append)
                 })

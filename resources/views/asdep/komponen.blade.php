@@ -4,10 +4,17 @@
 
 @section('content')
 	<div class="container">
-		<div class="d-xl-flex justify-content-between align-items-end mb-2">
-			<div>
-				<h4>Komponen</h4>
-				<div class="card card-custom mb-3 mb-xl-0">
+		<div class="d-flex justify-content-between align-items-center">
+			<h4>Komponen</h4>
+			<div class="text-right mb-2">
+				<a href="{{url('asdep/komponen/create/'.$user_ro_id)}}" class="btn btn-primary create mb-1">Buat Komponen</a>
+				<div class="btn btn-outline-primary view mb-1" data-toggle="modal" data-target="#modal-view">View Sebagai</div>
+				<!-- <div class="btn btn-outline-primary export mb-1">Export Excel</div> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-7 mb-3">
+				<div class="card card-custom">
 					<div class="card-bodys px-0 py-2">
 						<table class="table table-borderless">
 							<tr>
@@ -34,23 +41,33 @@
 					</div>
 				</div>
 			</div>
-			<div class="d-flex justify-content-end">
-				<div id="type-4">
-					<button class="btn btn-outline-primary mr-2 uploads create" data-type="4" data-category="user_ro">Upload File RO</button>
-				</div>
-				<input type="file" class="none" id="file" accept="
-					application/msword,
-					application/vnd.ms-excel,
-					application/vnd.ms-powerpoint,
-					application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-					application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
-					application/vnd.openxmlformats-officedocument.presentationml.presentation,
-					application/pdf,
-				">
-				<div class="text-right">
-					<a href="{{url('asdep/komponen/create/'.$user_ro_id)}}" class="btn btn-primary create mb-1">Buat Komponen</a>
-					<div class="btn btn-outline-primary view mb-1" data-toggle="modal" data-target="#modal-view">View Sebagai</div>
-					<!-- <div class="btn btn-outline-primary export mb-1">Export Excel</div> -->
+			<div class="col-md-5 mb-3">
+				<div class="card card-custom">
+					<div class="card-body">
+						<div class="mb-3" id="tor">
+							<b class="font-weight-bold" class="col-form-label pb-0">File TOR</b>
+							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
+							<div id="type-1"></div>
+							<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="1" data-category="user_ro">Upload File</div>
+							<div class="invalid-feedback"></div>
+						</div>
+						<div id="rab">
+							<b class="font-weight-bold" class="col-form-label pb-0">File RAB</b>
+							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
+							<div id="type-2"></div>
+							<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="2" data-category="user_ro">Upload File</div>
+							<div class="invalid-feedback"></div>
+						</div>
+						<input type="file" class="none" id="file" accept="
+							application/msword,
+							application/vnd.ms-excel,
+							application/vnd.ms-powerpoint,
+							application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+							application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+							application/vnd.openxmlformats-officedocument.presentationml.presentation,
+							application/pdf,
+						">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -77,15 +94,15 @@
 							<th class="text-truncate text-center border-left border-right" colspan="3">Anggaran</th>
 							<th class="text-truncate unit">Unit</th>
 							<th class="text-truncate pengguna border-right" rowspan="2">Pengguna</th>
-							<th class="text-truncate text-center border-left border-right" colspan="2">Approval</th>
+							<!-- <th class="text-truncate text-center border-left border-right" colspan="2">Approval</th> -->
 							<th colspan="2" rowspan="2"></th>
 						</tr>
 						<tr>
 							<th class="text-truncate border-left">RM</th>
 							<th class="text-truncate">BLU</th>
 							<th class="text-truncate border-right">Total</th>
-							<th class="text-truncate deputi_status">Tingkat Deputi</th>
-							<th class="text-truncate admin_status border-right">Tingkat Admin</th>
+							<!-- <th class="text-truncate deputi_status">Tingkat Deputi</th> -->
+							<!-- <th class="text-truncate admin_status border-right">Tingkat Admin</th> -->
 						</tr>
 					</thead>
 					<tbody id="table"></tbody>
@@ -162,7 +179,7 @@
 	                    <i class="mdi mdi-close pr-0"></i>
 	                </button>
 	            </div>
-	            <div class="modal-body">Anda yakin ingin menghapus komponen <b id="title"></b>?</div>
+	            <div class="modal-body">Anda yakin ingin menghapus komponen <b></b>?</div>
 	            <div class="modal-footer border-top-0">
 	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
 	                <button class="btn btn-danger" id="delete">Hapus</button>
@@ -179,7 +196,7 @@
 	                    <i class="mdi mdi-close pr-0"></i>
 	                </button>
 	            </div>
-	            <div class="modal-body">Anda yakin ingin setujui komponen <b id="approve-title"></b>?</div>
+	            <div class="modal-body">Anda yakin ingin setujui komponen <b></b>?</div>
 	            <div class="modal-footer border-top-0">
 	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
 	                <button class="btn btn-primary" id="approve">Setujui</button>
@@ -196,7 +213,7 @@
 	                    <i class="mdi mdi-close pr-0"></i>
 	                </button>
 	            </div>
-	            <div class="modal-body">Anda yakin ingin tolak komponen <b id="decline-title"></b>?</div>
+	            <div class="modal-body">Anda yakin ingin tolak komponen <b></b>?</div>
 	            <div class="modal-footer border-top-0">
 	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
 	                <button class="btn btn-danger" id="decline">Tolak</button>
@@ -204,9 +221,27 @@
 	        </div>
 	    </div>
 	</div>
+	<div class="modal" id="modal-delete-file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-sm modal-dialog modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-bottom-0">
+	                <h5 class="modal-title" id="exampleModalLabel">Hapus File</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <i class="mdi mdi-close pr-0"></i>
+	                </button>
+	            </div>
+	            <div class="modal-body">Anda yakin ingin menghapus file <b></b>?</div>
+	            <div class="modal-footer border-top-0">
+	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+	                <button class="btn btn-danger" id="delete-file">Hapus</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 @endsection
 
 @section('script')
+	<script src="{{asset('assets/js/file.js')}}"></script>
 	<script src="{{asset('assets/js/number.js')}}"></script>
 	<script src="{{asset('assets/js/exportCsv.js')}}"></script>
 	<script>const user_ro_id = {{$user_ro_id}}</script>
