@@ -37,7 +37,7 @@ class GetNotificationController extends Controller
         if($user->hasRole('deputi')) {
             $notification->where('sent_to', $user->id);
         } else if($user->hasRole('asdep')) {
-            $notification->where('created_by', $user->id);
+            $notification->where('created_by', $user->id)->orWhere('sent_to', $user->id);
         }
         
         return ResponseFormatter::success(
