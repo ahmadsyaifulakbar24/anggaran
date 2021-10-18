@@ -66,12 +66,14 @@ function get_data(unit_id = '', user_id = '', search = '') {
     if (role == 'admin') {
         if (unit_id == '') {
             data = {
-                search
+                search,
+                status: 'accept'
             }
         } else {
             data = {
                 search,
-                unit_id
+                unit_id,
+                status: 'accept'
             }
         }
     }
