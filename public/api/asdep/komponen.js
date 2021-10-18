@@ -114,7 +114,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
                 search,
                 user_ro_id,
                 unit_id,
-                user_id
+                // user_id
             }
         }
     }
@@ -123,7 +123,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
             search,
             user_ro_id,
             unit_id,
-            user_id
+            // user_id
         }
     }
     // console.clear()
@@ -133,15 +133,19 @@ function get_data(unit_id = '', user_id = '', search = '') {
         type: 'GET',
         data: data,
         success: function(result) {
-            // console.log(result.data)
+            console.log(result.data)
             if (result.data.length > 0) {
                 $.each(result.data, function(index, value) {
                     deputi_status = ''
                     admin_status = ''
                     if (value.deputi_status != 'accept') {
-                        deputi_status = `
-                        <a href="${root}/rancangan-anggaran/edit/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
-						<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
+	                	if (user == value.user.id) {
+	                        deputi_status = `
+	                        <a href="${root}/rancangan-anggaran/edit/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
+							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
+						} else {
+							deputi_status = '<td></td>'
+						}
                     }
                     let rm = 0, blu = 0
                     $.each(value.source_funding, function(index, value) {

@@ -54,12 +54,17 @@ function get_data() {
                 		code_kro = value.kro.code_kro_non_pn
                 	}
             		kro = value.kro.kro
-            		option = `<td>
-						<div class="d-flex">
-							<a href="${root}/asdep/kro/edit/${user_activity_id}/${value.id}" class="btn btn-sm btn-outline-primary mr-2">Ubah</a>
-							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
-						</div>
-					</td>`
+                	option = ''
+                	if (user == value.user.id) {
+	            		option = `<td>
+							<div class="d-flex">
+								<a href="${root}/asdep/kro/edit/${user_activity_id}/${value.id}" class="btn btn-sm btn-outline-primary mr-2">Ubah</a>
+								<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
+							</div>
+						</td>`
+					} else {
+						option = '<td></td>'
+					}
                     append = `<tr data-id="${value.id}" data-title="${kro}">
 						<td class="text-center">${index + 1}.</td>
 						<td class="text-truncate">${code_kro}</td>

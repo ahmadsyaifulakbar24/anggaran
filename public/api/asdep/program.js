@@ -54,19 +54,6 @@ if (role == 'admin') {
 function get_data(unit_id = null, user_id = null) {
     $('#table').empty()
     localStorage.setItem('unit_id', unit_id)
-    let data = null
-    if (role == 'asdep') {
-        data = {
-            unit_id: unit,
-            user_id: user
-        }
-    } else {
-        data = {
-            unit_id
-        }
-    }
-    // console.clear()
-    // console.log(data)
     $.ajax({
         url: `${root}/api/work_plan/total_budged`,
         type: 'GET',
@@ -86,17 +73,24 @@ function get_data(unit_id = null, user_id = null) {
     $.ajax({
         url: `${root}/api/user_program/fetch`,
         type: 'GET',
-        data: data,
+        data: {
+        	unit_id
+        },
         success: function(result) {
             // console.log(result.data)
             if (result.data.length != 0) {
                 $.each(result.data, function(index, value) {
-                    option = `<td>
-						<div class="d-flex">
-							<a href="${root}/asdep/program/edit/${value.id}" class="btn btn-sm btn-outline-primary mr-2">Ubah</a>
-							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
-						</div>
-					</td>`
+                	option = ''
+                	if (user == value.user.id) {
+	                    option = `<td>
+							<div class="d-flex">
+								<a href="${root}/asdep/program/edit/${value.id}" class="btn btn-sm btn-outline-primary mr-2">Ubah</a>
+								<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
+							</div>
+						</td>`
+					} else {
+						option = `<td></td>`
+					}
                     append = `<tr data-id="${value.id}" data-title="${value.program.description}">
 						<td class="text-center">${index + 1}.</td>
 						<td class="text-truncate">${value.program.code_program}</td>

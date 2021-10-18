@@ -45,12 +45,17 @@ function get_data() {
             // console.log(result.data)
             if (result.data.length != 0) {
                 $.each(result.data, function(index, value) {
-                    option = `<td>
-						<div class="d-flex">
-							<a href="${root}/asdep/kegiatan/edit/${value.id}" class="btn btn-sm btn-outline-primary mr-2">Ubah</a>
-							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
-						</div>
-					</td>`
+                	option = ''
+                	if (user == value.user.id) {
+	                    option = `<td>
+							<div class="d-flex">
+								<a href="${root}/asdep/kegiatan/edit/${value.id}" class="btn btn-sm btn-outline-primary mr-2">Ubah</a>
+								<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
+							</div>
+						</td>`
+					} else {
+						option = '<td></td>'
+					}
                     append = `<tr data-id="${value.id}" data-title="${value.activity.description}">
 						<td class="text-center">${index + 1}.</td>
 						<td class="text-truncate">${value.activity.code_program}</td>
