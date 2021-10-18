@@ -61,11 +61,11 @@ class GetWorkPlanController extends Controller
         $status = $request->status;
         if($status) {
             if($status == 'accept') {
-                $work_plan->where('admin_status', 'accept');
+                $work_plan->where('deputi_status', 'accept');
             } else if($status == 'pending') {
-                $work_plan->where('admin_status', 'pending')->orWhereNull('admin_status');
+                $work_plan->where('deputi_status', 'pending');
             } else if($status == 'decline') {
-                $work_plan->where('admin_status', 'decline');
+                $work_plan->where('deputi_status', 'decline');
             }
         }
         $result = $work_plan->orderBy('updated_at', 'desc')->paginate($limit);
