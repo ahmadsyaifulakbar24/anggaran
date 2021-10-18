@@ -44,14 +44,14 @@
 				<div class="card card-custom">
 					<div class="card-body">
 						<div class="mb-3" id="tor">
-							<b class="font-weight-bold" class="col-form-label pb-0">File TOR</b>
+							<b class="font-weight-bold" class="col-form-label pb-0">File TOR RO (Induk)</b>
 							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
 							<div id="type-1"></div>
 							<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="1" data-category="user_ro">Upload File</div>
 							<div class="invalid-feedback"></div>
 						</div>
 						<div id="rab">
-							<b class="font-weight-bold" class="col-form-label pb-0">File RAB</b>
+							<b class="font-weight-bold" class="col-form-label pb-0">File RAB RO (Induk)</b>
 							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
 							<div id="type-2"></div>
 							<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="2" data-category="user_ro">Upload File</div>

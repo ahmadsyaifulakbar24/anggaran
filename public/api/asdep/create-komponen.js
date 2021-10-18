@@ -36,7 +36,10 @@ function get_data() {
                 append = `<option value="${value.id}" selected>${value.param}</option>`
                 $('#target_id').append(append)
             })
-        }
+        },
+	    error: function(xhr) {
+	        console.log(xhr)
+	    }
     })
     $.ajax({
         url: `${root}/api/param/indicator`,
@@ -47,7 +50,10 @@ function get_data() {
                 append = `<option value="${value.id}">${value.param}</option>`
                 $('#indicator_id').append(append)
             })
-        }
+        },
+	    error: function(xhr) {
+	        console.log(xhr)
+	    }
     })
     $.ajax({
         url: `${root}/api/param/sources_of_funding`,
@@ -56,7 +62,10 @@ function get_data() {
             // console.log(result.data)
             $sources_funding = result.data
             add_sources_funding()
-        }
+        },
+	    error: function(xhr) {
+	        console.log(xhr)
+	    }
     })
     $.ajax({
         url: `${root}/api/province`,
