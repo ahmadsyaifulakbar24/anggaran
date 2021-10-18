@@ -48,7 +48,7 @@ if (role == 'admin') {
     })
 } else {
     $('.view').remove()
-    $('.create').show()
+    role == 'deputi' ? $('.create').remove() : $('.create').show()
 }
 
 function get_data(unit_id = null, user_id = null) {
