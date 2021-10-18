@@ -48,13 +48,15 @@ class StatusController extends Controller
         } else {
             if($request->status == 'accept') {
                 $work_plan_data = [ 'deputi_status' => $request->status, 'admin_status' => 'pending'];
+                $sent_to = Auth::user()->parent_id;
             } else {
                 $work_plan_data = [ 'deputi_status' => $request->status ];
+                $sent_to = $user_work_plan->user_id;
             }
             $notification_data = [
                 [
                     'created_by' => Auth::user()->id,
-                    'sent_to' => $user_work_plan->user_id,
+                    'sent_to' => $sent_to,
                     'type' => 'work_plan',
                 ]
             ];
