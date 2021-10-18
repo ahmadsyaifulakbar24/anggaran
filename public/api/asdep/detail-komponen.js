@@ -3,8 +3,9 @@ $.ajax({
     type: 'GET',
     data: { id },
     success: function(result) {
-        console.log(result.data)
+        // console.log(result.data)
         let value = result.data
+        $('#back').attr('href', `${root}/asdep/komponen/${value.user_ro.id}`)
         // $('#component_code').append(`${value.program.parent.code_program}/`)
         // $('#component_code').append(`${value.program.code_program}/`)
         // $('#component_code').append(`${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`)

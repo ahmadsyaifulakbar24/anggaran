@@ -5,7 +5,7 @@
 @section('content')
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
-			<h4><i class="mdi mdi-arrow-left" role="button" onclick="return history.back()"></i> Detail Kegiatan</h4>
+			<h4><a class="text-dark" id="back"><i class="mdi mdi-arrow-left"></i> Detail Kegiatan</h4>
 		</div>
 		<div class="card card-custom">
 			<div class="row">
