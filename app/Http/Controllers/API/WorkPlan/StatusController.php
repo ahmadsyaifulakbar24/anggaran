@@ -30,8 +30,8 @@ class StatusController extends Controller
         ]);
         
         // Update work plan
+        $user_work_plan = $work_plan->with('user')->first();
         if($user->hasRole('admin')) {
-            $user_work_plan = $work_plan->with('user')->first();
             $work_plan_data = [ 'deputi_status' => $request->status, 'admin_status' => $request->status ];
             $notification_data = [
                     [
@@ -54,7 +54,7 @@ class StatusController extends Controller
             $notification_data = [
                 [
                     'created_by' => Auth::user()->id,
-                    'sent_to' => Auth::user()->parent_id,
+                    'sent_to' => $user_work_plan->user_id,
                     'type' => 'work_plan',
                 ]
             ];
