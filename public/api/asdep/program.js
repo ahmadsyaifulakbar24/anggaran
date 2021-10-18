@@ -1,4 +1,4 @@
-if (role == 'admin' || role == 'deputi') {
+if (role == 'admin') {
     $.ajax({
         url: `${root}/api/user`,
         type: 'GET',
@@ -8,16 +8,11 @@ if (role == 'admin' || role == 'deputi') {
         success: function(result) {
             // console.log(result.data)
             let value = result.data
-            // $unit_id = value.unit_id
-            if (value.role == 'admin') {
-                get_unit('deputi')
-            } else if (value.role == 'deputi') {
-                get_unit('asdep')
-            }
+            get_unit('deputi')
         }
     })
 } else {
-    get_data(unit, user)
+    role == 'deputi' ? get_data(unit, user) : get_data(unit)
     $('#card').show()
 }
 
@@ -40,7 +35,7 @@ function get_unit(role) {
     })
 }
 
-if (role != 'asdep') {
+if (role == 'admin') {
     $('.option').remove()
     $('#modal-view').modal('show')
     $('form').submit(function(e) {
@@ -49,11 +44,7 @@ if (role != 'asdep') {
         $('#search').val('')
         $('#modal-view').modal('hide')
         $('#view').html($('#view-as option:selected').text())
-        if (role == 'admin') {
-            get_data($('#view-as').val())
-        } else if (role == 'deputi') {
-            get_data(unit, $('#view-as').val())
-        }
+        get_data($('#view-as').val())
     })
 } else {
     $('.view').remove()
@@ -64,19 +55,14 @@ function get_data(unit_id = null, user_id = null) {
     $('#table').empty()
     localStorage.setItem('unit_id', unit_id)
     let data = null
-    if (role == 'admin') {
-        data = {
-            unit_id
-        }
-    } else if (role == 'deputi') {
-        data = {
-            unit_id,
-            user_id
-        }
-    } else if (role == 'asdep') {
+    if (role == 'asdep') {
         data = {
             unit_id: unit,
             user_id: user
+        }
+    } else {
+        data = {
+            unit_id
         }
     }
     // console.clear()
