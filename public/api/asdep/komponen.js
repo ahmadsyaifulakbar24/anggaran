@@ -113,8 +113,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
             data = {
                 search,
                 user_ro_id,
-                unit_id,
-                // user_id
+                unit_id
             }
         }
     }
@@ -122,8 +121,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
         data = {
             search,
             user_ro_id,
-            unit_id,
-            // user_id
+            unit_id
         }
     }
     // console.clear()
@@ -141,7 +139,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
                     if (value.deputi_status != 'accept') {
 	                	if (user == value.user.id) {
 	                        deputi_status = `
-	                        <a href="${root}/rancangan-anggaran/edit/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
+	                        <a href="${root}/asdep/komponen/edit/${value.user_ro.id}/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
 							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
 						} else {
 							deputi_status = '<td></td>'
@@ -240,7 +238,7 @@ $(document).on('keyup', '#search', delay(function(e) {
 $(document).on('click', '.delete', function(e) {
     let id = $(this).parents('tr').attr('data-id')
     let title = $(this).parents('tr').attr('data-title')
-    $('#title').html(title)
+    $('#modal-delete b').html(title)
     $('#delete').attr('data-id', id)
     $('#modal-delete').modal('show')
 })

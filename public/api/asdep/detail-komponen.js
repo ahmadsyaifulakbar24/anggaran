@@ -14,7 +14,6 @@ $.ajax({
         $('#component_code').html(value.component_code)
         $('#component_name').html(value.component_name)
         $('#target').html(`${value.total_target} ${value.unit_target.name}`)
-        // $('#province').html(value.province.id == 1 ? value.province.province : 'Provinsi ' + value.province.province)
 		let first = null
         $.each(result.data.sub_work_plan, function(index, value) {
         	if (first == null) {
@@ -29,34 +28,6 @@ $.ajax({
         		$('#location').append(`<div>- ${value.city.city}</div>`)
 	        }
         })
-
-        // things = new Object();
-        // things.thing = new Array();
-        // things.thing.push({ place: "here", name: "stuff" });
-        // things.thing.push({ place: "there", name: "morestuff" });
-        // things.thing.push({ place: "there", name: "morestuffs" });
-        // console.log(things)
-        // things.thing = things.thing.filter((thing, index, self) =>
-        //     index === self.findIndex((t) => (
-        //         t.place === thing.place && t.name === thing.name
-        //     ))
-        // )
-        // console.log(things)
-
-        // const arr = [
-        //     { id: 1, name: "test1" },
-        //     { id: 2, name: "test2" },
-        //     { id: 2, name: "test3" },
-        //     { id: 3, name: "test4" },
-        //     { id: 4, name: "test5" },
-        //     { id: 5, name: "test6" },
-        //     { id: 5, name: "test7" },
-        //     { id: 6, name: "test8" }
-        // ];
-        // console.log(arr)
-        // const uniqueObjects = [...new Map(arr.map(item => [item.id, item])).values()]
-        // console.log(uniqueObjects)
-
         $('#budged').html(convert(value.budged))
         $.each(value.source_funding, function(index, value) {
             if (value.param_id == 8) {
