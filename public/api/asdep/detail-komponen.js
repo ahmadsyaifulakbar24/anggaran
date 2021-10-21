@@ -85,7 +85,7 @@ $.ajax({
         })
         if (value.user.id != user) {
             $('.upload').remove()
-            $('.delete').remove()
+            $('.delete-file').remove()
         }
     },
     error: function(xhr) {
