@@ -28,11 +28,23 @@ $.ajax({
     },
     success: function(result) {
         // console.log(result.data)
-        $.each(result.data, function(index, value) {
-            add_file(value.id, value.file, value.type.id)
-            check_max(value.type.id)
-        })
-        role == 'admin' ? $('.delete-file').remove() : ''
+    	if (result.data.length != 0) {
+	        $.each(result.data, function(index, value) {
+	    		$(`#type-${value.type.id} .empty`).remove()
+	            add_file(value.id, value.file, value.type.id)
+	            check_max(value.type.id)
+	        })
+	        if (role == 'admin') {
+        		$('.empty').show()
+	        	$('.delete-file').remove()
+        	} else {
+        		$('.empty').remove()
+        	}
+        } else {
+        	if (role == 'admin') {
+        		$('.empty').show()
+        	}
+        }
     },
     error: function(xhr) {
         // console.log(xhr)

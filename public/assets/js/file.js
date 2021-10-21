@@ -17,20 +17,20 @@ $(document).on('change', 'input[type=file]', function(e) {
         file.type == "application/vnd.openxmlformats-officedocument.presentationml.presentation" || // .pptx
         file.type == "application/pdf") { // .pdf
     	if (type_id == 1 || type_id == 2) { // TOR & RAB
-	        if (file.size <= 10000000) { // 10MB
+	        if (file.size <= 50000000) { // 50 MB
 	        	if (category == 'work_plan') {
 	        		upload_file(file, type_id, id, category)
 	        	} else {
 	        		upload_file(file, type_id, user_ro_id, category)
 	        	}
 	        } else {
-	            customAlert('danger', 'Ukuran file maksimal 10MB.')
+	            customAlert('danger', 'Ukuran file maksimal 50 MB')
 	        }
 	    } else { // Lainnya / RO
     		upload_file(file, type_id, id, category)
 	    }
     } else {
-        customAlert('danger', 'Format file Word/Excel/PowerPoint/PDF.')
+        customAlert('danger', 'Format file Word/Excel/PowerPoint/PDF')
     }
 })
 
@@ -50,7 +50,7 @@ function upload_file(file, type_id, id, category) {
             // console.log(result.data)
             let value = result.data
             add_file(value.id, value.file, value.type.id)
-            customAlert('success', 'File berhasil diupload.')
+            customAlert('success', 'File berhasil diupload')
             check_max(value.type.id)
         },
         error: function(xhr) {
@@ -111,7 +111,7 @@ $(document).on('click', '#delete-file', function(e) {
             // console.log(result.data)
             $(`#file-${id}`).remove()
             $('#modal-delete-file').modal('hide')
-            customAlert('trash', 'File berhasil dihapus.')
+            customAlert('trash', 'File berhasil dihapus')
             check_max(type)
         },
         complete: function() {
