@@ -43,17 +43,22 @@
 			<div class="col-md-5 mb-3">
 				<div class="card card-custom">
 					<div class="card-body">
+						<div class="small text-secondary mb-1">*Maksimal 2 file</div>
+						<div class="small text-secondary mb-1">*Ukuran file maksimal 50 MB</div>
+						<div class="small text-secondary mb-2">*Format PDF, DOC, XLS, PPT</div>
 						<div class="mb-3" id="tor">
-							<b class="font-weight-bold" class="col-form-label pb-0">File TOR RO (Induk)</b>
-							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
-							<div id="type-1"></div>
+							<b class="font-weight-bold">File TOR RO (Induk)</b>
+							<div class="mt-2" id="type-1">
+								<i class="small text-secondary empty none">Kosong</i>
+							</div>
 							<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="1" data-category="user_ro">Upload File</div>
 							<div class="invalid-feedback"></div>
 						</div>
 						<div id="rab">
-							<b class="font-weight-bold" class="col-form-label pb-0">File RAB RO (Induk)</b>
-							<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
-							<div id="type-2"></div>
+							<b class="font-weight-bold">File RAB RO (Induk)</b>
+							<div class="mt-2" id="type-2">
+								<i class="small text-secondary empty none">Kosong</i>
+							</div>
 							<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="2" data-category="user_ro">Upload File</div>
 							<div class="invalid-feedback"></div>
 						</div>

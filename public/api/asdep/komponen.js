@@ -28,11 +28,23 @@ $.ajax({
     },
     success: function(result) {
         // console.log(result.data)
-        $.each(result.data, function(index, value) {
-            add_file(value.id, value.file, value.type.id)
-            check_max(value.type.id)
-        })
-        role == 'admin' ? $('.delete-file').remove() : ''
+    	if (result.data.length != 0) {
+	        $.each(result.data, function(index, value) {
+	    		$(`#type-${value.type.id} .empty`).remove()
+	            add_file(value.id, value.file, value.type.id)
+	            check_max(value.type.id)
+	        })
+	        if (role == 'admin') {
+        		$('.empty').show()
+	        	$('.delete-file').remove()
+        	} else {
+        		$('.empty').remove()
+        	}
+        } else {
+        	if (role == 'admin') {
+        		$('.empty').show()
+        	}
+        }
     },
     error: function(xhr) {
         // console.log(xhr)
@@ -113,8 +125,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
             data = {
                 search,
                 user_ro_id,
-                unit_id,
-                // user_id
+                unit_id
             }
         }
     }
@@ -122,8 +133,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
         data = {
             search,
             user_ro_id,
-            unit_id,
-            // user_id
+            unit_id
         }
     }
     // console.clear()
@@ -141,7 +151,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
                     if (value.deputi_status != 'accept') {
 	                	if (user == value.user.id) {
 	                        deputi_status = `
-	                        <a href="${root}/rancangan-anggaran/edit/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
+	                        <a href="${root}/asdep/komponen/edit/${value.user_ro.id}/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
 							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
 						} else {
 							deputi_status = '<td></td>'
@@ -240,7 +250,7 @@ $(document).on('keyup', '#search', delay(function(e) {
 $(document).on('click', '.delete', function(e) {
     let id = $(this).parents('tr').attr('data-id')
     let title = $(this).parents('tr').attr('data-title')
-    $('#title').html(title)
+    $('#modal-delete b').html(title)
     $('#delete').attr('data-id', id)
     $('#modal-delete').modal('show')
 })

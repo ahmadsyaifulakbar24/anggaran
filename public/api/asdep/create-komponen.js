@@ -284,7 +284,7 @@ $('form').submit(function(e) {
         contentType: false,
         success: function(result) {
             // console.log(result.data)
-            customAlert('success', 'Komponen berhasil dibuat.')
+            customAlert('success', 'Komponen berhasil dibuat')
             setTimeout(function() {
                 location.href = `${root}/asdep/komponen/detail/${result.data.id}`
             }, 1000)
