@@ -56,6 +56,8 @@ class CreateViewWorkPlan extends Migration
                 e.budged,
                 e.detail,
                 e.description,
+                e.target_indicator_status,
+                e.pph7_id,
                 e.deputi_status,
                 e.admin_status,
                 e.created_at,

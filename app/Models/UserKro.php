@@ -30,6 +30,10 @@ class UserKro extends Model
         return $this->belongsTo(Kro::class, 'kro_id');
     }
 
+    public function user_activity() 
+    {
+        return $this->belongsTo(UserActivity::class, 'user_activity_id');
+    }
     public function user_ro()
     {
         return $this->hasMany(UserRo::class, 'user_kro_id');

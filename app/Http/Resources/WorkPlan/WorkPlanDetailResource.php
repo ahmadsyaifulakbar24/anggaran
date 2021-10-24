@@ -18,7 +18,13 @@ class WorkPlanDetailResource extends JsonResource
      */
     public function toArray($request)
     {
+        $code_ro = $this->user_ro->code_ro;
+        $code_kro = ($this->user_ro->user_kro->type_kro == 'pn') ? $this->user_ro->user_kro->kro->code_kro_pn : $this->user_ro->user_kro->kro->code_kro_non_pn;
+        $code_activity = $this->user_ro->user_kro->user_activity->activity->code_program;
+        $code_program = $this->user_ro->user_kro->user_activity->user_program->program->code_program;
+        $all_kode = $code_program.'/'.$code_activity.'/'.$code_kro.'/'.$code_ro.'/'.$this->component_code;
         return [
+            'all_kode' => $all_kode,
             'id' => $this->id,
             'user' => [
                 'id' => $this->user->id,
@@ -36,8 +42,11 @@ class WorkPlanDetailResource extends JsonResource
             'budged' => $this->budged,
             'detail' => $this->detail,
             'description' => $this->description,
+            'target_indicator_status' => $this->target_indicator_status,
             'target' => new ParamResource($this->target),
             'indicator' => new ParamResource($this->indicator),
+            'pph7_status' => ($this->pph7_id == null) ? 0 : 1,
+            'pph7' => new ParamResource($this->pph7),
             'deputi_status' => $this->deputi_status,
             'admin_status' => $this->admin_status,
             'sub_work_plan' => SubWorkPlanResource::collection($this->sub_work_plan),

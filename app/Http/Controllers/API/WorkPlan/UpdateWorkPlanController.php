@@ -31,16 +31,28 @@ class UpdateWorkPlanController extends Controller
             'unit_target' => ['required', 'exists:unit_targets,id'],
             'detail' => ['required', 'string'],
             'description' => ['required', 'string'],
+
+             // Target Indicator
+            'target_indicator_status' => ['required', 'in:0,1'],
             'target_id' => [
-                'required',
+                Rule::requiredIf($request->target_indicator_status == 1),
                 Rule::exists('params', 'id')->where(function($query) {
                     return $query->where('category', 'target');
                 })
             ],
             'indicator_id' => [
-                'required',
+                Rule::requiredIf($request->target_indicator_status == 1),
                 Rule::exists('params', 'id')->where(function($query) {
                     return $query->where('category', 'indicator');
+                })
+            ],
+
+            // pph7
+            'pph7_status' => ['required', 'in:0,1'],
+            'pph7_id' => [
+                Rule::requiredIf($request->pph7_status == 1),
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'pph7');
                 })
             ],
 
@@ -61,6 +73,14 @@ class UpdateWorkPlanController extends Controller
         ]);
         
         $input = $request->all();
+        if($request->target_indicator_status == 0) {
+            $input['target_id'] = null;
+            $input['indicator_id'] = null;
+        }
+
+        if($request->pph7_status == 0) {
+            $input['pph7_id'] = null;
+        }  
 
         // Update Work Plan
         $work_plan->update($input);

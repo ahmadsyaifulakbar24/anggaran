@@ -29,16 +29,28 @@ class CreateWorkPlanController extends Controller
             'unit_target' => ['required', 'exists:unit_targets,id'],
             'detail' => ['required', 'string'],
             'description' => ['required', 'string'],
+
+            // Target Indicator
+            'target_indicator_status' => ['required', 'in:0,1'],
             'target_id' => [
-                'required',
+                Rule::requiredIf($request->target_indicator_status == 1),
                 Rule::exists('params', 'id')->where(function($query) {
                     return $query->where('category', 'target');
                 })
             ],
             'indicator_id' => [
-                'required',
+                Rule::requiredIf($request->target_indicator_status == 1),
                 Rule::exists('params', 'id')->where(function($query) {
                     return $query->where('category', 'indicator');
+                })
+            ],
+
+            // pph7
+            'pph7_status' => ['required', 'in:0,1'],
+            'pph7_id' => [
+                Rule::requiredIf($request->pph7_status == 1),
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'pph7');
                 })
             ],
 
@@ -69,7 +81,15 @@ class CreateWorkPlanController extends Controller
         $input['user_id'] = $user->id;
         $input['unit_id'] = $user->unit_id;
         $input['deputi_status'] = 'pending';
-        
+        $input['permission'] = 'unlock';
+        if($request->target_indicator_status == 0) {
+            $input['target_id'] = null;
+            $input['indicator_id'] = null;
+        }
+
+        if($request->pph7_status == 0) {
+            $input['pph7_id'] = null;
+        }         
         // Insert work plan
         $work_plan = WorkPlan::create($input);
 

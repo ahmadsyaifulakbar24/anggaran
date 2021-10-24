@@ -19,10 +19,13 @@ class WorkPlan extends Model
         'budged',
         'detail',
         'description',
-        'indicator_id',
+        'target_indicator_status',
         'target_id',
+        'indicator_id',
+        'pph7_id',
         'deputi_status',
-        'admin_status'
+        'admin_status',
+        'permission'
     ];
 
     public function getCreatedAtAttribute($date) {
@@ -81,6 +84,11 @@ class WorkPlan extends Model
     public function indicator()
     {
         return $this->belongsTo(Param::class, 'indicator_id');
+    }
+
+    public function pph7()
+    {
+        return $this->belongsTo(Param::class, 'pph7_id');
     }
 
     public function sub_work_plan_many()

@@ -29,6 +29,11 @@ class UserActivity extends Model
         return $this->belongsTo(Program::class, 'activity_id');
     }
 
+    public function user_program()
+    {
+        return $this->belongsTo(UserProgram::class, 'user_program_id');
+    }
+
     public function  user_kro()
     {
         return $this->hasMany(UserKro::class, 'user_activity_id');

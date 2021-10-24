@@ -21,6 +21,11 @@ class UserRo extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function user_kro() 
+    {
+        return $this->belongsTo(UserKro::class, 'user_kro_id');
+    }
+
     public function unit()
     {
         return $this->belongsTo(Unit::class, 'unit_id');
@@ -30,6 +35,7 @@ class UserRo extends Model
     {
         return $this->belongsTo(UnitTarget::class, 'unit_target');
     } 
+
     public function work_plan ()
     {
         return $this->hasMany(WorkPlan::class, 'user_ro_id');
