@@ -131,11 +131,6 @@ function get_data(unit_id = '', user_id = '', search = '') {
                             }
                         }
                     }
-                    // title = `${value.program.parent.code_program}/`
-                    // title += `${value.program.code_program}/`
-                    // title += `${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`
-                    // title += `${value.ro.code_ro}/`
-                    // title += `${value.component_code}`
                     let rm = 0,
                         blu = 0
                     $.each(value.source_funding, function(index, value) {
@@ -147,7 +142,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
                     })
                     append = `<tr data-id="${value.id}" data-title="${value.component_name}">
 						<td class="text-center">${index + 1}.</td>
-						<td class="text-truncate">${value.component_code}</td>
+						<td class="text-truncate">${value.all_kode}</td>
 						<td class="text-truncate"><a href="${root}/asdep/komponen/detail/${value.id}">${value.component_name}</a></td>
 						<td class="text-truncate">${value.total_target} ${value.unit_target.name}</td>
 	            		<td class="text-right">${rm != 0 ? rupiah(rm) : 'Rp0'}</td>
