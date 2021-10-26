@@ -360,14 +360,14 @@ function view_excel(status = null) {
         }
         get_excel(data, status)
     } else {
-	    if (viewas != '') {
-	        data = {
-	            unit_id: viewas
-	        }
-	        get_excel(data, status)
-	    } else {
-	        customAlert('danger', 'Pilih deputi terlebih dahulu')
-	    }
+        if (viewas != '') {
+            data = {
+                unit_id: viewas
+            }
+            get_excel(data, status)
+        } else {
+            customAlert('danger', 'Pilih deputi terlebih dahulu')
+        }
     }
 }
 
@@ -473,15 +473,11 @@ function get_excel(data, status) {
                                     first = null
                                     sub_work_plan = ''
                                     $.each(value.sub_work_plan, function(index, value) {
-                                        if (first == null) {
+                                        if (first != value.province.id) {
                                             first = value.province.id
                                             sub_work_plan += `<div>${value.province.province}</div>`
                                             sub_work_plan += `<div>- ${value.city.city}</div>`
-                                        } else if (first == value.province.id) {
-                                            sub_work_plan += `<div>- ${value.city.city}</div>`
-                                        } else if (first != value.province.id) {
-                                            first = value.province.id
-                                            sub_work_plan += `<div>${value.province.province}</div>`
+                                        } else {
                                             sub_work_plan += `<div>- ${value.city.city}</div>`
                                         }
                                     })
