@@ -6,27 +6,18 @@ $.ajax({
         // console.log(result.data)
         let value = result.data
         $('#back').attr('href', `${root}/asdep/komponen/${value.user_ro.id}`)
-        // $('#component_code').append(`${value.program.parent.code_program}/`)
-        // $('#component_code').append(`${value.program.code_program}/`)
-        // $('#component_code').append(`${value.type_kro == 'pn' ? value.kro.code_kro_pn : value.kro.code_kro_non_pn}/`)
-        // $('#component_code').append(`${value.ro.code_ro}/`)
-        // $('#component_code').append(`${value.component_code}`)
-        $('#component_code').html(value.component_code)
+        $('#component_code').html(value.all_kode)
         $('#component_name').html(value.component_name)
         $('#target').html(`${value.total_target} ${value.unit_target.name}`)
-		let first = null
+        let first = null
         $.each(result.data.sub_work_plan, function(index, value) {
-        	if (first == null) {
-        		first = value.province.id
-        		$('#location').append(`<div>${value.province.province}</div>`)
-        		$('#location').append(`<div>- ${value.city.city}</div>`)
-        	} else if (first == value.province.id) {
-        		$('#location').append(`<div>- ${value.city.city}</div>`)
-        	} else if (first != value.province.id) {
-        		first = value.province.id
-        		$('#location').append(`<div>${value.province.province}</div>`)
-        		$('#location').append(`<div>- ${value.city.city}</div>`)
-	        }
+            if (first != value.province.id) {
+                first = value.province.id
+                $('#location').append(`<div>${value.province.province}</div>`)
+                $('#location').append(`<div>- ${value.city.city}</div>`)
+            } else {
+                $('#location').append(`<div>- ${value.city.city}</div>`)
+            }
         })
         $('#budged').html(convert(value.budged))
         $.each(value.source_funding, function(index, value) {
