@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('API')->group(function () {
@@ -36,8 +37,7 @@ Route::namespace('API')->group(function () {
         Route::namespace('UnitTarget')->prefix('unit_target')->group(function() {
             Route::get('/', 'UnitTargetController@fetch');
         });
-
-        
+     
         Route::namespace('WorkPlan')->group(function() {
             Route::prefix('user_program')->group(function() {
                 Route::post('/create', 'UserProgramController@create');
@@ -86,8 +86,13 @@ Route::namespace('API')->group(function () {
             Route::get('/total_budged_by_indicator_target', 'GetTotalBudgedController@total_budged_by_indicator_target');
             Route::get('/get_by_province', 'GetWorkPlanController@get_by_province');
             Route::get('/get_by_indicator_target', 'GetWorkPlanController@get_by_indicator_target');
+            Route::get('/get_by_pph7', 'GetWorkPlanController@get_by_pph7');
 
             Route::get('/breadcrumb', 'BreadcrumbController');
+
+            Route::post('/lock', 'LockUnlockController@lock');
+            Route::post('/unlock', 'LockUnlockController@unlock');
+            
         });
 
         Route::namespace('Comment')->prefix('comment')->group(function() {
@@ -110,6 +115,11 @@ Route::namespace('API')->group(function () {
 
         Route::namespace('Dashboard')->prefix('dashboard')->group(function() {
             Route::get('budget_statistics', 'DashboardController@budget_statistics');
+        });
+
+        Route::namespace('AdminSetting')->prefix('admin_setting')->group(function() {
+            Route::post('/create', 'AdminSettingController@create_message');
+            Route::get('/fetch', 'AdminSettingController@get_message');
         });
     });
 });

@@ -118,6 +118,27 @@ class GetWorkPlanController extends Controller
         return WorkPlanResource::collection($work_plan);
     }
 
+    // public function get_by_pph7(Request $request) 
+    // {
+    //     $request->validate([
+    //         'province_id' => ['required', 'exists:provinces,id'],
+    //         'unit_id' => ['nullable', 'exists:units,id'],
+    //         'user_id' => ['nullable', 'exists:users,id'],
+    //         'limit' => ['nullable', 'integer'],
+    //     ]);
+    //     $limit = $request->input('limit', 10);
+    //     $sub_work_plan = VwSubWorkPlanDetail::where('province_id', $request->province_id)->groupBy('work_plan_id');
+        
+    //     if($request->unit_id) {
+    //         $sub_work_plan->where('unit_id', $request->unit_id);
+    //     } else if($request->user_id) {
+    //         $sub_work_plan->where('user_id', $request->user_id);
+    //     }
+
+    //     return SubWorkPlanByProvinceResource::collection($sub_work_plan->paginate($limit));
+        
+    // }
+
     public function excel(Request $request)
     {
         $this->validate($request, [

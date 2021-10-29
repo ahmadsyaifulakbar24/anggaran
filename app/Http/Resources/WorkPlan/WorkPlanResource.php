@@ -48,6 +48,7 @@ class WorkPlanResource extends JsonResource
             'deputi_status' => $this->deputi_status,
             'admin_status' => $this->admin_status,
             'source_funding' => SourceFundingResource::collection($this->source_funding),
+            'permission' => $this->permission,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
