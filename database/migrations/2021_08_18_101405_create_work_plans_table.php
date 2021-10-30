@@ -31,7 +31,7 @@ class CreateWorkPlansTable extends Migration
             $table->foreignId('pph7_id')->nullable()->constrained('params')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('deputi_status', ['accept', 'pending', 'decline']);
             $table->enum('admin_status', ['accept', 'pending', 'decline'])->nullable();
-            $table->enum('permission', ['lock', 'unlock']);
+            $table->enum('permission', ['lock', 'unlock'])->default('unlock');
             $table->timestamps();
         });
     }
