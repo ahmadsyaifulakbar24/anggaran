@@ -18,7 +18,7 @@ class GetTotalBudgedController extends Controller
     {
         $request->validate([
             'unit_id' => ['required', 'exists:units,id'],
-            'get_by' => ['required', 'in:program,activity,kro,ro'],
+            'get_by' => ['required', 'in:program,activity,kro,ro,work_plan'],
             'user_program_id' => [
                 Rule::requiredIf($request->get_by == 'activity'),
                 'exists:user_programs,id'
@@ -31,6 +31,10 @@ class GetTotalBudgedController extends Controller
                 Rule::requiredIf($request->get_by == 'ro'),
                 'exists:user_kro,id'
             ],
+            'user_ro_id' => [
+                Rule::requiredIf($request->get_by == 'work_plan'),
+                'exists:user_ro,id'
+            ],
         ]);
 
         $vw_work_plan_detail = VwWorkPlanDetail::where('unit_id', $request->unit_id);
@@ -40,6 +44,8 @@ class GetTotalBudgedController extends Controller
             $vw_work_plan_detail->where('user_activity_id_w', $request->user_activity_id);
         } else if($request->get_by == 'ro') {
             $vw_work_plan_detail->where('user_kro_id_w', $request->user_kro_id);
+        } else if($request->get_by == 'work_plan') {
+            $vw_work_plan_detail->where('user_ro_id_w', $request->user_ro_id);
         }
 
         return ResponseFormatter::success(
@@ -87,10 +93,10 @@ class GetTotalBudgedController extends Controller
             ],
         ]);
 
-        $work_plan = WorkPlan::where([['target_id', $request->target_id], ['indicator_id', $request->indicator_id], ['admin_status', 'accept']])->get();
+        $work_plan = WorkPlan::where([['target_id', $request->target_id], ['indicator_id', $request->indicator_id]])->get();
         return ResponseFormatter::success([
             'total_work_plan' => $work_plan->count(),
-            'total_budged' => $work_plan->sum('budged'),
+            'total_budged' => $work_plan->where('admin_status', 'accept')->sum('budged'),
         ], 'success get total budged by indicator target data');
     }
 }
