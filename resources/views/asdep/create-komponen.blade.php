@@ -49,19 +49,62 @@
 				</div>
 				<div class="form-group">
 					<div class="form-row">
-						<div class="col-sm-6 mb-1">
-							<label for="target_id" class="col-form-label">Sasaran</label>
-							<select class="custom-select" id="target_id" role="button">
-								<option value="" disabled selected>Pilih</option>
-							</select>
+						<div class="col-sm-6 mb-2">
+							<label for="target_indicator_status" class="col-form-label pb-0">Status Sasaran & Indikator</label>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="target_indicator_status" id="target_indicator_status1" value="1" role="button">
+								<label class="form-check-label" for="target_indicator_status1" role="button">
+									Mendukung sasaran & indikator
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="target_indicator_status" id="target_indicator_status0" value="0" role="button">
+								<label class="form-check-label" for="target_indicator_status0" role="button">
+									Tidak mendukung sasaran & indikator
+								</label>
+							</div>
+							<input type="hidden" id="target_indicator_status">
 							<div class="invalid-feedback"></div>
+							<div class="none" id="target_indicator">
+								<div class="mt-2">
+									<label for="target_id" class="d-block col-form-label text-secondary">Sasaran</label>
+									<select class="custom-select" id="target_id" role="button">
+										<option value="" disabled selected>Pilih</option>
+									</select>
+									<div class="invalid-feedback"></div>
+								</div>
+								<div class="my-2">
+									<label for="indicator_id" class="d-block col-form-label text-secondary">Indikator</label>
+									<select class="custom-select" id="indicator_id" role="button">
+										<option value="" disabled selected>Pilih</option>
+									</select>
+									<div class="invalid-feedback"></div>
+								</div>
+							</div>
 						</div>
 						<div class="col-sm-6">
-							<label for="indicator_id" class="col-form-label">Indikator</label>
-							<select class="custom-select" id="indicator_id" role="button">
-								<option value="" disabled selected>Pilih</option>
-							</select>
+							<label for="pp7_status" class="col-form-label pb-0">Status PP 7 tahun 2021</label>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="pp7_status" id="pp7_status1" value="1" role="button">
+								<label class="form-check-label" for="pp7_status1" role="button">
+									Mendukung PP 7 tahun 2021
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="pp7_status" id="pp7_status0" value="0" role="button">
+								<label class="form-check-label" for="pp7_status0" role="button">
+									Tidak mendukung PP 7 tahun 2021
+								</label>
+							</div>
+							<input type="hidden" id="pp7_status">
 							<div class="invalid-feedback"></div>
+							<div class="none mt-2" id="pp7">
+								<label for="pp7_id" class="d-block col-form-label text-secondary">Program PP 7 tahun 2021</label>
+								<select class="custom-select" id="pp7_id" role="button">
+									<option value="" disabled selected>Pilih</option>
+								</select>
+								<div class="invalid-feedback"></div>
+							</div>
 						</div>
 					</div>
 				</div>

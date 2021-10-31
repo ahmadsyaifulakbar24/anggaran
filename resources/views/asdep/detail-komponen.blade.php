@@ -21,7 +21,7 @@
 						</div>
 						<div class="form-group">
 							<b class="font-weight-bold" class="col-form-label">Target</b>
-							<div id="target"></div>
+							<div id="total_target"></div>
 						</div>
 						<div class="form-group">
 							<b class="font-weight-bold" class="col-form-label">Lokasi</b>
@@ -41,13 +41,15 @@
 								<div id="budged">Rp0</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<b class="font-weight-bold">Sasaran</b>
-							<div id="sasaran"></div>
-						</div>
-						<div class="form-group">
-							<b class="font-weight-bold">Indikator</b>
-							<div id="indicator"></div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<b class="font-weight-bold">Sasaran & Indikator</b>
+								<div id="target_indicator"></div>
+							</div>
+							<div class="form-group col-md-6">
+								<b class="font-weight-bold">PP 7 Tahun 2021</b>
+								<div id="pp7"></div>
+							</div>
 						</div>
 						<div class="form-group">
 							<b class="font-weight-bold">Rincian Detail</b>

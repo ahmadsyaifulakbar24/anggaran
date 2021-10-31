@@ -8,7 +8,7 @@ $.ajax({
         $('#back').attr('href', `${root}/asdep/komponen/${value.user_ro.id}`)
         $('#component_code').html(value.all_kode)
         $('#component_name').html(value.component_name)
-        $('#target').html(`${value.total_target} ${value.unit_target.name}`)
+        $('#total_target').html(`${value.total_target} ${value.unit_target.name}`)
         let first = null
         $.each(result.data.sub_work_plan, function(index, value) {
             if (first != value.province.id) {
@@ -27,8 +27,22 @@ $.ajax({
                 $('#blu').html(rupiah(value.nominal))
             }
         })
-        $('#sasaran').html(value.target.param)
-        $('#indicator').html(value.indicator.param)
+        if (value.target_indicator_status == 1) {
+            let append = `<div>
+        		<div class="text-secondary">Sasaran</div>
+        		<div>${value.target.param}</div>
+        		<div class="text-secondary mt-2">Indikator</div>
+        		<div>${value.indicator.param}</div>
+        	</div>`
+            $('#target_indicator').append(append)
+        } else {
+            $('#target_indicator').html('<i>Tidak mendukung sasaran & indikator</i>')
+        }
+        if (value.pph7_status == 1) {
+            $('#pp7').html(value.pph7.param)
+        } else {
+            $('#pp7').html('<i>Tidak mendukung PP 7 tahun 2021</i>')
+        }
         $('#budged').html(rupiah(value.budged))
         $('#detail').html(value.detail)
         $('#description').html(value.description)

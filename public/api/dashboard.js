@@ -160,6 +160,89 @@ function get_by_indicator(indicator_id) {
 }
 
 $.ajax({
+    url: `${root}/api/param/pph7`,
+    type: 'GET',
+    success: function(result) {
+        // console.log(result.data)
+        $.each(result.data, function(index, value) {
+            append = `<option value="${value.id}">${value.param}</option>`
+            $('#pp7_id').append(append)
+        })
+    },
+    error: function(xhr) {
+        console.log(xhr)
+    }
+})
+
+$('#get_by_pp7').submit(function(e) {
+    e.preventDefault()
+    let value = $('#pp7_id').val()
+    $('#pp7-table').show()
+    get_by_pp7(value)
+})
+
+function get_by_pp7(pph7_id) {
+    $('#pp7').empty()
+    $.ajax({
+        url: `${api_url}/work_plan/total_budged_by_pph7`,
+        type: 'GET',
+        data: {
+            pph7_id
+        },
+        success: function(result) {
+            // console.log(result.data)
+            let value = result.data
+            $('#total-pp7').html(`Total Komponen: ${convert(value.total_work_plan)}`)
+            $('#total-pp7-budged').html(`Total Anggaran ACC: ${rupiah(value.total_budged)}`)
+        }
+    })
+    $.ajax({
+        url: `${api_url}/work_plan/get_by_pph7`,
+        type: 'GET',
+        data: {
+            target_id: 4,
+            pph7_id,
+            // limit: 1
+        },
+        success: function(result) {
+            // console.log(result.data)
+            if (result.data != 0) {
+                $.each(result.data, function(index, value) {
+                    first = null
+                    sub_work_plan = ''
+                    $.each(value.sub_work_plan, function(index, value) {
+                        if (first != value.province.id) {
+                            first = value.province.id
+                            sub_work_plan += `<div>${value.province.province}</div>`
+                            sub_work_plan += `<div>- ${value.city.city}</div>`
+                        } else {
+                            sub_work_plan += `<div>- ${value.city.city}</div>`
+                        }
+                    })
+                    append = `<tr>
+	            		<td class="text-center">${index + 1}.</td>
+	            		<td>${value.all_kode}</td>
+	            		<td>${value.component_name}</td>
+	            		<td>${rupiah(value.budged)}</td>
+	            		<td class="text-truncate">${convert(value.total_target)} ${value.unit_target.name}</td>
+	            		<td class="text-truncate">${sub_work_plan}</td>
+	            	</tr>`
+                    $('#pp7').append(append)
+                })
+            } else {
+                append = `<tr>
+	        		<td colspan="10" class="text-center py-5">Data tidak ditemukan.</td>
+        		</tr>`
+                $('#pp7').append(append)
+            }
+        },
+        error: function(xhr) {
+            // console.log(xhr)
+        }
+    })
+}
+
+$.ajax({
     url: `${api_url}/dashboard/budget_statistics`,
     type: 'GET',
     success: function(result) {

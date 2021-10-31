@@ -9,28 +9,28 @@ $.ajax({
     },
     success: function(result) {
         // console.log(result.data)
-		$.ajax({
-		    url: `${root}/api/work_plan`,
-		    type: 'GET',
-		    data: {
-		        id
-		    },
-		    success: function(result) {
-		        // console.log(result.data)
-		        if (result.data.user.id == user) {
-		        	value = result.data
-		            get_data()
-		        } else {
-		            history.back()
-		        }
-		    },
-		    error: function(xhr) {
-		        // console.log(xhr)
-		        let err = xhr.responseJSON.errors
-		        if (err.id) history.back()
-		    }
-		})
-	},
+        $.ajax({
+            url: `${root}/api/work_plan`,
+            type: 'GET',
+            data: {
+                id
+            },
+            success: function(result) {
+                // console.log(result.data)
+                if (result.data.user.id == user) {
+                    value = result.data
+                    get_data()
+                } else {
+                    history.back()
+                }
+            },
+            error: function(xhr) {
+                // console.log(xhr)
+                let err = xhr.responseJSON.errors
+                if (err.id) history.back()
+            }
+        })
+    },
     error: function(xhr) {
         // console.log(xhr)
         let err = xhr.responseJSON.errors
@@ -82,6 +82,20 @@ function get_data() {
         }
     })
     $.ajax({
+        url: `${root}/api/param/pph7`,
+        type: 'GET',
+        success: function(result) {
+            // console.log(result.data)
+            $.each(result.data, function(index, value) {
+                append = `<option value="${value.id}">${value.param}</option>`
+                $('#pp7_id').append(append)
+            })
+        },
+        error: function(xhr) {
+            // console.log(xhr)
+        }
+    })
+    $.ajax({
         url: `${root}/api/param/sources_of_funding`,
         type: 'GET',
         success: function(result) {
@@ -110,7 +124,7 @@ function get_data() {
 }
 
 $(document).ajaxStop(function() {
-	if (stop == false) {
+    if (stop == false) {
         $('#component_code').val(value.component_code)
         $('#component_name').val(value.component_name)
         $('#total_target').val(value.total_target)
@@ -118,29 +132,42 @@ $(document).ajaxStop(function() {
         let first = null
         let location_id = -1
         $.each(value.sub_work_plan, function(index, value) {
-        	if (first != value.province.id) {
-        		first = value.province.id
-        		location_id++
-        		add_province(value.province.id)
-        		add_city(location_id, value.province.id, value.city.id)
-        	} else if (first == value.province.id) {
-        		add_city(location_id, value.province.id, value.city.id)
-        	}
+            if (first != value.province.id) {
+                first = value.province.id
+                location_id++
+                add_province(value.province.id)
+                add_city(location_id, value.province.id, value.city.id)
+            } else if (first == value.province.id) {
+                add_city(location_id, value.province.id, value.city.id)
+            }
         })
         $.each(value.source_funding, function(index, value) {
-        	add_sources_funding(value.param_id, value.nominal)
+            add_sources_funding(value.param_id, value.nominal)
         })
-        $('#indicator_id').val(value.indicator.id)
+        if (value.target_indicator_status == 1) {
+            $('#target_indicator').show()
+            $('#target_indicator_status1').attr('checked', true)
+            $('#indicator_id').val(value.indicator.id)
+        } else {
+            $('#target_indicator_status0').attr('checked', true)
+        }
+        if (value.pph7_status == 1) {
+            $('#pp7').show()
+            $('#pp7_status1').attr('checked', true)
+            $('#pp7_id').val(value.pph7.id)
+        } else {
+            $('#pp7_status0').attr('checked', true)
+        }
         $('#detail').val(value.detail)
         $('#description').val(value.description)
 
         if (value.deputi_status == 'decline') {
-        	deputi_status = value.deputi_status
-        	$('#submit').html('Submit & Ajukan Kembali')
+            deputi_status = value.deputi_status
+            $('#submit').html('Submit & Ajukan Kembali')
         }
         $('#submit').attr('disabled', false)
         stop = true
-	}
+    }
 })
 
 $(document).on('change', '.province_id', function() {
@@ -313,8 +340,20 @@ $(document).on('keyup', '.number', function() {
     $(this).val(convert($(this).val()))
 })
 
+$(document).on('change', 'input[name=target_indicator_status]', function() {
+    let value = $(this).val()
+    value == '1' ? $('#target_indicator').show() : $('#target_indicator').hide()
+    $('#target_indicator_status').removeClass('is-invalid')
+})
+
+$(document).on('change', 'input[name=pp7_status]', function() {
+    let value = $(this).val()
+    value == '1' ? $('#pp7').show() : $('#pp7').hide()
+    $('#pp7_status').removeClass('is-invalid')
+})
+
 function change_deputi_status() {
-	let formData = new FormData()
+    let formData = new FormData()
     formData.append('status', 'pending')
     formData.append('comment', 'Komponen diperbarui')
     $.ajax({
@@ -324,7 +363,7 @@ function change_deputi_status() {
         processData: false,
         contentType: false,
         success: function(result) {
-            console.log(result.data)
+            // console.log(result.data)
             customAlert('success', 'Komponen berhasil disimpan & diajukan kembali')
             setTimeout(function() {
                 location.href = `${root}/asdep/komponen/detail/${result.data.id}`
@@ -339,45 +378,53 @@ $('form').submit(function(e) {
     $('.is-invalid').removeClass('is-invalid')
     let sub_work_plan = []
     $('.city_id').each(function(index, value) {
-    	sub_work_plan.push({
-	        province_id: ($(this).parents('.location').find('.province_id').val()),
-	        city_id: ($(this).find(':selected').val())
+        sub_work_plan.push({
+            province_id: ($(this).parents('.location').find('.province_id').val()),
+            city_id: ($(this).find(':selected').val())
         })
     })
     let source_funding = []
     $('.sources_funding').each(function(index, value) {
-    	source_funding.push({
-	        param_id: ($(this).find(':selected').val()),
-	        nominal: (number($(this).find('.nominal').val()))
-	    })
+        source_funding.push({
+            param_id: ($(this).find(':selected').val()),
+            nominal: (number($(this).find('.nominal').val()))
+        })
     })
+    let data = {
+        user_ro_id,
+        component_code: $('#component_code').val(),
+        component_name: $('#component_name').val(),
+        title: $('#title').val(),
+        total_target: number($('#total_target').val()),
+        unit_target: $('#unit_target').val(),
+        target_indicator_status: $('input[name=target_indicator_status]:checked').val(),
+        pph7_status: $('input[name=pp7_status]:checked').val(),
+        sub_work_plan,
+        source_funding,
+        detail: $('#detail').val(),
+        description: $('#description').val()
+    }
+    if ($('input[name=target_indicator_status]:checked').val() == '1') {
+        data.target_id = $('#target_id').val()
+        data.indicator_id = $('#indicator_id').val()
+    }
+    if ($('input[name=pp7_status]:checked').val() == '1') {
+        data.pph7_id = $('#pp7_id').val()
+    }
     $.ajax({
         url: `${root}/api/work_plan/${id}`,
         type: 'PATCH',
-        data: {
-		    user_ro_id,
-		    component_code: $('#component_code').val(),
-		    component_name: $('#component_name').val(),
-		    title: $('#title').val(),
-		    total_target: number($('#total_target').val()),
-		    unit_target: $('#unit_target').val(),
-		    target_id: $('#target_id').val(),
-		    indicator_id: $('#indicator_id').val(),
-		    sub_work_plan,
-		    source_funding,
-		    detail: $('#detail').val(),
-		    description: $('#description').val()
-        },
+        data: data,
         success: function(result) {
             // console.log(result.data)
             if (deputi_status != 'decline') {
-	            customAlert('success', 'Komponen berhasil disimpan')
-	            setTimeout(function() {
-	                location.href = `${root}/asdep/komponen/detail/${result.data.id}`
-	            }, 1000)
-	        } else {
-	        	change_deputi_status()
-	        }
+                customAlert('success', 'Komponen berhasil disimpan')
+                setTimeout(function() {
+                    location.href = `${root}/asdep/komponen/detail/${result.data.id}`
+                }, 1000)
+            } else {
+                change_deputi_status()
+            }
         },
         error: function(xhr) {
             // console.log(xhr)
@@ -399,6 +446,10 @@ $('form').submit(function(e) {
                 $('#total_target').addClass('is-invalid')
                 $('#total_target').siblings('.invalid-feedback').html('Masukkan jumlah.')
             }
+            if (err.target_indicator_status) {
+                $('#target_indicator_status').addClass('is-invalid')
+                $('#target_indicator_status').siblings('.invalid-feedback').html('Pilih status sasaran & indikator.')
+            }
             if (err.unit_target) {
                 $('#unit_target').addClass('is-invalid')
                 $('#unit_target').siblings('.invalid-feedback').html('Masukkan satuan.')
@@ -406,6 +457,14 @@ $('form').submit(function(e) {
             if (err.indicator_id) {
                 $('#indicator_id').addClass('is-invalid')
                 $('#indicator_id').siblings('.invalid-feedback').html('Masukkan indikator.')
+            }
+            if (err.pph7_status) {
+                $('#pp7_status').addClass('is-invalid')
+                $('#pp7_status').siblings('.invalid-feedback').html('Pilih status PP 7 tahun 2021.')
+            }
+            if (err.pph7_id) {
+                $('#pp7_id').addClass('is-invalid')
+                $('#pp7_id').siblings('.invalid-feedback').html('Pilih program PP 7 tahun 2021.')
             }
             $('.province_id').each(function(index, value) {
                 if ($(this).find(':selected').val() == '') {
