@@ -52,6 +52,7 @@
 							<th class="text-truncate text-center border-left border-right" colspan="3">Anggaran</th>
 							<th class="text-truncate unit border-right" rowspan="2">Unit</th>
 							<th class="text-truncate pengguna border-right" rowspan="2">Pengguna</th>
+							<th class="text-truncate status border-right" rowspan="2">Status</th>
 							<th class="text-truncate text-center border-left border-right" colspan="2">Approval</th>
 							<th colspan="2" rowspan="2"></th>
 						</tr>
@@ -210,6 +211,40 @@
 	            <div class="modal-footer border-top-0">
 	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
 	                <button class="btn btn-danger" id="delete-file">Hapus</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="modal" id="modal-lock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-sm modal-dialog modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-bottom-0">
+	                <h5 class="modal-title" id="exampleModalLabel">Lock Komponen</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <i class="mdi mdi-close pr-0"></i>
+	                </button>
+	            </div>
+	            <div class="modal-body">Anda yakin ingin mengunci komponen <b></b>?</div>
+	            <div class="modal-footer border-top-0">
+	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+	                <button class="btn btn-primary px-3" id="lock">Lock</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="modal" id="modal-unlock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-sm modal-dialog modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-bottom-0">
+	                <h5 class="modal-title" id="exampleModalLabel">Unlock Komponen</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <i class="mdi mdi-close pr-0"></i>
+	                </button>
+	            </div>
+	            <div class="modal-body">Anda yakin ingin membuka komponen <b></b>?</div>
+	            <div class="modal-footer border-top-0">
+	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+	                <button class="btn btn-primary" id="unlock">Unlock</button>
 	            </div>
 	        </div>
 	    </div>

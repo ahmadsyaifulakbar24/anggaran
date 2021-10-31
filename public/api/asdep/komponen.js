@@ -167,9 +167,13 @@ function get_data(unit_id = '', user_id = '', search = '') {
                     admin_status = ''
                     if (value.deputi_status != 'accept') {
                         if (user == value.user.id) {
-                            deputi_status = `
-	                        <a href="${root}/asdep/komponen/edit/${value.user_ro.id}/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
-							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
+		                    if (value.permission != 'lock') {
+	                            deputi_status = `
+		                        <a href="${root}/asdep/komponen/edit/${value.user_ro.id}/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
+								<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
+							} else {
+								deputi_status = ''
+							}
                         } else {
                             deputi_status = '<td></td>'
                         }

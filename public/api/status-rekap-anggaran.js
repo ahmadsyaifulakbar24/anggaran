@@ -110,10 +110,15 @@ function get_data(unit_id = '', user_id = '', search = '') {
                 $.each(result.data, function(index, value) {
                     deputi_status = ''
                     admin_status = ''
+                    permission = ''
                     if (value.deputi_status != 'accept') {
-                        deputi_status = `
-                        <a href="${root}/asdep/komponen/edit/${value.user_ro.id}/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
-						<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
+                        if (value.permission != 'lock') {
+                            deputi_status = `
+	                        <a href="${root}/asdep/komponen/edit/${value.user_ro.id}/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
+							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
+                        } else {
+                            deputi_status = ''
+                        }
                     }
                     if (value.deputi_status == 'pending') {
                         if (value.user.id != user) {
@@ -129,6 +134,13 @@ function get_data(unit_id = '', user_id = '', search = '') {
 								<button class="btn btn-sm btn-primary mr-2 approve">Setujui</button>
 								<button class="btn btn-sm btn-danger decline">Tolak</button>`
                             }
+                        }
+                    }
+                    if (role == 'admin') {
+                        if (value.permission == 'lock') {
+                            permission = '<button class="btn btn-sm btn-outline-primary unlock">Unlock</button>'
+                        } else {
+                            permission = '<button class="btn btn-sm btn-primary lock">Lock</button>'
                         }
                     }
                     let rm = 0,
@@ -150,12 +162,14 @@ function get_data(unit_id = '', user_id = '', search = '') {
 						<td class="text-right">${rupiah(value.budged)}</td>
 						<td class="text-truncate unit">${value.unit.name}</td>
 						<td class="text-truncate pengguna">${value.user.name}</td>
+						<td class="text-truncate status text-capitalize">${value.permission}</td>
 						<td class="text-danger deputi_status">${status(value.deputi_status)}</td>
 						<td class="text-danger admin_status">${status(value.admin_status)}</td>
 						<td>
 							<div class="d-flex">
 								${deputi_status}
 								${admin_status}
+								${permission}
 							</div>
 						</td>
 					</tr>`
@@ -342,6 +356,76 @@ $(document).on('click', '#delete', function(e) {
         error: function(xhr) {
             // console.log(xhr)
             let err = xhr.responseJSON.errors
+        }
+    })
+})
+
+$(document).on('click', '.lock', function(e) {
+    let id = $(this).parents('tr').attr('data-id')
+    let title = $(this).parents('tr').attr('data-title')
+    $('#lock').attr('data-id', id)
+    $('#modal-lock b').html(title)
+    $('#modal-lock').modal('show')
+})
+$(document).on('click', '#lock', function(e) {
+    let search = $('#search').val()
+    let viewas = $('#view-as').val()
+    let id = $(this).attr('data-id')
+    $(this).attr('disabled', true)
+    let formData = new FormData
+    formData.append('type', 'lock_by_id')
+    formData.append('work_plan_id', id)
+    $.ajax({
+        url: `${root}/api/work_plan/lock`,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(result) {
+            // console.log(result.data)
+            if (viewas == '') {
+                search != '' ? get_data('', '', value) : get_data('', '', '')
+            } else {
+                search != '' ? get_data(viewas, '', value) : get_data(viewas, '', '')
+            }
+            customAlert('success', 'Lock komponen berhasil')
+            $('#lock').attr('disabled', false)
+            $('#modal-lock').modal('hide')
+        }
+    })
+})
+
+$(document).on('click', '.unlock', function(e) {
+    let id = $(this).parents('tr').attr('data-id')
+    let title = $(this).parents('tr').attr('data-title')
+    $('#unlock').attr('data-id', id)
+    $('#modal-unlock b').html(title)
+    $('#modal-unlock').modal('show')
+})
+$(document).on('click', '#unlock', function(e) {
+    let search = $('#search').val()
+    let viewas = $('#view-as').val()
+    let id = $(this).attr('data-id')
+    $(this).attr('disabled', true)
+    let formData = new FormData
+    formData.append('type', 'unlock_by_id')
+    formData.append('work_plan_id', id)
+    $.ajax({
+        url: `${root}/api/work_plan/unlock`,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(result) {
+            // console.log(result.data)
+            if (viewas == '') {
+                search != '' ? get_data('', '', value) : get_data('', '', '')
+            } else {
+                search != '' ? get_data(viewas, '', value) : get_data(viewas, '', '')
+            }
+            customAlert('success', 'Unlock komponen berhasil')
+            $('#unlock').attr('disabled', false)
+            $('#modal-unlock').modal('hide')
         }
     })
 })

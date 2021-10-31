@@ -1,3 +1,41 @@
+$('#lock').click(function() {
+	$(this).attr('disabled', true)
+	let formData = new FormData
+	formData.append('type', 'lock_all')
+    $.ajax({
+        url: `${root}/api/work_plan/lock`,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(result) {
+            // console.log(result.data)
+            customAlert('success', 'Lock komponen berhasil')
+            $('#lock').attr('disabled', false)
+            $('#modal-lock').modal('hide')
+        }
+    })
+})
+
+$('#unlock').click(function() {
+	$(this).attr('disabled', true)
+	let formData = new FormData
+	formData.append('type', 'unlock_all')
+    $.ajax({
+        url: `${root}/api/work_plan/unlock`,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(result) {
+            // console.log(result.data)
+            customAlert('success', 'Unlock komponen berhasil')
+            $('#unlock').attr('disabled', false)
+            $('#modal-unlock').modal('hide')
+        }
+    })
+})
+
 $.ajax({
     url: `${root}/api/province`,
     type: 'GET',

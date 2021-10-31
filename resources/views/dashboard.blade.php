@@ -121,6 +121,40 @@
 		</div>
 		<div id="data"></div>
 	</div>
+	<div class="modal" id="modal-lock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-sm modal-dialog modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-bottom-0">
+	                <h5 class="modal-title" id="exampleModalLabel">Lock Komponen</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <i class="mdi mdi-close pr-0"></i>
+	                </button>
+	            </div>
+	            <div class="modal-body">Anda yakin ingin mengunci semua komponen?</div>
+	            <div class="modal-footer border-top-0">
+	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+	                <button class="btn btn-primary px-3" id="lock">Lock</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="modal" id="modal-unlock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-sm modal-dialog modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-bottom-0">
+	                <h5 class="modal-title" id="exampleModalLabel">Unlock Komponen</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <i class="mdi mdi-close pr-0"></i>
+	                </button>
+	            </div>
+	            <div class="modal-body">Anda yakin ingin membuka semua komponen?</div>
+	            <div class="modal-footer border-top-0">
+	                <button class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+	                <button class="btn btn-primary" id="unlock">Unlock</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 @endsection
 
 @section('script')

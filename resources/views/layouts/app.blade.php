@@ -108,6 +108,12 @@
 					</a>
 				</div>
 			</div>
+			@if(session("role") == "admin" && Request::is('dashboard'))
+			<div class="text-center pb-4">
+				<div class="btn btn-primary" data-toggle="modal" data-target="#modal-lock">Lock Semua Komponen</div>
+				<div class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-unlock">Unlock Semua Komponen</div>
+			</div>
+			@endif
 		</div>
 	</div>
 	@endif
