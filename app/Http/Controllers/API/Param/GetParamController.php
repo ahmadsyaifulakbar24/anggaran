@@ -72,4 +72,13 @@ class GetParamController extends Controller
             'success get units data'
         );
     }
+
+    public function pph7()
+    {
+        $params = Param::where('category', 'pph7')->get();
+        return ResponseFormatter::success(
+            $params,
+            'success get pp7 data'
+        );
+    }
 }
