@@ -118,26 +118,31 @@ class GetWorkPlanController extends Controller
         return WorkPlanResource::collection($work_plan);
     }
 
-    // public function get_by_pph7(Request $request) 
-    // {
-    //     $request->validate([
-    //         'province_id' => ['required', 'exists:provinces,id'],
-    //         'unit_id' => ['nullable', 'exists:units,id'],
-    //         'user_id' => ['nullable', 'exists:users,id'],
-    //         'limit' => ['nullable', 'integer'],
-    //     ]);
-    //     $limit = $request->input('limit', 10);
-    //     $sub_work_plan = VwSubWorkPlanDetail::where('province_id', $request->province_id)->groupBy('work_plan_id');
+    public function get_by_pph7(Request $request) 
+    {
+        $request->validate([
+            'pph7_id' => [
+                'required', 
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'pph7');
+                })
+            ],
+            'unit_id' => ['nullable', 'exists:units,id'],
+            'user_id' => ['nullable', 'exists:users,id'],
+            'limit' => ['nullable', 'integer'],
+        ]);
+        $limit = $request->input('limit', 10);
+        $work_plan = WorkPlan::where('pph7_id', $request->pph7_id);
         
-    //     if($request->unit_id) {
-    //         $sub_work_plan->where('unit_id', $request->unit_id);
-    //     } else if($request->user_id) {
-    //         $sub_work_plan->where('user_id', $request->user_id);
-    //     }
+        if($request->unit_id) {
+            $work_plan->where('unit_id', $request->unit_id);
+        } else if($request->user_id) {
+            $work_plan->where('user_id', $request->user_id);
+        }
 
-    //     return SubWorkPlanByProvinceResource::collection($sub_work_plan->paginate($limit));
+        return WorkPlanResource::collection($work_plan->paginate($limit));
         
-    // }
+    }
 
     public function excel(Request $request)
     {
