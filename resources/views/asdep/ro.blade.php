@@ -11,7 +11,7 @@
 					<div class="card-body">
 						<h6>Total Anggaran ACC</h6>
 						<div class="d-flex justify-content-between align-items-center">
-							<h5 class="mb-0" id="total_budged"></h5>
+							<h5 class="mb-0" id="total_budged">Rp0</h5>
 						</div>
 					</div>
 				</div>
