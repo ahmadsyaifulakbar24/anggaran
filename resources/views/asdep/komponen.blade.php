@@ -4,9 +4,20 @@
 
 @section('content')
 	<div class="container">
-		<div class="d-flex justify-content-between align-items-center">
-			<h4>Komponen</h4>
-			<div class="text-right mb-2">
+
+		<div class="d-flex justify-content-between align-items-end mb-2">
+			<div>
+				<h4>Komponen</h4>
+				<div class="card card-custom">
+					<div class="card-body">
+						<h6>Total Anggaran ACC</h6>
+						<div class="d-flex justify-content-between align-items-center">
+							<h5 class="mb-0" id="total_budged">Rp0</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
 				<a href="{{url('asdep/komponen/create/'.$user_ro_id)}}" class="btn btn-primary create mb-1">Buat Komponen</a>
 				<!-- <div class="btn btn-outline-primary view mb-1" data-toggle="modal" data-target="#modal-view">View Sebagai</div> -->
 			</div>

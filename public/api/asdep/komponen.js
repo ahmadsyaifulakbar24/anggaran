@@ -23,27 +23,27 @@ $.ajax({
     url: `${root}/api/work_plan/get_file`,
     type: 'GET',
     data: {
-    	category: 'user_ro',
-    	user_ro_id
+        category: 'user_ro',
+        user_ro_id
     },
     success: function(result) {
         // console.log(result.data)
-    	if (result.data.length != 0) {
-	        $.each(result.data, function(index, value) {
-	    		$(`#type-${value.type.id} .empty`).remove()
-	            add_file(value.id, value.file, value.type.id)
-	            check_max(value.type.id)
-	        })
-	        if (role == 'admin') {
-        		$('.empty').show()
-	        	$('.delete-file').remove()
-        	} else {
-        		$('.empty').remove()
-        	}
+        if (result.data.length != 0) {
+            $.each(result.data, function(index, value) {
+                $(`#type-${value.type.id} .empty`).remove()
+                add_file(value.id, value.file, value.type.id)
+                check_max(value.type.id)
+            })
+            if (role == 'admin') {
+                $('.empty').show()
+                $('.delete-file').remove()
+            } else {
+                $('.empty').remove()
+            }
         } else {
-        	if (role == 'admin') {
-        		$('.empty').show()
-        	}
+            if (role == 'admin') {
+                $('.empty').show()
+            }
         }
     },
     error: function(xhr) {
@@ -61,14 +61,14 @@ $.ajax({
     success: function(result) {
         // console.log(result.data)
         let value = result.data
-    	$('#user_program').html(`${value.user_program.code_program} - ${value.user_program.description}`)
-    	$('#user_activity').html(`${value.user_activity.code_activity} - ${value.user_activity.description}`)
-    	if (value.user_kro.type_kro == 'pn') {
-	    	$('#user_kro').html(`${value.user_kro.code_kro_pn} - ${value.user_kro.kro}`)
-    	} else {
-	    	$('#user_kro').html(`${value.user_kro.code_kro_non_pn} - ${value.user_kro.kro}`)
-    	}
-    	$('#user_ro').html(`${value.user_ro.code_ro} - ${value.user_ro.ro}`)
+        $('#user_program').html(`${value.user_program.code_program} - ${value.user_program.description}`)
+        $('#user_activity').html(`${value.user_activity.code_activity} - ${value.user_activity.description}`)
+        if (value.user_kro.type_kro == 'pn') {
+            $('#user_kro').html(`${value.user_kro.code_kro_pn} - ${value.user_kro.kro}`)
+        } else {
+            $('#user_kro').html(`${value.user_kro.code_kro_non_pn} - ${value.user_kro.kro}`)
+        }
+        $('#user_ro').html(`${value.user_ro.code_ro} - ${value.user_ro.ro}`)
     },
     error: function(xhr) {
         // console.log(xhr)
@@ -88,6 +88,23 @@ $.ajax({
         } else {
             get_data(localStorage.getItem('unit_id'))
         }
+        $.ajax({
+            url: `${root}/api/work_plan/total_budged`,
+            type: 'GET',
+            data: {
+                unit_id: role == 'asdep' ? unit : localStorage.getItem('unit_id'),
+                get_by: 'work_plan',
+                user_ro_id
+            },
+            success: function(result) {
+                // console.log(result.data)
+                $('#total_budged').html(rupiah(result.data.total_budged))
+            },
+            error: function(xhr) {
+                let err = xhr.responseJSON.errors
+                // console.log(err)
+            }
+        })
     },
     error: function(xhr) {
         // console.log(xhr)
@@ -149,15 +166,16 @@ function get_data(unit_id = '', user_id = '', search = '') {
                     deputi_status = ''
                     admin_status = ''
                     if (value.deputi_status != 'accept') {
-	                	if (user == value.user.id) {
-	                        deputi_status = `
+                        if (user == value.user.id) {
+                            deputi_status = `
 	                        <a href="${root}/asdep/komponen/edit/${value.user_ro.id}/${value.id}" class="btn btn-sm btn-outline-primary edit mr-2">Ubah</a>
 							<button class="btn btn-sm btn-outline-danger delete">Hapus</button>`
-						} else {
-							deputi_status = '<td></td>'
-						}
+                        } else {
+                            deputi_status = '<td></td>'
+                        }
                     }
-                    let rm = 0, blu = 0
+                    let rm = 0,
+                        blu = 0
                     $.each(value.source_funding, function(index, value) {
                         if (value.param_id == 8) {
                             rm = value.nominal
