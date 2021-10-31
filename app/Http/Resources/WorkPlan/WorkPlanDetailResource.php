@@ -51,6 +51,7 @@ class WorkPlanDetailResource extends JsonResource
             'admin_status' => $this->admin_status,
             'sub_work_plan' => SubWorkPlanResource::collection($this->sub_work_plan),
             'source_funding' => SourceFundingResource::collection($this->source_funding),
+            'permission' => $this->permission,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'file_manager' => FileManagerResource::collection($this->file_manager),

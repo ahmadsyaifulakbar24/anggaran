@@ -22,9 +22,17 @@ class LockUnlockController extends Controller
 
         if($request->type == 'lock_by_id') {
             $work_plan = WorkPlan::find($request->work_plan_id);
-            $work_plan->update(['permission' => 'lock']);
+            $work_plan->update([
+                'permission' => 'lock', 
+                'admin_status' => 'accept',
+                'deputi_status' => 'accept'
+            ]);
         } else {
-            WorkPlan::where('permission', 'unlock')->update(['permission' => 'lock']);
+            WorkPlan::where('permission', 'unlock')->update([
+                'permission' => 'lock',
+                'admin_status' => 'accept',
+                'deputi_status' => 'accept'
+            ]);
         }
 
         return ResponseFormatter::success(
@@ -45,9 +53,17 @@ class LockUnlockController extends Controller
 
         if($request->type == 'unlock_by_id') {
             $work_plan = WorkPlan::find($request->work_plan_id);
-            $work_plan->update(['permission' => 'unlock']);
+            $work_plan->update([
+                'permission' => 'unlock',
+                'admin_status' => 'pending',
+                'deputi_status' => 'pending'
+            ]);
         } else {
-            WorkPlan::where('permission', 'lock')->update(['permission' => 'unlock']);
+            WorkPlan::where('permission', 'lock')->update([
+                'permission' => 'unlock',
+                'admin_status' => 'pending',
+                'deputi_status' => 'pending'
+            ]);
         }
 
         return ResponseFormatter::success(
