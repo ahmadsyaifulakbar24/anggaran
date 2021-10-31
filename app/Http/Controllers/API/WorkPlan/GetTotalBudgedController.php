@@ -4,8 +4,6 @@ namespace App\Http\Controllers\API\WorkPlan;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use App\Models\SubWorkPlan;
-use App\Models\VwSubWorkPlanDetail;
 use App\Models\VwWorkPlanDetail;
 use App\Models\WorkPlan;
 use Illuminate\Http\Request;
@@ -98,5 +96,34 @@ class GetTotalBudgedController extends Controller
             'total_work_plan' => $work_plan->count(),
             'total_budged' => $work_plan->where('admin_status', 'accept')->sum('budged'),
         ], 'success get total budged by indicator target data');
+    }
+
+    public function total_budged_by_pph7(Request $request) 
+    {
+        $request->validate([
+            'pph7_id' => [
+                'required', 
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'pph7');
+                })
+            ],
+            'unit_id' => ['nullable', 'exists:units,id'],
+            'user_id' => ['nullable', 'exists:users,id'],
+        ]);
+
+        $work_plan = WorkPlan::where('pph7_id', $request->pph7_id);
+        
+        if($request->user_id) {
+            $work_plan->where('user_id', $request->user_id);
+        }
+
+        if($request->unit_id) {
+            $work_plan->where('unit_id', $request->unit_id);
+        }
+
+        return ResponseFormatter::success([
+            'total_work_plan' => $work_plan->count(),
+            'total_budged' => $work_plan->where('admin_status', 'accept')->sum('budged'),
+        ], 'success get total budged by pph7');
     }
 }
