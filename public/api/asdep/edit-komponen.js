@@ -18,8 +18,12 @@ $.ajax({
             success: function(result) {
                 // console.log(result.data)
                 if (result.data.user.id == user) {
-                    value = result.data
-                    get_data()
+                	if (result.data.permission == 'unlock') {
+	                    value = result.data
+	                    get_data()
+	                } else {
+	                    history.back()	
+	                }
                 } else {
                     history.back()
                 }
