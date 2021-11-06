@@ -69,6 +69,19 @@ class CreateWorkPlanController extends Controller
             ],
             'source_funding.*.nominal' => [ 'required','int' ],
 
+            // Assignment validation
+            'assignment_status' => ['required', 'in:0,1'],
+            'assignment' => [
+                Rule::requiredIf($request->assignment_status == 1), 
+                'array'
+            ],
+            'assignment.*.assignment_id' => [ 
+                Rule::requiredIf($request->assignment_status == 1),
+                'distinct',
+                Rule::exists('params', 'id')->where(function($query) {
+                    $query->where('category', 'assignment');
+                })
+            ]
         ]);
 
         if(! $user->hasRole('asdep')) {
@@ -95,6 +108,11 @@ class CreateWorkPlanController extends Controller
 
         // Insert sub work plan
         $work_plan->sub_work_plan()->createMany($request->sub_work_plan);
+
+        // Insert assingment
+        if($request->assignment_status == 1) {
+            $work_plan->assignment()->createMany($request->assignment);
+        }
 
         // Insert Source Funding
         $budged = 0;

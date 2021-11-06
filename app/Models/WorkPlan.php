@@ -20,6 +20,7 @@ class WorkPlan extends Model
         'detail',
         'description',
         'target_indicator_status',
+        'assignment_status',
         'target_id',
         'indicator_id',
         'pph7_id',
@@ -94,6 +95,16 @@ class WorkPlan extends Model
     public function sub_work_plan_many()
     {
         return $this->belongsToMany(City::class, 'sub_work_plans', 'work_plan_id', 'city_id');
+    }
+
+    public function assignment()
+    {
+        return $this->hasMany(Assignment::class, 'work_plan_id');
+    }
+
+    public function assignment_many()
+    {
+        return $this->belongsToMany(Param::class, 'assignments', 'work_plan_id', 'assignment_id');
     }
 
     public function source_funding_many()

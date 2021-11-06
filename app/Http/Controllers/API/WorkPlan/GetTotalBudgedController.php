@@ -126,4 +126,30 @@ class GetTotalBudgedController extends Controller
             'total_budged' => $work_plan->where('admin_status', 'accept')->sum('budged'),
         ], 'success get total budged by pph7');
     }
+
+    public function totalBudgetByAssignment(Request $request)
+    {
+        $request->validate([
+            'assignment_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    $query->where('category', 'assignment');
+                })
+            ],
+            'unit_id' => ['nullable', 'exists:units,id'],
+            'user_id' => ['nullable', 'exists:users,id'],
+        ]);
+
+        $assignment = DB::table(DB::raw("(SELECT * FROM vw_assignment_detail GROUP BY work_plan_id) as assignment_detail"));
+
+        if($request->unit_id) {
+            $assignment->where('unit_id', $request->unit_id);
+        } else if($request->user_id) {
+            $assignment->where('user_id', $request->user_id);
+        }
+        return ResponseFormatter::success([
+            'total_work_plan' => $assignment->count(),
+            'total_budged' => $assignment->where('admin_status', 'accept')->sum('budged'),
+        ], 'success get total budged by assignment');
+    } 
 }

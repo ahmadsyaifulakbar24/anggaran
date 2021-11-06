@@ -110,5 +110,26 @@ class ParamSeeder extends Seeder
             'category' => 'pph7',
             'param' => 'Peningkatan dan Perluasan Akses Pembiayaan Bagi Koperasi dan UMKM.'
         ]);
+
+
+        Param::create([
+            'category' => 'assignment',
+            'param' => 'Kemiskinan'
+        ]);
+
+        Param::create([
+            'category' => 'assignment',
+            'param' => 'Pariwisata'
+        ]);
+
+        Param::create([
+            'category' => 'assignment',
+            'param' => 'Papua/Papua Barat'
+        ]);
+
+        Param::create([
+            'category' => 'assignment',
+            'param' => '3T'
+        ]);
     }
 }

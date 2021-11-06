@@ -38,6 +38,8 @@ class WorkPlanResource extends JsonResource
             'unit_target' => $this->unit_target_data,
             'budged' => $this->budged,
             'sub_work_plan' => SubWorkPlanResource::collection($this->sub_work_plan),
+            'assignment_status' => $this->assignment_status,
+            'assignment' => AssignmentResource::collection($this->assignment),
             'detail' => $this->detail,
             'description' => $this->description,
             'target_indicator_status' => $this->target_indicator_status,

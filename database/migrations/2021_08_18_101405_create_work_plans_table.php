@@ -26,6 +26,7 @@ class CreateWorkPlansTable extends Migration
             $table->text('detail')->nullable();
             $table->text('description')->nullable();
             $table->boolean('target_indicator_status');
+            $table->boolean('assignment_status');
             $table->foreignId('target_id')->nullable()->constrained('params')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('indicator_id')->nullable()->constrained('params')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('pph7_id')->nullable()->constrained('params')->onDelete('cascade')->onUpdate('cascade');

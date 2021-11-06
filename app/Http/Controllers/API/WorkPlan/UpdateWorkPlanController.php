@@ -70,6 +70,20 @@ class UpdateWorkPlanController extends Controller
                 })
             ],
             'source_funding.*.nominal' => [ 'required','int' ],
+
+             // Assignment validation
+             'assignment_status' => ['required', 'in:0,1'],
+             'assignment' => [
+                 Rule::requiredIf($request->assignment_status == 1), 
+                 'array'
+             ],
+             'assignment.*.assignment_id' => [ 
+                 Rule::requiredIf($request->assignment_status == 1),
+                 'distinct',
+                 Rule::exists('params', 'id')->where(function($query) {
+                     $query->where('category', 'assignment');
+                 })
+             ]
         ]);
         
         $input = $request->all();
@@ -95,6 +109,13 @@ class UpdateWorkPlanController extends Controller
         }
         $work_plan->sub_work_plan_many()->sync($sub_work_plans);
         
+        // Insert assignment
+        foreach($request->assignment as $assignment) {
+            $assignment_id = $assignment['assignment_id'];
+            $assignments[] = $assignment_id;
+        }
+        $work_plan->assignment_many()->sync($assignments);
+
         // Inser source funding 
         $budged = 0;
         foreach($request->source_funding as $key => $source_funding) {

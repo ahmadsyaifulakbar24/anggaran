@@ -15,6 +15,7 @@ Route::namespace('API')->group(function () {
                 Route::get('sources_of_funding', 'GetParamController@sources_of_funding');
                 Route::get('units', 'GetParamController@units');
                 Route::get('pph7', 'GetParamController@pph7');
+                Route::get('assignment', 'GetParamController@assignment');
             });
         });
         
@@ -86,9 +87,11 @@ Route::namespace('API')->group(function () {
             Route::get('/total_budged_by_province', 'GetTotalBudgedController@totalBudgetByProvince');
             Route::get('/total_budged_by_indicator_target', 'GetTotalBudgedController@total_budged_by_indicator_target');
             Route::get('/total_budged_by_pph7', 'GetTotalBudgedController@total_budged_by_pph7');
+            Route::get('/total_budged_by_assignment', 'GetTotalBudgedController@totalBudgetByAssignment');
             Route::get('/get_by_province', 'GetWorkPlanController@get_by_province');
             Route::get('/get_by_indicator_target', 'GetWorkPlanController@get_by_indicator_target');
             Route::get('/get_by_pph7', 'GetWorkPlanController@get_by_pph7');
+            Route::get('/get_by_assignment', 'GetWorkPlanController@get_by_assignment');
 
             Route::get('/breadcrumb', 'BreadcrumbController');
 

@@ -50,6 +50,8 @@ class WorkPlanDetailResource extends JsonResource
             'deputi_status' => $this->deputi_status,
             'admin_status' => $this->admin_status,
             'sub_work_plan' => SubWorkPlanResource::collection($this->sub_work_plan),
+            'assignment_status' => $this->assignment_status,
+            'assignment' => AssignmentResource::collection($this->assignment),
             'source_funding' => SourceFundingResource::collection($this->source_funding),
             'permission' => $this->permission,
             'created_at' => $this->created_at,

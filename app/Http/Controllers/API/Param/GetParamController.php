@@ -60,7 +60,7 @@ class GetParamController extends Controller
         $sources_of_funding = Param::where('category', 'sources_of_funding')->get();
         return ResponseFormatter::success(
             ParamResource::collection($sources_of_funding),
-            'success get sources_of_funding data'
+            'success get sources of funding data'
         );
     }
 
@@ -79,6 +79,15 @@ class GetParamController extends Controller
         return ResponseFormatter::success(
             $params,
             'success get pp7 data'
+        );
+    }
+
+    public function assignment()
+    {
+        $assignment = Param::where('category', 'assignment')->get();
+        return ResponseFormatter::success(
+            ParamResource::collection($assignment),
+            'success get assignment data'
         );
     }
 }
