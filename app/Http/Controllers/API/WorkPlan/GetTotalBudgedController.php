@@ -69,7 +69,7 @@ class GetTotalBudgedController extends Controller
             $sub_work_plan->where('user_id', $request->user_id);
         }
         return ResponseFormatter::success([
-            'total_work_plan' => $sub_work_plan->count(),
+            'total_work_plan' => $sub_work_plan->where('admin_status', 'accept')->count(),
             'total_budged' => $sub_work_plan->where('admin_status', 'accept')->sum('budged'),
         ], 'success get total budged by province');
     } 
@@ -148,7 +148,7 @@ class GetTotalBudgedController extends Controller
             $assignment->where('user_id', $request->user_id);
         }
         return ResponseFormatter::success([
-            'total_work_plan' => $assignment->count(),
+            'total_work_plan' => $assignment->where('admin_status', 'accept')->count(),
             'total_budged' => $assignment->where('admin_status', 'accept')->sum('budged'),
         ], 'success get total budged by assignment');
     } 
