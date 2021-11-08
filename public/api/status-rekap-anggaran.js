@@ -317,10 +317,10 @@ function approval(id, status) {
             // $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
             if (status == 'accept') {
                 $('#modal-approve').modal('hide')
-                customAlert('success', 'Kegiatan disetujui.')
+                customAlert('success', 'Kegiatan disetujui')
             } else {
                 $('#modal-decline').modal('hide')
-                customAlert('danger', 'Kegiatan ditolak.')
+                customAlert('danger', 'Kegiatan ditolak')
             }
         },
         error: function(xhr) {
@@ -348,7 +348,7 @@ $(document).on('click', '#delete', function(e) {
             // console.log(result.data)
             get_data()
             $('#modal-delete').modal('hide')
-            customAlert('trash', 'Komponen berhasil dihapus.')
+            customAlert('trash', 'Komponen berhasil dihapus')
         },
         complete: function() {
             $('#delete').attr('disabled', false)
