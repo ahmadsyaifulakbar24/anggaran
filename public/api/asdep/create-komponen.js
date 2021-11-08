@@ -25,17 +25,35 @@ function get_data() {
                 append = `<option value="${value.id}">${value.name}</option>`
                 $('#unit_target').append(append)
             })
+        },
+        error: function(xhr) {
+            console.log(xhr)
         }
     })
     $.ajax({
-        url: `${root}/api/param/target`,
+        url: `${root}/api/province`,
         type: 'GET',
         success: function(result) {
             // console.log(result.data)
             $.each(result.data, function(index, value) {
-                append = `<option value="${value.id}" selected>${value.param}</option>`
-                $('#target_id').append(append)
+                append = `<option value="${value.id}">${value.province}</option>`
+                $('.province_id').append(append)
             })
+            $province = result.data
+            $status_location = null
+            add_province()
+        },
+        error: function(xhr) {
+            console.log(xhr)
+        }
+    })
+    $.ajax({
+        url: `${root}/api/param/sources_of_funding`,
+        type: 'GET',
+        success: function(result) {
+            // console.log(result.data)
+            $sources_funding = result.data
+            add_sources_funding()
         },
         error: function(xhr) {
             console.log(xhr)
@@ -49,6 +67,20 @@ function get_data() {
             $.each(result.data, function(index, value) {
                 append = `<option value="${value.id}">${value.param}</option>`
                 $('#indicator_id').append(append)
+            })
+        },
+        error: function(xhr) {
+            console.log(xhr)
+        }
+    })
+    $.ajax({
+        url: `${root}/api/param/target`,
+        type: 'GET',
+        success: function(result) {
+            // console.log(result.data)
+            $.each(result.data, function(index, value) {
+                append = `<option value="${value.id}" selected>${value.param}</option>`
+                $('#target_id').append(append)
             })
         },
         error: function(xhr) {
@@ -70,29 +102,20 @@ function get_data() {
         }
     })
     $.ajax({
-        url: `${root}/api/param/sources_of_funding`,
-        type: 'GET',
-        success: function(result) {
-            // console.log(result.data)
-            $sources_funding = result.data
-            add_sources_funding()
-        },
-        error: function(xhr) {
-            console.log(xhr)
-        }
-    })
-    $.ajax({
-        url: `${root}/api/province`,
+        url: `${root}/api/param/assignment`,
         type: 'GET',
         success: function(result) {
             // console.log(result.data)
             $.each(result.data, function(index, value) {
-                append = `<option value="${value.id}">${value.province}</option>`
-                $('.province_id').append(append)
+                append = `<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="assignment" value="${value.id}" id="assignment${value.id}" role="button">
+					<label class="form-check-label" for="assignment${value.id}" role="button">${value.param}</label>
+				</div>`
+                $('#assignment').append(append)
             })
-            $province = result.data
-            $status_location = null
-            add_province()
+        },
+        error: function(xhr) {
+            console.log(xhr)
         }
     })
 }
@@ -269,14 +292,20 @@ $(document).on('keyup', '.number', function() {
 
 $(document).on('change', 'input[name=target_indicator_status]', function() {
     let value = $(this).val()
-    value == '1' ? $('#target_indicator').show() : $('#target_indicator').hide()
+    value == '1' ? $('#target_indicator-form').show() : $('#target_indicator-form').hide()
     $('#target_indicator_status').removeClass('is-invalid')
 })
 
 $(document).on('change', 'input[name=pp7_status]', function() {
     let value = $(this).val()
-    value == '1' ? $('#pp7').show() : $('#pp7').hide()
+    value == '1' ? $('#pp7-form').show() : $('#pp7-form').hide()
     $('#pp7_status').removeClass('is-invalid')
+})
+
+$(document).on('change', 'input[name=assignment_status]', function() {
+    let value = $(this).val()
+    value == '1' ? $('#assignment-form').show() : $('#assignment-form').hide()
+    $('#assignment_status').removeClass('is-invalid')
 })
 
 $('form').submit(function(e) {
@@ -287,9 +316,16 @@ $('form').submit(function(e) {
     formData.append('user_ro_id', user_ro_id)
     formData.append('component_code', $('#component_code').val())
     formData.append('component_name', $('#component_name').val())
-    formData.append('title', $('#title').val())
     formData.append('total_target', number($('#total_target').val()))
     formData.append('unit_target', $('#unit_target').val())
+    $('.city_id').each(function(index, value) {
+        formData.append(`sub_work_plan[${index}][province_id]`, $(this).parents('.location').find('.province_id').val())
+        formData.append(`sub_work_plan[${index}][city_id]`, $(this).find(':selected').val())
+    })
+    $('.sources_funding').each(function(index, value) {
+        formData.append(`source_funding[${index}][param_id]`, $(this).find(':selected').val())
+        formData.append(`source_funding[${index}][nominal]`, number($(this).find('.nominal').val()))
+    })
     formData.append('target_indicator_status', $('input[name=target_indicator_status]:checked').val())
     if ($('input[name=target_indicator_status]:checked').val() == '1') {
         formData.append('target_id', $('#target_id').val())
@@ -299,14 +335,12 @@ $('form').submit(function(e) {
     if ($('input[name=pp7_status]:checked').val() == '1') {
         formData.append('pph7_id', $('#pp7_id').val())
     }
-    $('.city_id').each(function(index, value) {
-        formData.append(`sub_work_plan[${index}][province_id]`, $(this).parents('.location').find('.province_id').val())
-        formData.append(`sub_work_plan[${index}][city_id]`, $(this).find(':selected').val())
-    })
-    $('.sources_funding').each(function(index, value) {
-        formData.append(`source_funding[${index}][param_id]`, $(this).find(':selected').val())
-        formData.append(`source_funding[${index}][nominal]`, number($(this).find('.nominal').val()))
-    })
+    formData.append('assignment_status', $('input[name=assignment_status]:checked').val())
+    if ($('input[name=assignment_status]:checked').val() == '1') {
+        $('input[name=assignment]:checked').each(function(index, value) {
+            formData.append(`assignment[${index}][assignment_id]`, $(this).val())
+        })
+    }
     formData.append('detail', $('#detail').val())
     formData.append('description', $('#description').val())
     $.ajax({
@@ -342,25 +376,9 @@ $('form').submit(function(e) {
                 $('#total_target').addClass('is-invalid')
                 $('#total_target').siblings('.invalid-feedback').html('Masukkan jumlah.')
             }
-            if (err.target_indicator_status) {
-                $('#target_indicator_status').addClass('is-invalid')
-                $('#target_indicator_status').siblings('.invalid-feedback').html('Pilih status sasaran & indikator.')
-            }
             if (err.unit_target) {
                 $('#unit_target').addClass('is-invalid')
                 $('#unit_target').siblings('.invalid-feedback').html('Masukkan satuan.')
-            }
-            if (err.indicator_id) {
-                $('#indicator_id').addClass('is-invalid')
-                $('#indicator_id').siblings('.invalid-feedback').html('Masukkan indikator.')
-            }
-            if (err.pph7_status) {
-                $('#pp7_status').addClass('is-invalid')
-                $('#pp7_status').siblings('.invalid-feedback').html('Pilih status PP 7 tahun 2021.')
-            }
-            if (err.pph7_id) {
-                $('#pp7_id').addClass('is-invalid')
-                $('#pp7_id').siblings('.invalid-feedback').html('Pilih program PP 7 tahun 2021.')
             }
             $('.province_id').each(function(index, value) {
                 if ($(this).find(':selected').val() == '') {
@@ -380,6 +398,30 @@ $('form').submit(function(e) {
                     $(`.sources_funding[data-id=${index}] .nominal`).addClass('is-invalid')
                 }
             })
+            if (err.target_indicator_status) {
+                $('#target_indicator_status').addClass('is-invalid')
+                $('#target_indicator_status').siblings('.invalid-feedback').html('Pilih status sasaran & indikator.')
+            }
+            if (err.indicator_id) {
+                $('#indicator_id').addClass('is-invalid')
+                $('#indicator_id').siblings('.invalid-feedback').html('Masukkan indikator.')
+            }
+            if (err.pph7_status) {
+                $('#pp7_status').addClass('is-invalid')
+                $('#pp7_status').siblings('.invalid-feedback').html('Pilih status PP 7 tahun 2021.')
+            }
+            if (err.pph7_id) {
+                $('#pp7_id').addClass('is-invalid')
+                $('#pp7_id').siblings('.invalid-feedback').html('Pilih program PP 7 tahun 2021.')
+            }
+            if (err.assignment_status) {
+                $('#assignment_status').addClass('is-invalid')
+                $('#assignment_status').siblings('.invalid-feedback').html('Pilih status penugasan.')
+            }
+            if (err.assignment) {
+                $('#assignment').addClass('is-invalid')
+                $('#assignment').siblings('.invalid-feedback').html('Pilih penugasan.')
+            }
             if (err.detail) {
                 $('#detail').addClass('is-invalid')
                 $('#detail').siblings('.invalid-feedback').html('Masukkan rincian detail.')
