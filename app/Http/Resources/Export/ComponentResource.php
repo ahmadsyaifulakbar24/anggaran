@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Export;
 
 use App\Http\Resources\Param\ParamResource;
+use App\Http\Resources\WorkPlan\AssignmentResource;
 use App\Http\Resources\WorkPlan\SourceFundingResource;
 use App\Http\Resources\WorkPlan\SubWorkPlanResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -39,6 +40,10 @@ class ComponentResource extends JsonResource
             'indicator' => new ParamResource($this->indicator),
             'sub_work_plan' => SubWorkPlanResource::collection($this->sub_work_plan),
             'source_funding' => SourceFundingResource::collection($this->source_funding),
+            'pph7_status' => ($this->pph7_id == null) ? 0 : 1,
+            'pph7' => new ParamResource($this->pph7),
+            'assignment_status' => $this->assignment_status,
+            'assignment' => AssignmentResource::collection($this->assignment),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
