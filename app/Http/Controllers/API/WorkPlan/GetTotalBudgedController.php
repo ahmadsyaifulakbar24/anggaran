@@ -63,6 +63,10 @@ class GetTotalBudgedController extends Controller
 
         $sub_work_plan = DB::table(DB::raw("(SELECT * FROM vw_sub_work_plan_detail GROUP BY work_plan_id) as sub_work_plan_detail"));
 
+        if($request->province_id) {
+            $sub_work_plan->where('province_id', $request->province);
+        }
+
         if($request->unit_id) {
             $sub_work_plan->where('unit_id', $request->unit_id);
         } else if($request->user_id) {
@@ -142,11 +146,16 @@ class GetTotalBudgedController extends Controller
 
         $assignment = DB::table(DB::raw("(SELECT * FROM vw_assignment_detail GROUP BY work_plan_id) as assignment_detail"));
 
+        if($request->assignment_id) {
+            $assignment->where('assignment_id', $request->assignment_id);
+        }
+
         if($request->unit_id) {
             $assignment->where('unit_id', $request->unit_id);
         } else if($request->user_id) {
             $assignment->where('user_id', $request->user_id);
         }
+        
         return ResponseFormatter::success([
             'total_work_plan' => $assignment->count(),
             'total_budged' => $assignment->where('admin_status', 'accept')->sum('budged'),
