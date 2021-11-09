@@ -61,7 +61,7 @@ class GetTotalBudgedController extends Controller
             'user_id' => ['nullable', 'exists:users,id'],
         ]);
 
-        $sub_work_plan = DB::table(DB::raw("(SELECT * FROM vw_sub_work_plan_detail GROUP BY work_plan_id) as sub_work_plan_detail"))->where('province_id', $request->province_id);
+        $sub_work_plan = DB::table(DB::raw("(SELECT * FROM vw_sub_work_plan_detail GROUP BY province_id, work_plan_id) as sub_work_plan_detail"))->where('province_id', $request->province_id);
 
         if($request->unit_id) {
             $sub_work_plan->where('unit_id', $request->unit_id);
@@ -140,7 +140,7 @@ class GetTotalBudgedController extends Controller
             'user_id' => ['nullable', 'exists:users,id'],
         ]);
 
-        $assignment = DB::table(DB::raw("(SELECT * FROM vw_assignment_detail GROUP BY work_plan_id) as assignment_detail"))->where('assignment_id', $request->assignment_id);
+        $assignment = DB::table(DB::raw("(SELECT * FROM vw_assignment_detail GROUP BY assignment_id, work_plan_id) as assignment_detail"))->where('assignment_id', $request->assignment_id);
 
         if($request->unit_id) {
             $assignment->where('unit_id', $request->unit_id);
