@@ -43,6 +43,13 @@ $.ajax({
         } else {
             $('#pp7').html('<i>Tidak mendukung PP 7 tahun 2021</i>')
         }
+        if (value.assignment_status == 1) {
+        	$.each(value.assignment, function(index, value) {
+	            $('#assignment').append(`<div>- ${value.assignment.assignment}</div>`)
+        	})
+        } else {
+            $('#assignment').html('<i>Tidak mendukung penugasan</i>')
+        }
         $('#budged').html(rupiah(value.budged))
         $('#detail').html(value.detail)
         $('#description').html(value.description)

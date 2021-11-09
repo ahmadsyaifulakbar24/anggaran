@@ -50,6 +50,10 @@
 								<b class="font-weight-bold">PP 7 Tahun 2021</b>
 								<div id="pp7"></div>
 							</div>
+							<div class="form-group col-md-6">
+								<b class="font-weight-bold">Penugasan</b>
+								<div id="assignment"></div>
+							</div>
 						</div>
 						<div class="form-group">
 							<b class="font-weight-bold">Rincian Detail</b>

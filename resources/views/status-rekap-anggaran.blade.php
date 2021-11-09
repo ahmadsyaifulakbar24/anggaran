@@ -96,7 +96,8 @@
 									<th rowspan="2" colspan="2">Target</th>
 									<th colspan="3">Anggaran (Rp.)</th>
 									<th rowspan="2">Lokasi</th>
-									<th rowspan="2">Rincian Detail</th>
+									<th rowspan="2" class="text-truncate">PP 7 Tahun 2021</th>
+									<th rowspan="2">Penugasan</th>
 									<th rowspan="2">Keterangan</th>
 									<th rowspan="2">Pengguna</th>
 								</tr>

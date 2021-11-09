@@ -317,10 +317,10 @@ function approval(id, status) {
             // $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
             if (status == 'accept') {
                 $('#modal-approve').modal('hide')
-                customAlert('success', 'Kegiatan disetujui.')
+                customAlert('success', 'Kegiatan disetujui')
             } else {
                 $('#modal-decline').modal('hide')
-                customAlert('danger', 'Kegiatan ditolak.')
+                customAlert('danger', 'Kegiatan ditolak')
             }
         },
         error: function(xhr) {
@@ -348,7 +348,7 @@ $(document).on('click', '#delete', function(e) {
             // console.log(result.data)
             get_data()
             $('#modal-delete').modal('hide')
-            customAlert('trash', 'Komponen berhasil dihapus.')
+            customAlert('trash', 'Komponen berhasil dihapus')
         },
         complete: function() {
             $('#delete').attr('disabled', false)
@@ -477,6 +477,7 @@ function get_excel(data, status) {
 	            		<td></td>
 	            		<td></td>
 	            		<td></td>
+	            		<td></td>
 	            	</tr>`
                     $('#table-excel').append(program)
 
@@ -493,6 +494,7 @@ function get_excel(data, status) {
 		            		<td class="text-right" id="blu_activity_${value.id}"></td>
 		            		<td class="text-right" id="total_activity_${value.id}"></td>
 		            		<!--<td class="text-right">${rupiah(value.total_budged_user_kro)}</td>-->
+		            		<td></td>
 		            		<td></td>
 		            		<td></td>
 		            		<td></td>
@@ -519,6 +521,7 @@ function get_excel(data, status) {
 			            		<td></td>
 			            		<td></td>
 			            		<td></td>
+			            		<td></td>
 			            	</tr>`
                             $('#table-excel').append(kro)
 
@@ -540,6 +543,7 @@ function get_excel(data, status) {
 				            		<td></td>
 				            		<td></td>
 				            		<td></td>
+				            		<td></td>
 				            	</tr>`
                                 $('#table-excel').append(ro)
 
@@ -549,20 +553,37 @@ function get_excel(data, status) {
                                     $.each(value.source_funding, function(index, value) {
                                         value.param_id == 8 ? rm = value.nominal : blu = value.nominal
                                     })
+                                    rm_ro += rm
+                                    blu_ro += blu
+                                    total_ro += rm + blu
+
                                     first = null
                                     sub_work_plan = ''
                                     $.each(value.sub_work_plan, function(index, value) {
                                         if (first != value.province.id) {
                                             first = value.province.id
-                                            sub_work_plan += `<div>${value.province.province}</div>`
-                                            sub_work_plan += `<div>- ${value.city.city}</div>`
+                                            sub_work_plan += `<div class="text-truncate">${value.province.province}</div>`
+                                            sub_work_plan += `<div class="text-truncate">- ${value.city.city}</div>`
                                         } else {
-                                            sub_work_plan += `<div>- ${value.city.city}</div>`
+                                            sub_work_plan += `<div class="text-truncate">- ${value.city.city}</div>`
                                         }
                                     })
-                                    rm_ro += rm
-                                    blu_ro += blu
-                                    total_ro += rm + blu
+
+                                    pph7 = ''
+                                    if(value.pph7_status == 1) {
+                                    	pph7 = value.pph7.param
+                                    } else {
+                                    	pph7 = '<i>Tidak mendukung PP 7 Tahun 2021</i>'
+                                    }
+                                    
+                                    assignment = ''
+                                    if(value.assignment_status == 1) {
+	                                    $.each(value.assignment, function(index, value) {
+	                                    	assignment += `<div class="text-truncate">- ${value.assignment.assignment}</div>`
+	                                    })
+	                                } else {
+	                                	assignment = '<i>Tidak mendukung penugasan</i>'
+	                                }
                                     component = `<tr>
 					            		<td></td>
 					            		<td></td>
@@ -575,7 +596,8 @@ function get_excel(data, status) {
 					            		<td class="text-right">${blu != 0 ? convert(blu) : '0'}</td>
 					            		<td class="text-right">${convert(value.budged)}</td>
 					            		<td class="text-truncate">${sub_work_plan}</td>
-					            		<td><pre>${value.detail}</pre></td>
+					            		<td>${pph7}</td>
+					            		<td>${assignment}</td>
 					            		<td><pre>${value.description}</pre></td>
 					            		<td>${value.user.name}</td>
 					            	</tr>`

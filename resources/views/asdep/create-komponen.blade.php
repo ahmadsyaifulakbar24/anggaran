@@ -65,7 +65,7 @@
 							</div>
 							<input type="hidden" id="target_indicator_status">
 							<div class="invalid-feedback"></div>
-							<div class="none" id="target_indicator">
+							<div class="none" id="target_indicator-form">
 								<div class="mt-2">
 									<label for="target_id" class="d-block col-form-label text-secondary">Sasaran</label>
 									<select class="custom-select" id="target_id" role="button">
@@ -98,11 +98,33 @@
 							</div>
 							<input type="hidden" id="pp7_status">
 							<div class="invalid-feedback"></div>
-							<div class="none mt-2" id="pp7">
+							<div class="none mt-2" id="pp7-form">
 								<label for="pp7_id" class="d-block col-form-label text-secondary">Program PP 7 tahun 2021</label>
 								<select class="custom-select" id="pp7_id" role="button">
 									<option value="" disabled selected>Pilih</option>
 								</select>
+								<div class="invalid-feedback"></div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<label for="assignment_status" class="col-form-label pb-0">Status Penugasan</label>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="assignment_status" id="assignment_status1" value="1" role="button">
+								<label class="form-check-label" for="assignment_status1" role="button">
+									Mendukung penugasan
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="assignment_status" id="assignment_status0" value="0" role="button">
+								<label class="form-check-label" for="assignment_status0" role="button">
+									Tidak mendukung penugasan
+								</label>
+							</div>
+							<input type="hidden" id="assignment_status">
+							<div class="invalid-feedback"></div>
+							<div class="none mt-2" id="assignment-form">
+								<label for="assignment" class="d-block col-form-label text-secondary pb-0">Penugasan</label>
+								<div id="assignment"></div>
 								<div class="invalid-feedback"></div>
 							</div>
 						</div>
