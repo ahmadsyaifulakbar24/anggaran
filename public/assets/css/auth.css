@@ -1,5 +1,5 @@
 body {
-	background: url('../../assets/images/TEKNLOGI.png');
+	background: url('../../assets/images/background.png');
 	background-size: cover;
 	background-repeat: no-repeat;
 	/*background-position: center;*/
@@ -11,12 +11,10 @@ h1,h2,h3,h4,h5,h6,th,button,label,.btn,.sidebar,.compose {
 }
 
 .auth {
-    top: 10%;
+    top: 33%;
     width: 400px;
     position: absolute;
     margin-bottom: 150px;
-    left: 50%;
-    transform: translate(-50%);
 }
 
 .auth .card {
@@ -29,10 +27,10 @@ h1,h2,h3,h4,h5,h6,th,button,label,.btn,.sidebar,.compose {
 }
 
 /* Extra Small */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 506px) {
 
     .auth {
-    	margin-top: 70px;
+    	top: 30%;
         width: 100%;
         padding: 20px;
         margin-bottom: 0;
