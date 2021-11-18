@@ -33,6 +33,10 @@ label,
     font-family: "DM Sans", sans-serif;
 }
 
+label {
+	font-weight: bold;
+}
+
 pre {
     font-size: 14px;
     font-family: sans-serif;
