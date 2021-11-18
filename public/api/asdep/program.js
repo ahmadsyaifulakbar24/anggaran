@@ -1,3 +1,10 @@
+if (role == 'asdep') {
+	$('.create').show()
+} else {
+	$('.create').remove()
+	$('.option').remove()
+}
+
 if (role == 'admin') {
     $.ajax({
         url: `${root}/api/user`,
@@ -36,7 +43,6 @@ function get_unit(role) {
 }
 
 if (role == 'admin') {
-    $('.option').remove()
     $('#modal-view').modal('show')
     $('form').submit(function(e) {
         e.preventDefault()
@@ -48,7 +54,6 @@ if (role == 'admin') {
     })
 } else {
     $('.view').remove()
-    role == 'deputi' ? $('.create').remove() : $('.create').show()
 }
 
 function get_data(unit_id = null, user_id = null) {
