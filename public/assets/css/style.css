@@ -46,6 +46,10 @@ a:hover {
     text-decoration: none !important;
 }
 
+table a {
+	font-weight: bold;
+}
+
 .none {
     display: none;
 }
