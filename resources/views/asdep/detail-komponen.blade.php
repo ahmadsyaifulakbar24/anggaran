@@ -2,6 +2,12 @@
 
 @section('title','Detail Kegiatan')
 
+@section('style')
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+@endsection
+
 @section('content')
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center mb-2">
@@ -69,21 +75,21 @@
 									<b class="font-weight-bold" class="col-form-label pb-0">File TOR</b>
 									<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
 									<div id="type-1"></div>
-									<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="1" data-category="work_plan">Upload File</div>
+									<div class="btn btn-sm btn-block btn-outline-primary upload action" data-type="1" data-category="work_plan">Upload File</div>
 									<div class="invalid-feedback"></div>
 								</div>
 								<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
 									<b class="font-weight-bold" class="col-form-label pb-0">File RAB</b>
 									<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
 									<div id="type-2"></div>
-									<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="2" data-category="work_plan">Upload File</div>
+									<div class="btn btn-sm btn-block btn-outline-primary upload action" data-type="2" data-category="work_plan">Upload File</div>
 									<div class="invalid-feedback"></div>
 								</div>
 								<div class="col-md-6 col-lg-4 mb-2">
 									<b class="font-weight-bold" class="col-form-label pb-0">File Dukungan Lainnya</b>
 									<div class="small text-secondary mb-2">*Maksimal 5 file.</div>
 									<div id="type-3"></div>
-									<div class="btn btn-sm btn-block btn-outline-primary upload" data-type="3" data-category="work_plan">Upload File</div>
+									<div class="btn btn-sm btn-block btn-outline-primary upload action" data-type="3" data-category="work_plan">Upload File</div>
 									<div class="invalid-feedback"></div>
 								</div>
 							</div>
@@ -100,7 +106,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<b class="font-weight-bold">Komentar</b>
-								<form class="mt-2" id="form-comment">
+								<form class="action mt-3" id="form-comment">
 									<div class="d-flex align-items-start mb-3">
 										<img class="avatar rounded-circle" width="30" alt="">
 										<div class="w-100 ml-3">
@@ -113,7 +119,7 @@
 										</div>
 									</div>
 								</form>
-								<div class="w-100" id="comments"></div>
+								<div class="w-100 mt-2" id="comments"></div>
 							</div>
 							<div class="col-md-6">
 								<b class="font-weight-bold">History</b>

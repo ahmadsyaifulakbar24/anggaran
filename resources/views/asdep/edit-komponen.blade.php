@@ -53,13 +53,13 @@
 							<label for="target_indicator_status" class="col-form-label pb-0">Status Sasaran & Indikator</label>
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="target_indicator_status" id="target_indicator_status1" value="1" role="button">
-								<label class="form-check-label" for="target_indicator_status1" role="button">
+								<label class="form-check-label font-weight-light" for="target_indicator_status1" role="button">
 									Mendukung sasaran & indikator
 								</label>
 							</div>
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="target_indicator_status" id="target_indicator_status0" value="0" role="button">
-								<label class="form-check-label" for="target_indicator_status0" role="button">
+								<label class="form-check-label font-weight-light" for="target_indicator_status0" role="button">
 									Tidak mendukung sasaran & indikator
 								</label>
 							</div>
@@ -86,13 +86,13 @@
 							<label for="pp7_status" class="col-form-label pb-0">Status PP 7 tahun 2021</label>
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="pp7_status" id="pp7_status1" value="1" role="button">
-								<label class="form-check-label" for="pp7_status1" role="button">
+								<label class="form-check-label font-weight-light" for="pp7_status1" role="button">
 									Mendukung PP 7 tahun 2021
 								</label>
 							</div>
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="pp7_status" id="pp7_status0" value="0" role="button">
-								<label class="form-check-label" for="pp7_status0" role="button">
+								<label class="form-check-label font-weight-light" for="pp7_status0" role="button">
 									Tidak mendukung PP 7 tahun 2021
 								</label>
 							</div>
@@ -110,13 +110,13 @@
 							<label for="assignment_status" class="col-form-label pb-0">Status Penugasan</label>
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="assignment_status" id="assignment_status1" value="1" role="button">
-								<label class="form-check-label" for="assignment_status1" role="button">
+								<label class="form-check-label font-weight-light" for="assignment_status1" role="button">
 									Mendukung penugasan
 								</label>
 							</div>
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="assignment_status" id="assignment_status0" value="0" role="button">
-								<label class="form-check-label" for="assignment_status0" role="button">
+								<label class="form-check-label font-weight-light" for="assignment_status0" role="button">
 									Tidak mendukung penugasan
 								</label>
 							</div>

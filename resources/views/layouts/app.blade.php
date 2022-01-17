@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="{{asset('assets/vendors/mdi/css/materialdesignicons.min.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/css/loader.css')}}">
+	<link rel="stylesheet" href="{{asset('assets/vendors/scss/custom.css')}}">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 	<link rel="shortcut icon" href="{{asset('assets/images/icon.ico')}}">
@@ -16,7 +17,7 @@
 </head>
 <body>
 	@if(!Request::is('daftar/*'))
-    <nav class="navbar navbar-expand-sm navbar-dark border-bottom" style="background: #0fa9f9;">
+    <nav class="navbar navbar-expand-sm navbar-dark border-bottom bg-primary">
     	<div class="container">
 	        <div class="form-inline">
 	            <!-- <i class="mdi mdi-menu mdi-24px d-block d-lg-none pointer text-dark mr-2" id="menu"></i> -->
@@ -50,7 +51,7 @@
 	    </div>
     </nav>
     <div class="bg-light">
-		<div class="container pt-5">
+		<div class="container">
 			@if(Request::is('dashboard'))
 			<div class="pt-4">
 				<h4>Halo, <span class="name"></span></h4>
@@ -59,8 +60,8 @@
 			</div>
 			@endif
 			<div class="row justify-content-md-center pt-4">
-				<div class="col col-md-4 col-lg-2 mb-4">
-					<a href="{{url('dashboard')}}" class="card card-menu rounded {{Request::is('dashboard')?'active':''}}">
+				<div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+					<a href="{{url('dashboard')}}" class="card card-menu {{Request::is('dashboard')?'active':''}}">
 						<div class="text-center p-2">
 							<i class="mdi mdi-home-outline mdi-48px pr-0"></i>
 							<h6>Dashboard</h6>
@@ -68,8 +69,8 @@
 					</a>
 				</div>
 				@if(session("role") == "deputi")
-				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
-					<a href="{{url('akun-asdep')}}" class="card card-menu rounded {{Request::is('akun-asdep')?'active':''}}">
+				<div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+					<a href="{{url('akun-asdep')}}" class="card card-menu {{Request::is('akun-asdep')?'active':''}}">
 						<div class="text-center p-2">
 							<i class="mdi mdi-account-multiple-outline mdi-48px pr-0"></i>
 							<h6>Akun Asdep</h6>
@@ -78,8 +79,8 @@
 				</div>
 				@endif
 				@if(session("role") == "admin")
-				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
-					<a href="{{url('program')}}" class="card card-menu rounded {{Request::is('program') || Request::is('kegiatan/*')?'active':''}}">
+				<div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+					<a href="{{url('program')}}" class="card card-menu {{Request::is('program') || Request::is('kegiatan/*')?'active':''}}">
 						<div class="text-center p-2">
 							<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
 							<h6>Setting Program</h6>
@@ -87,20 +88,28 @@
 					</a>
 				</div>
 				@endif
-				<div class="col col-md-4 col-lg-2 mb-4 px-0 px-sm-3">
-					<a href="{{url('asdep/program')}}" class="card card-menu rounded {{Request::segment(1) == 'asdep'?'active':''}}">
-						<div class="text-center p-2">
-							<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
-							@if(session("role") == "asdep")
+            	@if(session("role") == "asdep")
+				<div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+               		<a href="{{url('asdep/program')}}" class="card card-menu {{Request::segment(1) == 'asdep'?'active':''}}">
+                  		<div class="text-center p-2">
+                     		<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
 							<h6>Entri Komponen</h6>
-							@else
-							<h6>Data Komponen</h6>
-							@endif
 						</div>
 					</a>
 				</div>
-				<div class="col col-md-4 col-lg-2 mb-4">
-					<a href="{{url('status-rekap-anggaran')}}" class="card card-menu rounded {{Request::is('status-rekap-anggaran')?'active':''}}">
+				@endif
+            	@if(session("role") != "asdep")
+				<div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+               		<a href="{{url('asdep/program')}}" class="card card-menu {{Request::segment(1) == 'asdep'?'active':''}}">
+                  		<div class="text-center p-2">
+                     		<i class="mdi mdi-file-document-outline mdi-48px pr-0"></i>
+							<h6>Data Komponen</h6>
+						</div>
+					</a>
+				</div>
+            	@endif
+				<div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+					<a href="{{url('status-rekap-anggaran')}}" class="card card-menu {{Request::is('status-rekap-anggaran')?'active':''}}">
 						<div class="text-center p-2">
 							<i class="mdi mdi-file-excel-outline mdi-48px pr-0"></i>
 							<h6>Status & Rekap Anggaran</h6>
@@ -109,9 +118,9 @@
 				</div>
 			</div>
 			@if(session("role") == "admin" && Request::is('dashboard'))
-			<div class="text-center pb-4">
-				<div class="btn btn-primary" data-toggle="modal" data-target="#modal-lock">Lock Semua Komponen</div>
-				<div class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-unlock">Unlock Semua Komponen</div>
+			<div class="text-center py-2">
+				<div class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal-lock">Lock Semua Komponen</div>
+				<div class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modal-unlock">Unlock Semua Komponen</div>
 			</div>
 			@endif
 		</div>

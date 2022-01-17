@@ -48,7 +48,7 @@ $.ajax({
 	            $('#assignment').append(`<div>- ${value.assignment.assignment}</div>`)
         	})
         } else {
-            $('#assignment').html('<i>Tidak mendukung penugasan</i>')
+            $('#assignment').html('Tidak mendukung penugasan')
         }
         $('#budged').html(rupiah(value.budged))
         $('#detail').html(value.detail)
@@ -97,6 +97,10 @@ $.ajax({
         })
         if (value.user.id != user) {
             $('.upload').remove()
+            $('.delete-file').remove()
+        }
+        if (value.permission == "lock") {
+            $('.action').remove()
             $('.delete-file').remove()
         }
     },

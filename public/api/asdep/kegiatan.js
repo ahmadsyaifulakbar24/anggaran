@@ -1,4 +1,10 @@
-role == 'asdep' ? $('.create').show() : $('.option').remove()
+if (role == 'asdep') {
+	$('.create').show()
+} else {
+	$('.create').remove()
+	$('.option').remove()
+}
+
 $.ajax({
     url: `${root}/api/user_program/fetch`,
     type: 'GET',
