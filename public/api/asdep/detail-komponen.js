@@ -99,6 +99,10 @@ $.ajax({
             $('.upload').remove()
             $('.delete-file').remove()
         }
+        if (value.permission == "lock") {
+            $('.action').remove()
+            $('.delete-file').remove()
+        }
     },
     error: function(xhr) {
         console.log(xhr)
