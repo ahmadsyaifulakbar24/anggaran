@@ -16,6 +16,7 @@ class GetUserController extends Controller
         $this->validate($request, [
             'id' => ['nullable', 'exists:users,id'],
             'role' => ['nullable', 'exists:roles,name'],
+            'parent_id' => ['nullable', 'exists:users,id'],
             'limit' => ['nullable', 'integer']
         ]);
         $limit = $request->input('limit', 15);
@@ -28,7 +29,9 @@ class GetUserController extends Controller
             );
         }
 
-        if($request->role) {
+        if($request->parent_id) {
+            $user = User::where('parent_id', $request->parent_id)->paginate($limit);
+        } else if($request->role) {
             $user = User::role($request->role)->paginate($limit);
         } else {
             $user = User::paginate($limit);
