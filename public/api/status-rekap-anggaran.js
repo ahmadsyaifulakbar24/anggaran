@@ -45,8 +45,11 @@ function get_unit(role) {
     $.ajax({
         url: `${root}/api/user`,
         type: 'GET',
-        data: { role },
+        data: {
+	    	parent_id: user
+	    },
         success: function(result) {
+            // console.log(result.data)
             $.each(result.data, function(index, value) {
                 if (role == 'deputi') {
                     append = `<option value="${value.unit_id}">${value.name}</option>`
