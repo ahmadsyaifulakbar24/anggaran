@@ -21,19 +21,7 @@
 							<th></th>
 						</tr>
 					</thead>
-					<tbody id="table">
-						<tr>
-							<td class="text-center">1.</td>
-							<td class="text-truncate">Asdep Perkoperasian Syariah</td>
-							<td class="text-truncate">asdep</td>
-							<td> 
-								<div class="d-flex">
-									<button class="btn btn-sm btn-outline-primary edit mr-2">Ubah</button>
-									<button class="btn btn-sm btn-outline-danger delete">Hapus</button>
-								</div>
-							</td>
-						</tr>
-					</tbody>
+					<tbody id="table"></tbody>
 				</table>
 			</div>
 		</div>

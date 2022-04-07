@@ -2,11 +2,11 @@ get_data()
 
 function get_data() {
 	$('#table').empty()
-	
 	$.ajax({
 	    url: `${root}/api/user`,
 	    type: 'GET',
 	    data: {
+	    	parent_id: user,
 	    	role: role == 'deputi' ? 'asdep' : 'deputi'
 	    },
 	    success: function(result) {
@@ -32,7 +32,7 @@ function get_data() {
 		        })
 		    } else {
 		    	append = `<tr>
-					<td colspan="10">Data tidak ditemukan.</td>
+					<td colspan="10">Akun tidak ditemukan.</td>
 				</tr>`
 	            $('#table').append(append)
 		    }
