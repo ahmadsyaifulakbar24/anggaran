@@ -18,14 +18,18 @@ class UserKroController extends Controller
         $user = User::find(Auth::user()->id);
         $request->validate([
             'user_activity_id' => ['required', 'exists:user_activities,id'],
+            'type_kro' => ['required', 'in:pn,non_pn'],
             'kro_id' => [
                 'required',
                 'exists:kro,id',
                 Rule::unique('user_kro', 'kro_id')->where(function($query) use ($user, $request){
-                    return $query->where([['user_activity_id', $request->user_activity_id], ['unit_id', $user->unit_id]]);
+                    return $query->where([
+                        ['user_activity_id', $request->user_activity_id], 
+                        ['unit_id', $user->unit_id],
+                        ['type_kro', $request->type_kro]
+                    ]);
                 })
-            ],
-            'type_kro' => ['required', 'in:pn,non_pn']
+            ]
         ]);
 
         if(! $user->hasRole('asdep')) {

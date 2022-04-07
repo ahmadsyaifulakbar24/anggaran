@@ -27,7 +27,7 @@ class RoResource extends JsonResource
             'ro' => $this->ro,
             'unit_target' => $this->unit_target_data,
             'unit' => $this->unit,
-            'work_plan' => ComponentResource::collection($this->work_plan)
+            'work_plan' => ComponentResource::collection($this->work_plan()->where('admin_status', 'accept')->get())
         ];
     }
 }
