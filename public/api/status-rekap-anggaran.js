@@ -141,9 +141,9 @@ function get_data(unit_id = '', user_id = '', search = '') {
                     }
                     if (role == 'admin') {
                         if (value.permission == 'lock') {
-                            permission = '<button class="btn btn-sm btn-outline-primary unlock">Unlock</button>'
+                            permission = '<button class="btn btn-sm btn-outline-primary ml-2 unlock">Unlock</button>'
                         } else {
-                            permission = '<button class="btn btn-sm btn-primary lock">Lock</button>'
+                            permission = '<button class="btn btn-sm btn-primary ml-2 lock">Lock</button>'
                         }
                     }
                     let rm = 0,
@@ -320,9 +320,11 @@ function approval(id, status) {
             // $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
             if (status == 'accept') {
                 $('#modal-approve').modal('hide')
+			    $('#accept').attr('disabled', false)
                 customAlert('success', 'Kegiatan disetujui')
             } else {
                 $('#modal-decline').modal('hide')
+			    $('#decline').attr('disabled', false)
                 customAlert('danger', 'Kegiatan ditolak')
             }
         },
