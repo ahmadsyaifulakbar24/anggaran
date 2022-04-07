@@ -61,6 +61,7 @@ $.ajax({
     success: function(result) {
         // console.log(result.data)
         let value = result.data
+        $('#back').attr('href', `${root}/asdep/ro/${value.user_kro.user_kro_id}`)
         $('#user_program').html(`${value.user_program.code_program} - ${value.user_program.description}`)
         $('#user_activity').html(`${value.user_activity.code_activity} - ${value.user_activity.description}`)
         if (value.user_kro.type_kro == 'pn') {
