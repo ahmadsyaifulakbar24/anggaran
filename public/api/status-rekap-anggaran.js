@@ -320,7 +320,7 @@ function approval(id, status) {
             // $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
             if (status == 'accept') {
                 $('#modal-approve').modal('hide')
-			    $('#accept').attr('disabled', false)
+			    $('#approve').attr('disabled', false)
                 customAlert('success', 'Kegiatan disetujui')
             } else {
                 $('#modal-decline').modal('hide')
