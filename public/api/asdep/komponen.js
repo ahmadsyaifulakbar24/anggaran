@@ -162,8 +162,9 @@ function get_data(unit_id = '', user_id = '', search = '') {
         data: data,
         success: function(result) {
             // console.log(result.data)
-            if (result.data.length > 0) {
-                $.each(result.data, function(index, value) {
+            if (result.data.data.length > 0) {
+            	pagination(result.data.links, result.data.meta, result.data.meta.path)
+                $.each(result.data.data, function(index, value) {
                     deputi_status = ''
                     admin_status = ''
                     if (value.deputi_status != 'accept') {
