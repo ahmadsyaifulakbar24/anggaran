@@ -70,7 +70,7 @@ class GetWorkPlanController extends Controller
                 $work_plan->where('deputi_status', 'decline');
             }
         }
-        $result = $work_plan->orderBy('updated_at', 'desc')->paginate($limit);
+        $result = $work_plan->orderBy('component_code', 'asc')->paginate($limit);
         
         return ResponseFormatter::success(
             WorkPlanResource::collection($result),
