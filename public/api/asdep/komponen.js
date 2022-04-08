@@ -85,9 +85,9 @@ $.ajax({
     success: function(result) {
         // console.log(result.data)
         if (role == 'asdep') {
-            get_data(unit, user)
+            get_data(1, unit, user)
         } else {
-            get_data(localStorage.getItem('unit_id'))
+            get_data(1, localStorage.getItem('unit_id'))
         }
         $.ajax({
             url: `${root}/api/work_plan/total_budged`,
@@ -114,18 +114,21 @@ $.ajax({
     }
 })
 
-function get_data(unit_id = '', user_id = '', search = '') {
+function get_data(page = 1, unit_id = '', user_id = '', search = '') {
     $('#table').empty()
     $('#table-loading').hide()
+    $('#pagination').hide()
     let data = null
     if (role == 'admin') {
         if (unit_id == '') {
             data = {
+            	page,
                 search,
                 user_ro_id
             }
         } else {
             data = {
+            	page,
                 search,
                 user_ro_id,
                 unit_id
@@ -135,12 +138,14 @@ function get_data(unit_id = '', user_id = '', search = '') {
     if (role == 'deputi') {
         if (user_id == '') {
             data = {
+            	page,
                 search,
                 user_ro_id,
                 unit_id
             }
         } else {
             data = {
+            	page,
                 search,
                 user_ro_id,
                 unit_id
@@ -149,6 +154,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
     }
     if (role == 'asdep') {
         data = {
+        	page,
             search,
             user_ro_id,
             unit_id
@@ -163,7 +169,6 @@ function get_data(unit_id = '', user_id = '', search = '') {
         success: function(result) {
             // console.log(result.data)
             if (result.data.data.length > 0) {
-            	pagination(result.data.links, result.data.meta, result.data.meta.path)
                 $.each(result.data.data, function(index, value) {
                     deputi_status = ''
                     admin_status = ''
@@ -207,6 +212,8 @@ function get_data(unit_id = '', user_id = '', search = '') {
 					</tr>`
                     $('#table').append(append)
                 })
+			    $('#pagination').show()
+            	pagination(result.data.links, result.data.meta, result.data.meta.path)
             } else {
                 append = `<tr>
 					<td colspan="20">${search != undefined && search != '' ? `Pencarian <b>"${search}"</b>` : 'Data'} tidak ditemukan.</td>
@@ -246,6 +253,7 @@ $(document).on('keyup', '#search', function(e) {
     if ((e.which >= 65 && e.which == 32 && e.which == 8) || e.which <= 90) {
         $('#table').empty()
         $('#table-loading').show()
+	    $('#pagination').hide()
     }
 })
 
@@ -255,18 +263,18 @@ $(document).on('keyup', '#search', delay(function(e) {
     if ((e.which >= 65 && e.which == 32 && e.which == 8) || e.which <= 90) {
         if (role == 'admin') {
             if (viewas == '') {
-                get_data('', '', value)
+                get_data(1, '', '', value)
             } else {
-                get_data(viewas, '', value)
+                get_data(1, viewas, '', value)
             }
         } else if (role == 'deputi') {
             if (viewas == '') {
-                get_data(unit, '', value)
+                get_data(1, unit, '', value)
             } else {
-                get_data(unit, viewas, value)
+                get_data(1, unit, viewas, value)
             }
         } else if (role == 'asdep') {
-            get_data(unit, viewas, value)
+            get_data(1, unit, viewas, value)
         }
     }
 }, 500))
