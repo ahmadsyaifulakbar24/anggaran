@@ -8,7 +8,7 @@ $.ajax({
         $('#back').attr('href', `${root}/asdep/komponen/${value.user_ro.id}`)
         $('#component_code').html(value.all_kode)
         $('#component_name').html(value.component_name)
-        $('#total_target').html(`${value.total_target} ${value.unit_target.name}`)
+        $('#total_target').html(`${convert(value.total_target)} ${value.unit_target.name}`)
         let first = null
         $.each(result.data.sub_work_plan, function(index, value) {
             if (first != value.province.id) {

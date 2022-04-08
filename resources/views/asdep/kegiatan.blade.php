@@ -4,15 +4,15 @@
 
 @section('content')
 	<div class="container">
+		<div class="d-flex align-items-end mb-2">
+			<h4><a class="text-dark" id="back"><i class="mdi mdi-arrow-left"></i></a>Kegiatan</h4>
+		</div>
 		<div class="d-flex justify-content-between align-items-end mb-2">
-			<div>
-				<h4>Kegiatan</h4>
-				<div class="card card-custom">
-					<div class="card-body">
-						<h6>Total Anggaran ACC</h6>
-						<div class="d-flex justify-content-between align-items-center">
-							<h5 class="mb-0" id="total_budged">Rp0</h5>
-						</div>
+			<div class="card card-custom">
+				<div class="card-body">
+					<h6>Total Anggaran ACC</h6>
+					<div class="d-flex justify-content-between align-items-center">
+						<h5 class="mb-0" id="total_budged">Rp0</h5>
 					</div>
 				</div>
 			</div>
@@ -58,6 +58,9 @@
 @endsection
 
 @section('script')
-	<script>const user_program_id = {{$user_program_id}}</script>
+	<script>
+		const user_program_id = {{$user_program_id}}
+        $('#back').attr('href', `${root}/asdep/program`)
+    </script>
 	<script src="{{asset('api/asdep/kegiatan.js')}}"></script>
 @endsection

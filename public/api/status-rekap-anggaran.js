@@ -141,9 +141,9 @@ function get_data(unit_id = '', user_id = '', search = '') {
                     }
                     if (role == 'admin') {
                         if (value.permission == 'lock') {
-                            permission = '<button class="btn btn-sm btn-outline-primary unlock">Unlock</button>'
+                            permission = '<button class="btn btn-sm btn-outline-primary ml-2 unlock">Unlock</button>'
                         } else {
-                            permission = '<button class="btn btn-sm btn-primary lock">Lock</button>'
+                            permission = '<button class="btn btn-sm btn-primary ml-2 lock">Lock</button>'
                         }
                     }
                     let rm = 0,
@@ -159,7 +159,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
 						<td class="text-center">${index + 1}.</td>
 						<td class="text-truncate">${value.all_kode}</td>
 						<td class="text-truncate"><a href="${root}/asdep/komponen/detail/${value.id}">${value.component_name}</a></td>
-						<td class="text-truncate">${value.total_target} ${value.unit_target.name}</td>
+						<td class="text-truncate">${convert(value.total_target)} ${value.unit_target.name}</td>
 	            		<td class="text-right">${rm != 0 ? rupiah(rm) : 'Rp0'}</td>
 	            		<td class="text-right">${blu != 0 ? rupiah(blu) : 'Rp0'}</td>
 						<td class="text-right">${rupiah(value.budged)}</td>
@@ -320,9 +320,11 @@ function approval(id, status) {
             // $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
             if (status == 'accept') {
                 $('#modal-approve').modal('hide')
+			    $('#approve').attr('disabled', false)
                 customAlert('success', 'Kegiatan disetujui')
             } else {
                 $('#modal-decline').modal('hide')
+			    $('#decline').attr('disabled', false)
                 customAlert('danger', 'Kegiatan ditolak')
             }
         },

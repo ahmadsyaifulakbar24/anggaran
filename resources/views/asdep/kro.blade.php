@@ -4,15 +4,15 @@
 
 @section('content')
 	<div class="container">
+		<div class="d-flex align-items-end mb-2">
+			<h4><a class="text-dark" id="back"><i class="mdi mdi-arrow-left"></i></a>KRO</h4>
+		</div>
 		<div class="d-flex justify-content-between align-items-end mb-2">
-			<div>
-				<h4>KRO</h4>
-				<div class="card card-custom">
-					<div class="card-body">
-						<h6>Total Anggaran ACC</h6>
-						<div class="d-flex justify-content-between align-items-center">
-							<h5 class="mb-0" id="total_budged">Rp0</h5>
-						</div>
+			<div class="card card-custom">
+				<div class="card-body">
+					<h6>Total Anggaran ACC</h6>
+					<div class="d-flex justify-content-between align-items-center">
+						<h5 class="mb-0" id="total_budged">Rp0</h5>
 					</div>
 				</div>
 			</div>
@@ -60,6 +60,24 @@
 @endsection
 
 @section('script')
-	<script>const user_activity_id = {{$user_activity_id}}</script>
+	<script>
+		const user_activity_id = {{$user_activity_id}}
+		$.ajax({
+		    url: `${root}/api/work_plan/breadcrumb`,
+		    type: 'GET',
+		    data: {
+		        breadcrumb_type: 'kro',
+		        user_activity_id
+		    },
+		    success: function(result) {
+		        // console.log(result.data)
+		        let value = result.data
+		        $('#back').attr('href', `${root}/asdep/kegiatan/${value.user_program.user_program_id}`)
+		    },
+		    error: function(xhr) {
+		        // console.log(xhr)
+		    }
+		})
+	</script>
 	<script src="{{asset('api/asdep/kro.js')}}"></script>
 @endsection
