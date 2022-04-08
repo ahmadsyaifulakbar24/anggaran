@@ -5,7 +5,7 @@
 @section('content')
 	<div class="container">
 		<div class="d-flex align-items-end mb-2">
-			<h4><a class="text-dark" id="back"><i class="mdi mdi-arrow-left"></i></a>Detail Kegiatan</h4>
+			<h4><a class="text-dark" id="back"><i class="mdi mdi-arrow-left"></i></a>Detail Komponen</h4>
 		</div>
 		<div class="d-flex justify-content-between align-items-end mb-2">
 			<div class="card card-custom">
