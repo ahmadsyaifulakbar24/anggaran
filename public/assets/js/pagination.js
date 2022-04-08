@@ -70,3 +70,12 @@ function pagination(links, meta, path) {
     $('#pagination').removeClass('hide')
     $('#pagination-label').html(`Showing ${meta.from} to ${meta.to} of ${meta.total} entries`)
 }
+
+$('.page').click(function() {
+    if (!$(this).is('.active, .disabled')) {
+        let page = $(this).data('id')
+        $('#pagination').addClass('hide')
+        $('#table-loading').removeClass('hide')
+        get_data(page)
+    }
+})
