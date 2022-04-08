@@ -73,7 +73,7 @@ class GetWorkPlanController extends Controller
         $result = $work_plan->orderBy('component_code', 'asc')->paginate($limit);
         
         return ResponseFormatter::success(
-            WorkPlanResource::collection($result),
+            WorkPlanResource::collection($result)->response()->getData(true),
             $this->message
         );
     }
