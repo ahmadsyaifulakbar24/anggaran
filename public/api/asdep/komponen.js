@@ -192,7 +192,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
 						<td class="text-center">${index + 1}.</td>
 						<td class="text-truncate">${value.component_code}</td>
 						<td class="text-truncate"><a href="${root}/asdep/komponen/detail/${value.id}">${value.component_name}</a></td>
-						<td class="text-truncate">${value.total_target} ${value.unit_target.name}</td>
+						<td class="text-truncate">${convert(value.total_target)} ${value.unit_target.name}</td>
 	            		<td class="text-right">${rm != 0 ? rupiah(rm) : 'Rp0'}</td>
 	            		<td class="text-right">${blu != 0 ? rupiah(blu) : 'Rp0'}</td>
 						<td class="text-truncate">${rupiah(value.budged)}</td>
