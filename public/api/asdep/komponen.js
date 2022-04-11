@@ -271,7 +271,7 @@ $('.page').click(function() {
                 get_data(page, unit, viewas, search)
             }
         } else if (role == 'asdep') {
-            get_data(page, unit, viewas, search)
+            get_data(page, unit, user, search)
         }
     }
 })
