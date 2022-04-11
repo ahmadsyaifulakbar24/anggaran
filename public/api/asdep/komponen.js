@@ -301,7 +301,7 @@ $(document).on('keyup', '#search', delay(function(e) {
                 get_data(1, unit, viewas, value)
             }
         } else if (role == 'asdep') {
-            get_data(1, unit, viewas, value)
+            get_data(1, unit, user, value)
         }
     }
 }, 500))
