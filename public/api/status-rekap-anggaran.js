@@ -1,3 +1,4 @@
+let current_page = 1
 if (role == 'admin') {
     $('.create').remove()
     $('.edit').remove()
@@ -62,7 +63,6 @@ function get_unit(role) {
     })
 }
 
-let current_page = 1
 function get_data(page = 1, unit_id = '', user_id = '', search = '') {
     $('#table').empty()
     $('#table-loading').hide()
