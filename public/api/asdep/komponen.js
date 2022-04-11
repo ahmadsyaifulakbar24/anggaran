@@ -114,11 +114,13 @@ $.ajax({
     }
 })
 
+let current_page = 1
 function get_data(page = 1, unit_id = '', user_id = '', search = '') {
     $('#table').empty()
     $('#table-loading').hide()
     $('#pagination').hide()
     let data = null
+    current_page = page
     if (role == 'admin') {
         if (unit_id == '') {
             data = {
@@ -248,6 +250,31 @@ function get_data(page = 1, unit_id = '', user_id = '', search = '') {
         }
     })
 }
+
+$('.page').click(function() {
+    if (!$(this).is('.active, .disabled')) {
+        $('#pagination').addClass('hide')
+        $('#loading_table').removeClass('hide')
+        let page = $(this).data('id')
+	    let search = $('#search').val()
+	    let viewas = $('#view-as').val()
+	    if (role == 'admin') {
+            if (viewas == '') {
+                get_data(page, '', '', search)
+            } else {
+                get_data(page, viewas, '', search)
+            }
+        } else if (role == 'deputi') {
+            if (viewas == '') {
+                get_data(page, unit, '', search)
+            } else {
+                get_data(page, unit, viewas, search)
+            }
+        } else if (role == 'asdep') {
+            get_data(page, unit, viewas, search)
+        }
+    }
+})
 
 $(document).on('keyup', '#search', function(e) {
     if ((e.which >= 65 && e.which == 32 && e.which == 8) || e.which <= 90) {

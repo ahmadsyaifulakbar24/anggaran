@@ -252,15 +252,6 @@ function pagination(links, meta, path) {
     $('#pagination-label').html(`Showing ${meta.from} to ${meta.to} of ${meta.total} entries`)
 }
 
-$('.page').click(function() {
-    if (!$(this).is('.active, .disabled')) {
-        let page = $(this).data('id')
-        $('#pagination').addClass('hide')
-        $('#loading_table').removeClass('hide')
-        get_data(page)
-    }
-})
-
 function currentDate() {
     let d = new Date()
     let date = d.getDate()

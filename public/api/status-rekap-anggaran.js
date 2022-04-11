@@ -62,11 +62,13 @@ function get_unit(role) {
     })
 }
 
+let current_page = 1
 function get_data(page = 1, unit_id = '', user_id = '', search = '') {
     $('#table').empty()
     $('#table-loading').hide()
     $('#pagination').hide()
     let data = null
+    current_page = page
     if (role == 'admin') {
         if (unit_id == '') {
             data = {
@@ -104,7 +106,7 @@ function get_data(page = 1, unit_id = '', user_id = '', search = '') {
         	page,
             search,
             unit_id,
-            user_id,
+            user_id
         }
     }
     // console.clear()
@@ -221,6 +223,31 @@ function get_data(page = 1, unit_id = '', user_id = '', search = '') {
     })
 }
 
+$('.page').click(function() {
+    if (!$(this).is('.active, .disabled')) {
+        $('#pagination').addClass('hide')
+        $('#loading_table').removeClass('hide')
+        let page = $(this).data('id')
+	    let search = $('#search').val()
+	    let viewas = $('#view-as').val()
+        if (role == 'admin') {
+            if (viewas == '') {
+                get_data(page, '', '', search)
+            } else {
+                get_data(page, viewas, '', search)
+            }
+        } else if (role == 'deputi') {
+            if (viewas == '') {
+                get_data(page, unit, '', search)
+            } else {
+                get_data(page, unit, viewas, search)
+            }
+        } else if (role == 'asdep') {
+            get_data(page, unit, viewas, search)
+        }
+    }
+})
+
 if (role != 'asdep') {
     $('#modal-view').modal('show')
     if (role == 'admin') {
@@ -315,15 +342,15 @@ function approval(id, status) {
             // console.log(result.data)
             if (role == 'admin') {
                 if (viewas == '') {
-                    search != '' ? get_data(1, '', '', value) : get_data(1, '', '', '')
+                    search != '' ? get_data(current_page, '', '', value) : get_data(current_page, '', '', '')
                 } else {
-                    search != '' ? get_data(1, viewas, '', value) : get_data(1, viewas, '', '')
+                    search != '' ? get_data(current_page, viewas, '', value) : get_data(current_page, viewas, '', '')
                 }
             } else if (role == 'deputi') {
                 if (viewas == '') {
-                    search != '' ? get_data(1, unit, '', value) : get_data(1, unit, '', '')
+                    search != '' ? get_data(current_page, unit, '', value) : get_data(current_page, unit, '', '')
                 } else {
-                    search != '' ? get_data(1, unit, viewas, value) : get_data(1, unit, viewas, '')
+                    search != '' ? get_data(current_page, unit, viewas, value) : get_data(current_page, unit, viewas, '')
                 }
             }
             // $('#search').val() != '' ? get_data(1, $('#view-as').val(), $('#search').val()) : get_data(1, $('#view-as').val())
