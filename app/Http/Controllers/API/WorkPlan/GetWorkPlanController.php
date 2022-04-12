@@ -152,7 +152,7 @@ class GetWorkPlanController extends Controller
             'unit_id' => ['required', 'exists:units,id']
         ]);
 
-        $user_program = UserProgram::where('unit_id', $request->unit_id)->orderBy('component_code', 'asc')->get();
+        $user_program = UserProgram::where('unit_id', $request->unit_id)->get();
         //
         return ResponseFormatter::success([
             'total_budged_user_program' => VwWorkPlanDetail::where([['unit_id', $request->unit_id], ['admin_status', 'accept']])->sum('budged'),
