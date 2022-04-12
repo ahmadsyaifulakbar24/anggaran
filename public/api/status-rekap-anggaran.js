@@ -1,3 +1,4 @@
+let current_page = 1
 if (role == 'admin') {
     $('.create').remove()
     $('.edit').remove()
@@ -37,7 +38,7 @@ if (role == 'admin' || role == 'deputi') {
         }
     })
 } else {
-    get_data(unit, user)
+    get_data(1, unit, user, "")
     $('#card').show()
 }
 
@@ -62,18 +63,22 @@ function get_unit(role) {
     })
 }
 
-function get_data(unit_id = '', user_id = '', search = '') {
+function get_data(page = 1, unit_id = '', user_id = '', search = '') {
     $('#table').empty()
     $('#table-loading').hide()
+    $('#pagination').hide()
     let data = null
+    current_page = page
     if (role == 'admin') {
         if (unit_id == '') {
             data = {
+            	page,
                 search,
                 status: 'accept'
             }
         } else {
             data = {
+            	page,
                 search,
                 unit_id,
                 status: 'accept'
@@ -83,11 +88,13 @@ function get_data(unit_id = '', user_id = '', search = '') {
     if (role == 'deputi') {
         if (user_id == '') {
             data = {
+            	page,
                 search,
                 unit_id
             }
         } else {
             data = {
+            	page,
                 search,
                 unit_id,
                 user_id
@@ -96,6 +103,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
     }
     if (role == 'asdep') {
         data = {
+        	page,
             search,
             unit_id,
             user_id
@@ -109,8 +117,8 @@ function get_data(unit_id = '', user_id = '', search = '') {
         data: data,
         success: function(result) {
             // console.log(result.data)
-            if (result.data.length > 0) {
-                $.each(result.data, function(index, value) {
+            if (result.data.data.length > 0) {
+                $.each(result.data.data, function(index, value) {
                     deputi_status = ''
                     admin_status = ''
                     permission = ''
@@ -156,7 +164,7 @@ function get_data(unit_id = '', user_id = '', search = '') {
                         }
                     })
                     append = `<tr data-id="${value.id}" data-title="${value.component_name}">
-						<td class="text-center">${index + 1}.</td>
+						<td class="text-center">${result.data.meta.from + index}.</td>
 						<td class="text-truncate">${value.all_kode}</td>
 						<td class="text-truncate"><a href="${root}/asdep/komponen/detail/${value.id}">${value.component_name}</a></td>
 						<td class="text-truncate">${convert(value.total_target)} ${value.unit_target.name}</td>
@@ -178,6 +186,8 @@ function get_data(unit_id = '', user_id = '', search = '') {
 					</tr>`
                     $('#table').append(append)
                 })
+			    $('#pagination').show()
+            	pagination(result.data.links, result.data.meta, result.data.meta.path)
             } else {
                 append = `<tr>
 					<td colspan="20">${search != undefined && search != '' ? `Pencarian <b>"${search}"</b>` : 'Data'} tidak ditemukan.</td>
@@ -213,6 +223,31 @@ function get_data(unit_id = '', user_id = '', search = '') {
     })
 }
 
+$('.page').click(function() {
+    if (!$(this).is('.active, .disabled')) {
+        $('#pagination').addClass('hide')
+        $('#loading_table').removeClass('hide')
+        let page = $(this).data('id')
+	    let search = $('#search').val()
+	    let viewas = $('#view-as').val()
+        if (role == 'admin') {
+            if (viewas == '') {
+                get_data(page, '', '', search)
+            } else {
+                get_data(page, viewas, '', search)
+            }
+        } else if (role == 'deputi') {
+            if (viewas == '') {
+                get_data(page, unit, '', search)
+            } else {
+                get_data(page, unit, viewas, search)
+            }
+        } else if (role == 'asdep') {
+            get_data(page, unit, user, search)
+        }
+    }
+})
+
 if (role != 'asdep') {
     $('#modal-view').modal('show')
     if (role == 'admin') {
@@ -227,9 +262,9 @@ if (role != 'asdep') {
         $('#modal-view').modal('hide')
         $('#view').html($('#view-as option:selected').text())
         if (role == 'admin') {
-            get_data($('#view-as').val())
+            get_data(1, $('#view-as').val(), "", "")
         } else if (role == 'deputi') {
-            get_data(unit, $('#view-as').val())
+            get_data(1, unit, $('#view-as').val(), "")
         }
     })
 }
@@ -238,6 +273,7 @@ $(document).on('keyup', '#search', function(e) {
     if ((e.which >= 65 && e.which == 32 && e.which == 8) || e.which <= 90) {
         $('#table').empty()
         $('#table-loading').show()
+        $('#pagination').hide()
     }
 })
 
@@ -247,18 +283,18 @@ $(document).on('keyup', '#search', delay(function(e) {
     if ((e.which >= 65 && e.which == 32 && e.which == 8) || e.which <= 90) {
         if (role == 'admin') {
             if (viewas == '') {
-                get_data('', '', value)
+                get_data(1, '', '', value)
             } else {
-                get_data(viewas, '', value)
+                get_data(1, viewas, '', value)
             }
         } else if (role == 'deputi') {
             if (viewas == '') {
-                get_data(unit, '', value)
+                get_data(1, unit, '', value)
             } else {
-                get_data(unit, viewas, value)
+                get_data(1, unit, viewas, value)
             }
         } else if (role == 'asdep') {
-            get_data(unit, viewas, value)
+            get_data(1, unit, user, value)
         }
     }
 }, 500))
@@ -306,18 +342,18 @@ function approval(id, status) {
             // console.log(result.data)
             if (role == 'admin') {
                 if (viewas == '') {
-                    search != '' ? get_data('', '', value) : get_data('', '', '')
+                    search != '' ? get_data(current_page, '', '', value) : get_data(current_page, '', '', '')
                 } else {
-                    search != '' ? get_data(viewas, '', value) : get_data(viewas, '', '')
+                    search != '' ? get_data(current_page, viewas, '', value) : get_data(current_page, viewas, '', '')
                 }
             } else if (role == 'deputi') {
                 if (viewas == '') {
-                    search != '' ? get_data(unit, '', value) : get_data(unit, '', '')
+                    search != '' ? get_data(current_page, unit, '', value) : get_data(current_page, unit, '', '')
                 } else {
-                    search != '' ? get_data(unit, viewas, value) : get_data(unit, viewas, '')
+                    search != '' ? get_data(current_page, unit, viewas, value) : get_data(current_page, unit, viewas, '')
                 }
             }
-            // $('#search').val() != '' ? get_data($('#view-as').val(), $('#search').val()) : get_data($('#view-as').val())
+            // $('#search').val() != '' ? get_data(1, $('#view-as').val(), $('#search').val()) : get_data(1, $('#view-as').val())
             if (status == 'accept') {
                 $('#modal-approve').modal('hide')
 			    $('#approve').attr('disabled', false)
@@ -389,9 +425,9 @@ $(document).on('click', '#lock', function(e) {
         success: function(result) {
             // console.log(result.data)
             if (viewas == '') {
-                search != '' ? get_data('', '', value) : get_data('', '', '')
+                search != '' ? get_data(1, '', '', value) : get_data(1, '', '', '')
             } else {
-                search != '' ? get_data(viewas, '', value) : get_data(viewas, '', '')
+                search != '' ? get_data(1, viewas, '', value) : get_data(1, viewas, '', '')
             }
             customAlert('success', 'Lock komponen berhasil')
             $('#lock').attr('disabled', false)
@@ -424,9 +460,9 @@ $(document).on('click', '#unlock', function(e) {
         success: function(result) {
             // console.log(result.data)
             if (viewas == '') {
-                search != '' ? get_data('', '', value) : get_data('', '', '')
+                search != '' ? get_data(1, '', '', value) : get_data(1, '', '', '')
             } else {
-                search != '' ? get_data(viewas, '', value) : get_data(viewas, '', '')
+                search != '' ? get_data(1, viewas, '', value) : get_data(1, viewas, '', '')
             }
             customAlert('success', 'Unlock komponen berhasil')
             $('#unlock').attr('disabled', false)
