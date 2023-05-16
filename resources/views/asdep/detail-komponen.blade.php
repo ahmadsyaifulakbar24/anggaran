@@ -69,7 +69,7 @@
 							<b class="font-weight-bold">Keterangan</b>
 							<pre id="description"></pre>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<div class="form-row">
 								<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
 									<b class="font-weight-bold" class="col-form-label pb-0">File TOR</b>
@@ -108,7 +108,8 @@
 								application/vnd.openxmlformats-officedocument.presentationml.presentation,
 								application/pdf,
 							">
-						</div><hr>
+						</div> -->
+                  <hr>
 						<div class="row">
 							<div class="col-md-6">
 								<b class="font-weight-bold">Komentar</b>
