@@ -10,7 +10,7 @@
 		<div class="card card-custom">
 			<form class="card-body">
 				<div class="form-group">
-					<label for="program_id">Program</label>
+					<label for="program_id">Program *</label>
 					<select class="custom-select" id="program_id" role="button">
 						<option value="" disabled selected>Pilih</option>
 					</select>

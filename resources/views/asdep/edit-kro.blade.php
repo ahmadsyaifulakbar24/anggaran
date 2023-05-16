@@ -10,7 +10,7 @@
 		<div class="card card-custom">
 			<form class="card-body">
 				<div class="form-group">
-					<label for="type_kro">Tipe KRO</label>
+					<label for="type_kro">Tipe KRO *</label>
 					<select class="custom-select" id="type_kro" role="button">
 						<option value="" disabled selected>Pilih</option>
 						<option value="pn">Prioritas Nasional</option>
@@ -19,7 +19,7 @@
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
-					<label for="kro_id">KRO</label>
+					<label for="kro_id">KRO *</label>
 					<select class="custom-select" id="kro_id" role="button">
 						<option value="" disabled selected>Pilih</option>
 					</select>

@@ -10,8 +10,8 @@
 		<div class="card card-custom">
 			<form class="card-body">
 				<div class="form-group">
-					<label for="name">Nama</label>
-					<input class="form-control" id="name"></select>
+					<label for="name">Nama *</label>
+					<input class="form-control" id="name" />
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">

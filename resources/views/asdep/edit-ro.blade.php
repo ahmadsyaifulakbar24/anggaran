@@ -10,17 +10,17 @@
 		<div class="card card-custom">
 			<form class="card-body">
 				<div class="form-group">
-					<label for="code_ro">Kode RO</label>
+					<label for="code_ro">Kode RO *</label>
 					<input class="form-control" id="code_ro">
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
-					<label for="ro">Nama RO</label>
+					<label for="ro">Nama RO *</label>
 					<input class="form-control" id="ro">
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
-					<label for="unit_target">Satuan RO</label>
+					<label for="unit_target">Satuan RO *</label>
 					<select class="custom-select" id="unit_target" role="button">
 						<option value="" disabled selected>Pilih</option>
 					</select>

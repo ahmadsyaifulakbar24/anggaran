@@ -10,13 +10,13 @@
 		<div class="card card-custom">
 			<form class="card-body">
 				<div class="form-group">
-					<label for="code_program">Kode</label>
-					<input class="form-control" id="code_program"></select>
+					<label for="code_program">Kode *</label>
+					<input class="form-control" id="code_program" />
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
-					<label for="parent_id">Keterangan</label>
-					<input class="form-control" id="description"></select>
+					<label for="description">Keterangan *</label>
+					<input class="form-control" id="description" />
 					<div class="invalid-feedback"></div>
 				</div>
 				<div class="form-group">
