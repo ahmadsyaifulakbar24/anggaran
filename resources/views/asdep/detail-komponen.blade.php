@@ -75,21 +75,27 @@
 									<b class="font-weight-bold" class="col-form-label pb-0">File TOR</b>
 									<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
 									<div id="type-1"></div>
-									<div class="btn btn-sm btn-block btn-outline-primary upload action" data-type="1" data-category="work_plan">Upload File</div>
+									<button class="btn btn-sm btn-block btn-outline-primary upload action" data-type="1" data-category="work_plan" disabled>
+                              Upload File
+                           </button>
 									<div class="invalid-feedback"></div>
 								</div>
 								<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
 									<b class="font-weight-bold" class="col-form-label pb-0">File RAB</b>
 									<div class="small text-secondary mb-2">*Maksimal 2 file.</div>
 									<div id="type-2"></div>
-									<div class="btn btn-sm btn-block btn-outline-primary upload action" data-type="2" data-category="work_plan">Upload File</div>
+									<button class="btn btn-sm btn-block btn-outline-primary upload action" data-type="2" data-category="work_plan" disabled>
+                              Upload File
+                           </button>
 									<div class="invalid-feedback"></div>
 								</div>
 								<div class="col-md-6 col-lg-4 mb-2">
 									<b class="font-weight-bold" class="col-form-label pb-0">File Dukungan Lainnya</b>
 									<div class="small text-secondary mb-2">*Maksimal 5 file.</div>
 									<div id="type-3"></div>
-									<div class="btn btn-sm btn-block btn-outline-primary upload action" data-type="3" data-category="work_plan">Upload File</div>
+									<button class="btn btn-sm btn-block btn-outline-primary upload action" data-type="3" data-category="work_plan" disabled>
+                              Upload File
+                           </button>
 									<div class="invalid-feedback"></div>
 								</div>
 							</div>
